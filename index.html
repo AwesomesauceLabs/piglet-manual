@@ -34,17 +34,6 @@
              background-color: #dededf;
          }
 
-         /* pre {
-            white-space: pre-wrap;
-            } */
-         
-         /* pre code {
-            background-color: #dededf;
-            border: 1px solid #999;
-            display: block;
-            padding: 20px;
-            } */
-         
          figcaption {
              font-style: italic;
          }
@@ -55,6 +44,11 @@
     <body>
 
         <h1>Manual: Piglet glTF Importer for Unity</h1>
+
+        <ul>
+            <li>Online documentation: <a href="https://awesomesaucelabs.github.io/piglet-manual/">https://awesomesaucelabs.github.io/piglet-manual/</a></li>
+            <li>Support e-mail: <a href="mailto:awesomesaucelabs@gmail.com">awesomesaucelabs@gmail.com</a></li>
+        </ul>
 
         <h2>Table of Contents</h2>
 
@@ -78,29 +72,30 @@
 
         <p>Piglet is a Unity asset that allows you to import 3D models from glTF files, both in the Editor and at runtime. There are a large number of freely available glTF files from sites such as <a href="https://sketchfab.com/">Sketchfab</a> and <a href="https://poly.google.com/blocks">Google Poly</a>, which can serve as a valuable source of textures, materials, and models for your game.</p>
 
+        <p>If you wish to test your own glTF models with Piglet prior to purchasing the asset, please see the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a>.</p>
+
         <h2 id="features">Features</h2>
         
         <ul>
             <li>import glTF models in the Editor or at runtime</li>
-            <li>easy to install and easy to use</li>
-            <li>import glTF files from file paths, raw file content (<code>byte[]</code>), or HTTP URLs</li>
-            <li>extract textures and materials from glTF models, to use with your own 3D models</li>
+            <li>import glTF models from file paths or HTTP URLs</li>
+            <li>import glTF models from <code>.gltf</code>, <code>.glb</code>, or <code>.zip</code> files
+            <li>extract textures and materials from glTF models, for use with your own 3D models</li>
+            <li>tested with glTF models from <a href="https://sketchfab.com/">Sketchfab</a>, <a href="https://poly.google.com">Google Poly</a>, and <a href="https://www.blender.org/">Blender</a></li>
+            <li>supported platforms: Windows, Android, WebGL (Unity 2018.3 or newer)</li>
             <li>full source code provided</li>
-            <li>works with Unity 2018.3 or newer</li>
-            <li>supported platforms: Windows, Android, WebGL</li>
-            <li>"try before you buy" with the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a></li>
         </ul>
 
         <h2 id="caveats">Caveats</h2>
 
         <ul>
-            <li><b>Piglet does not import animations (yet!)</b>. However, glTF models containing animations can still be imported and used as static models. In addition, any skin data and blendshape (a.k.a. "morph targets") is correctly loaded and assigned to the imported models.</li>
-            <li><b>Runtime imports may stall the main Unity thread</b>. I have put a lot of effort into minimizing any interruptions to the main Unity thread during runtime imports, but nonetheless certain operations (e.g. mesh creation) must be performed on the main Unity thread, and so I cannot guaranteed good performance for arbitrarily complex models.
+            <li><b>Piglet does not import animations (yet!)</b>. However, glTF models containing animation data can still be imported as static models. In addition, any skinning data or blendshape data (a.k.a. "morph targets") will be correctly imported alongside the model(s).</li>
+            <li><b>Runtime imports may stall the main Unity thread</b>. While I have attempted to minimize interruptions to the main Unity thread during runtime imports, I cannot provide any hard guarantees about this yet. Unity requires certain operations (e.g. mesh creation) to be performed on the main Unity thread, and so it is possible for runtime imports of large/complex models to cause "hiccups" during game execution.</li>
         </ul>
 
         <h2 id="setup">Setup</h2>
 
-        <p>To set up Piglet, purchase and install the asset from <strong>TODO</strong>. You do not need to install any additional dependencies. If you wish to try your own glTF models with Piglet prior to purchasing the asset, please see the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a>.</p>
+        <p>To set up Piglet in your project, purchase and install Piglet from the Unity Asset Store page. Piglet works with Unity 2018.3 or later, and does not require installation of any third-party dependencies. If you wish to try your own glTF models with Piglet prior to purchasing the asset, please see the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a>.</p>
 
         <p>Piglet bundles the following libraries:</p>
 
@@ -131,13 +126,15 @@
             </tr>
         </table>
 
-        <p>Note!: If your Unity project already includes one of these libraries (e.g. Json.NET), you may get errors in the Unity Console due to duplicate function/class definitions. In most cases, removing Piglet's copy of the library under <code>Assets/Piglet/Dependencies</code> should solve the issue.</p>
+        <p><em>Note</em>: If your Unity project already includes one of these libraries (e.g. Json.NET), you may get errors in the Unity Console due to duplicate function/class definitions. In most cases, removing Piglet's copy of the library under <code>Assets/Piglet/Dependencies</code> should solve the issue.</p>
 
         <h2 id="editor-imports">Editor Imports</h2>
 
-        <p>Once you have installed Piglet from the Unity Asset Store, you can import glTF models into your Unity project by dragging-and-dropping .gltf/.glb/.zip files from a file browser window (e.g. Windows File Explorer) to a folder inside the Unity Project Browser, as shown below. Any folder under <code>Assets</code> can be used as the drop target, including the <code>Assets</code> directory itself.</p>
+        <p><em>Note</em>: For a video demonstration of Piglet Editor imports, see <a href="https://youtu.be/ZfluFkV0D1I">https://youtu.be/ZfluFkV0D1I</a>.
+            
+        <p>Once you have installed Piglet from the Unity Asset Store, you can import glTF models into your Unity project by dragging-and-dropping <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> files from a file browser window (e.g. Windows File Explorer) to a folder inside the Unity Project Browser, as shown below. Any folder under <code>Assets</code> can be used as the drop target, including the <code>Assets</code> directory itself.</p>
 
-        <p>The main result of importing a glTF model is a Unity prefab for the model.  This prefab can then be used in your game by dragging it into your Unity scene(s). Piglet creates the prefab and any dependent files (e.g. textures, materials, meshes) under a newly created folder with the same name as the input .gltf/.glb file.</p>
+        <p>Importing a glTF file in the Editor produces a Unity prefab for the model, which can then be dragged into your Unity scenes as desired. Piglet places the generated prefab and any dependent asset files (e.g. textures, materials, meshes) under a newly-created subfolder named after the input <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> file.</p>
 
         <figure>
             <img src="images/piglet-mascot-editor-import.gif" />
@@ -146,12 +143,12 @@
             </figcaption>
         </figure>
 
-        <p>There may be circumstances where you want copy a .gltf/.glb/.zip file into your project without automatically converting it to a Unity prefab. You can bypass/disable Piglet's default drag-and-drop behaviour by any of the following methods:</p>
+        <p>There may be circumstances where you want copy a <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> file into your project without automatically converting it to a Unity prefab. You can bypass/disable Piglet's default drag-and-drop behaviour by any of the following methods:</p>
 
         <ul>
-            <li>Hold down the Control or Command key while dragging-and-dropping the .gltf/.glb/.zip into the Unity Project Browser.</li>
-            <li>Uncheck "Enable drag-and-drop glTF import" in the Piglet Options window, located under <code>Window => Piglet Options</code> in the Unity menu. </li>
-            <li>Copy the .gltf/.glb/.zip file into the Unity project directory in a file browser window or on the command line. In other words, copy the file "behind Unity's back".</li>
+            <li>Hold down the <code>Control</code> or <code>Command</code> key while dragging-and-dropping the <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> into the Unity Project Browser.</li>
+            <li>Uncheck <code>Enable drag-and-drop glTF import</code> in the Piglet Options window, located under <code>Window => Piglet Options</code> in the Unity menu. </li>
+            <li>Copy the <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> file into the Unity project directory from a file browser window or on the command line. (In other words, copy the file "behind Unity's back".)</li>
         </ul> 
 
         <h2 id="piglet-options-window">Piglet Options Window</h3>
@@ -166,31 +163,31 @@
                     <th>Description</th>
                 </tr>
                 <tr>
-                    <td>Enable drag-and-drop glTF import</td>
+                    <td><code>Enable drag-and-drop glTF import</code></td>
                     <td>Enable/disable automatic glTF imports when dragging .gltf/.glb/.zip files onto the Project Browser window</td>
                 </tr>
                 <tr>
-                    <td>Prompt before overwriting files</td>
+                    <td><code>Prompt before overwriting files</code></td>
                     <td>Show confirmation prompt if glTF import directory already exists</td>
                 </tr>
                 <tr>
-                    <td>Print progress messages in Console</td>
+                    <td><code>Print progress messages in Console</code></td>
                     <td>Log progress messages to Unity Console window during glTF imports (useful for debugging)</td>
                 </tr>
                 <tr>
-                    <td>Select prefab in Project Browser</td>
+                    <td><code>Select prefab in Project Browser</code></td>
                     <td>After a glTF import has completed, select/highlight the generated prefab in the Project Browser window</td>
                 </tr>
                 <tr>
-                    <td>Add prefab instance to scene</td>
+                    <td><code>Add prefab instance to scene</code></td>
                     <td>After a glTF import has completed, add the generated prefab to the current Unity scene, as a child of the currently selected game object. If no game object is selected in the scene, add the prefab at the root of the scene instead.</td>
                 </tr>
                 <tr>
-                    <td>Select prefab instance in scene</td>
+                    <td><code>Select prefab instance in scene</code></td>
                     <td>Select/highlight the prefab in the scene hierarchy after adding it to the scene</td>
                 </tr>
                 <tr>
-                    <td>Open prefab in Prefab View</td>
+                    <td><code>Open prefab in Prefab View</code></td>
                     <td>After a glTF import has completed, open the generated prefab in the Prefab View. (This is equivalent to double-clicking the prefab in the Project Browser.)</td>
                 </tr>
             </table>
@@ -201,9 +198,9 @@
 
             <h3 id="runtime-import-tutorial">Runtime Import Tutorial</h3>
 
-            <p>This section walks through example code for importing a glTF model at runtime. The example code presented in this section is included with Piglet under <code>Assets/Piglet/Examples/RuntimeImport</code>, and a video version of this tutorial is available online at <strong>TODO</strong>.</p>
+            <p>This section walks through example code for importing a glTF model at runtime. The example code presented in this section is included with Piglet under <code>Assets/Piglet/Examples/RuntimeImport</code>, and a video version of this tutorial is available online at <a href="https://youtu.be/6DPXJGPTAjw">https://youtu.be/6DPXJGPTAjw</a>.</p>
 
-            <p>As our example glTF model, we will use the .glb file for Sir Piggleston (the Piglet mascot), which may be downloaded from <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb">https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb</a>. The minimal code to import the model at runtime is as follows:</p>
+            <p>As our example glTF model, we will use the <code>.glb</code> file for Sir Piggleston (the Piglet mascot), which may be downloaded from <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb">https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb</a>. The minimal code to import the model at runtime is as follows:</p>
 
             <figure><pre><code>using Piglet;
 using UnityEngine;
@@ -243,9 +240,9 @@ public class RuntimeImportBehaviour : MonoBehaviour
                 <figcaption>Figure 2: Minimal code to import a glTF file at runtime.</figcaption>
             </figure>
 
-            <p>As shown in Figure 2, a runtime glTF import happens in two parts. First, we create an import task by calling <code>RuntimeGltfImporter.GetImportTask</code>, passing in the URI of the glTF model as a parameter. Second, we incrementally advance the execution of the import task by repeatedly calling <code>MoveNext()</code> on the task.  A convenient place to call <code>MoveNext()</code> is in the <code>Update()</code> method, which is called by Unity once per frame. Continuing to call <code>MoveNext()</code> after the import has completed does no harm.</p>
+            <p>As shown in Figure 2, a runtime glTF import happens in two parts. First, we create an import task by calling <code>RuntimeGltfImporter.GetImportTask</code>, passing in the URL of the glTF model as a parameter. Second, we advance the execution of the import task by repeatedly calling <code>MoveNext()</code> on the task.  A convenient place to call <code>MoveNext()</code> is in the <code>Update()</code> method, which is called by Unity once per frame. Continuing to call <code>MoveNext()</code> after the import has completed does no harm.</p>
 
-            <p>Attaching the script from Figure 2 to any game object in your Unity scene is sufficient to download and import a glTF model at runtime. However, in a real game/application, you will probably want tighter integration between your own code and the importer. For example, you may want to show progress messages while the model is loading, or to attach custom MonoBehaviours to the model once it has loaded. To acheieve these types of behaviours, <code>GltfImportTask</code> provides callback hooks for: progress messages (<code>OnProgress</code>), user cancelation (<code>OnAborted</code>), import errors (<code>OnException</code>, and successful completion (<code>OnCompleted</code>).</p>
+            <p>Attaching the script from Figure 2 to any game object in your Unity scene is sufficient to import a glTF model at runtime. However, in a real game/application, you will probably want tighter integration between your own code and the importer. For example, you may want to show progress messages while the model is loading, or to attach custom MonoBehaviours to the model once it has loaded. To acheieve these types of behaviours, <code>GltfImportTask</code> provides callback hooks for: progress messages (<code>OnProgress</code>), user cancelation (<code>OnAborted</code>), import errors (<code>OnException</code>), and successful completion (<code>OnCompleted</code>).</p>
 
             <p>As a first example of callback usage, we'll extend the example script from Figure 2 to print progress messages during the glTF import. We can achieve this by assigning a custom method to the <code>OnProgress</code> callback for the import task, as shown in Figure 3.</p>
 
@@ -309,9 +306,9 @@ public class RuntimeImportBehaviour : MonoBehaviour
                 <figcaption>Figure 3: An extension of the runtime import script from Figure 2 that prints progress messages to the Unity console. New lines are highlighted in bold. </figcaption>
             </figure>
 
-            <p>Another important use of callbacks is to run custom code after a glTF import has successfully completed. For example, you might want to automatically resize the model, parent the model to another game object, or attach custom MonoBehaviours to the model.  These tasks can be accomplished using the <code>OnCompleted</code> callback.  As a final example, the script in Figure 4 gets a reference to the imported model using the <code>OnCompleted</code> callback, and uses that with code to continually spin the model about the y-axis (like a record turntable).</p>
+            <p>Another important use of callbacks is to run custom code after a glTF import has successfully completed. For example, you might want to automatically resize the model, parent the model to another game object, or attach a custom <code>MonoBehaviour</code> to the model.  These types of tasks can be accomplished using the <code>OnCompleted</code> callback. To demonstrate, the example script in Figure 4 uses the <code>OnCompleted</code> callback to obtain a reference to the imported model, then uses that reference to continually spin the model about the y-axis as if it were on a record turntable.</p>
 
-            <p>This concludes the tutorial.  Happy coding!</p>
+            <p>The example in Figure 4 marks the end of this tutorial.  Good luck and happy coding!</p>
 
             <figure><pre><code>using Piglet;
 using UnityEngine;
@@ -376,13 +373,15 @@ public class RuntimeImportBehaviour : MonoBehaviour
 
             <h3 id="runtime-import-api">Runtime Import API</h3>
 
-            <p>A runtime glTF import is accomplished by the following steps:</p>
+            <p>In Piglet, a runtime glTF import is accomplished by the following steps:</p>
 
             <ol>
-                <li>Create a <code>GltfImportTask</code> by calling <code>RuntimeGltfImporter.GetImportTask</code>.</li>
+                <li>Create a <code>GltfImportTask</code> by calling <code>RuntimeGltfImporter.GetImportTask</code>, passing in the file path or URL of the input <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> as a parameter.</li>
                 <li>Configure callbacks on the <code>GltfImportTask</code> (optional).</li>
                 <li>Call <code>MoveNext()</code> on the <code>GltfImportTask</code> until the glTF import has completed.</li>
             </ol>
+
+            <p>For concrete code examples demonstrating the above steps, see the <a href="#runtime-import-tutorial">Runtime Import Tutorial</a>.</p>
 
             <p><code>RuntimeGltfImporter</code> provides the following methods for creating a <code>GltfImportTask</code>:</p>
 
@@ -396,23 +395,21 @@ public class RuntimeImportBehaviour : MonoBehaviour
                 <tr>
                     <td><code>GetImportTask(string uri)</code></td>
                     <td><code>GltfImportTask</code></td>
-                    <td>Create an import task that imports the given URI (<code>uri</code>). <code>uri</code> may be an absolute file path, an HTTP(S) URL, or an Android content URI.</td>
-                </tr>
+                    <td>Create an import task that imports the glTF model from <code>uri</code>, where <code>uri</code> is an absolute file path, HTTP(S) URL, or Android content URI that points to a <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> file.</td></tr>
                 <tr>
                     <td><code>GetImportTask(Uri uri)</code></td>
                     <td><code>GltfImportTask</code></td>
-                    <td>Create an import task that imports the given URI (<code>uri</code>). <code>uri</code> may be an absolute file path, an HTTP(S) URL, or an Android content URI.</td>
+                    <td>Create an import task that imports the glTF model from <code>uri</code>, where <code>uri</code> is an absolute file path, HTTP(S) URL, or Android content URI that points to a <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> file.</td>
                 </tr>
                 <tr>
                     <td><code>GetImportTask(byte[] data)</code></td>
                     <td><code>GltfImportTask</code></td>
-                    <td>Create an import task that imports from raw byte content of a .gltf/.glb/.zip file (<code>data</code>).</td>
+                    <td>Create an import task that imports from the raw byte content of a <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> file (<code>data</code>).</td>
                 </tr>
 
             </table>
 
-
-            <p><code>GltfImportTask</code> provides the following methods for controlling the execution of the glTF import:</p>
+            <p><code>GltfImportTask</code> provides the following methods for controlling its own execution:</p>
 
             <table>
                 <caption>GltfImportTask Methods</caption>
@@ -426,11 +423,11 @@ public class RuntimeImportBehaviour : MonoBehaviour
                 </tr>
                 <tr>
                     <td><code>Abort()</code></td>
-                    <td>Abort the import task. This method is typically called in response to a user action, such as pressing a "Cancel" button.</td>
+                    <td>Abort the import task. This method should typically be called in response to a user action, such as pressing a "Cancel" button.</td>
                 </tr>
             </table>
 
-            <p>In addition, <code>GltfImportTask</code> provides the following callback hooks:</p>
+            <p>In addition, <code>GltfImportTask</code> provides the following callbacks for integrating custom code with the importer:</p>
 
             <table>
                 <caption>GltfImportTask Callbacks</caption>
@@ -440,7 +437,7 @@ public class RuntimeImportBehaviour : MonoBehaviour
                 </tr>
                 <tr>
                     <td><code>OnProgress</code></td>
-                    <td>Invoked at regular intervals to report import progress</td>
+                    <td>Invoked at regular intervals to report progress of <code>GltfImportTask</code></td>
                 </tr>
                 <tr>
                     <td><code>OnAborted</code></td>
@@ -448,11 +445,11 @@ public class RuntimeImportBehaviour : MonoBehaviour
                 </tr>
                 <tr>
                     <td><code>OnException</code></td>
-                    <td>Invoked when import task throws an exception (e.g. file not found)</td>
+                    <td>Invoked when <code>GltfImportTask</code> throws an exception (e.g. file not found)</td>
                 </tr>
                 <tr>
                     <td><code>OnCompleted</code></td>
-                    <td>Invoked when import task completes successfully</td>
+                    <td>Invoked when <code>GltfImportTask</code> completes successfully</td>
                 </tr>
 
             </table>

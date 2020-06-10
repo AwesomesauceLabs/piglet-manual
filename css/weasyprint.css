@@ -1,0 +1,12 @@
+#editor-import-figure {
+    width: 500px;
+}
+
+figure {
+    margin: 15px;
+    padding: 0px;
+}
+
+figure code {
+    font-size: 10px;
+}

@@ -1,5 +1,9 @@
 #editor-import-figure {
-    width: 500px;
+    width: 600px;
+}
+
+#webgl-demo-figure {
+    width: 600px;
 }
 
 figure {

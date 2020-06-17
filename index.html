@@ -67,6 +67,10 @@
                 <li><a href="#runtime-import-api">Runtime Import API</a></li>
             </ul>
             <li><a href="#piglet-webgl-demo">Sample Application: Piglet WebGL Demo</a></li>
+            <ul>
+                <li><a href="#android-build">Android Build Instructions</a></li>
+                <li><a href="#webgl-build">WebGL Build Instructions</a></li>
+            </ul>
             <li><a href="#footnotes">Footnotes</a></li>
         </ul>
 
@@ -74,7 +78,7 @@
 
         <p>Piglet is a Unity asset that allows you to import 3D models from glTF files, both in the Editor and at runtime. There are a large number of freely available glTF files from sites such as <a href="https://sketchfab.com/">Sketchfab</a> and <a href="https://poly.google.com">Google Poly</a><sup><a href="#footnote1">1</a></sup>, which can serve as a valuable source of textures, materials, and models for your game.</p>
 
-        <p>If you wish to test your own glTF models with Piglet prior to purchasing the asset, please see the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a>.</p>
+        <p>If you wish to test your own glTF models with Piglet prior to purchasing the asset, please see the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a><sup><a href="#footnote2">2</a></sup>.</p>
 
         <h2 id="features">Features</h2>
         
@@ -464,11 +468,53 @@ public class RuntimeImportBehaviour : MonoBehaviour
                 </figcaption>
             </figure>
 
-            <p>The <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a> is a simple app for viewing glTF models (Figure 5). Piglet includes the source code for this app in a Unity package file at <code>Assets/Piglet/Examples/PigletViewer/PigletViewer.unitypackage</code>, which may be unpacked by double-clicking the file in the Unity Project Browser. In addition to the WebGL platform, the project also supports building equivalent apps for Windows and Android, simply by changing the target platform under <code>File => Build Settings...</code> in the Unity menu. Since the app works across multiple platforms, the source code may serve as a useful reference for developers working on Android or WebGL apps.</p>
+            <p>Piglet includes the source code for the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a> (Figure 5) in <code>Assets/Piglet/Examples/PigletViewer/PigletViewer.unitypackage</code>.  Double-click the file in the Unity Project Browser to unpack it. In addition to WebGL, the code also supports Windows and Android as build targets. I have included the demo app with Piglet because I believe it may serve as a useful reference for developers working on Android and/or WebGL.</p>
+
+            <h3 id="android-build">Android Build Instructions</h3>
+
+            <p>Before you can build Android apps, you will need to install the <strong>Android Build Support</strong> module for Unity, the Android Software Development Kit (SDK), the Android Native Development Kit (NDK), and a Java Development Kit (e.g. OpenJDK). Unity Hub can download and install all of this software for you in a few simple steps. See <a href="https://docs.unity3d.com/Manual/android-sdksetup.html">Android environment setup</a> for further details.</p>
+
+            <p>Once you have completed the basic setup for Android development, you can build the PigletViewer app by the following steps:</p>
+
+            <ol>
+                <li>Double-click <code>Assets/Piglet/Examples/PigletViewer/PigletViewer.unitypackage</code> to unpack the PigletViewer source files.</li>
+                <li>Double-click <code>Assets/PigletViewer/Scenes/MainScene.unity</code> to open the PigletViewer scene.</li>
+                <li>Click <code>File => Build Settings...</code> in the Unity menu.</li>
+                <li>Click <code>Android</code> on the left side of the <code>Build Settings</code> dialog, then click <code>Switch Platform</code> in the bottom right corner to make Android the active build target.</li>
+                <li>Click <code>Add Open Scenes</code> in the top right corner to add the current scene to the build.</li>
+                <li>Ensure that you have enabled <a href="https://developer.android.com/studio/debug/dev-options">developer options</a> on your Android device, then connect your Android device to your computer with a USB cable.</li>
+                <li>Click the <code>Build and Run</code> button in the bottom right corner.</li>
+                <li>Select a location to save the <code>.apk</code> file and click <code>OK</code> to start the build.</li>
+            </ol>
+
+            <p>The app will automatically open on your Android phone/tablet once the build has completed, although you may have to wake/unlock your Android device before you see it.</p>
+
+            <h3 id="webgl-build">WebGL Build Instructions</h3>
+
+            <p>Before you can build WebGL apps, you will need to install the <strong>WebGL Build Support</strong> module for Unity. Unity Hub can download and install this module for you in a few simple steps. See <a href="https://docs.unity3d.com/Manual/GettingStartedAddingEditorComponents.html">Adding modules to the Unity Editor</a> for details.</p>
+
+            <p>Once you have installed WebGL Build Support, you can build the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a> by the following steps:</p>
+
+            <ol>
+                <li>Double-click <code>Assets/Piglet/Examples/PigletViewer/PigletViewer.unitypackage</code> to unpack the PigletViewer source files.</li>
+                <li>Change the active WebGL Template to <code>PigletViewer</code> under <code>Edit => Project Settings... => Player => WebGL settings tab => Resolution and Presentation => WebGL Template</code>.</li>
+                <li>Double-click <code>Assets/PigletViewer/Scenes/MainScene.unity</code> to open the PigletViewer scene.</li>
+                <li>Click <code>File => Build Settings...</code> in the Unity menu.</li>
+                <li>Click <code>WebGL</code> on the left side of the <code>Build Settings</code> dialog, then click <code>Switch Platform</code> in the bottom right corner to make WebGL the active build target.</li>
+                <li>Click <code>Add Open Scenes</code> in the top right corner to add the current scene to the build.</li>
+                <li>Click <code>Build and Run</code> in the bottom right corner.</li>
+                <li>Select an output directory for the WebGL build and click <code>OK</code>.</li>
+            </ol>
+
+            <p>Once the build has completed, Unity will open the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a> in your default web browser<sup><a href="#footnote2">2</a></sup>.</p>
+
+            <p>If possible, I recommend using Unity 2020 or newer for WebGL builds, as there have been significant improvements to the WebGL pipeline. See the following forum post for details: <a href=" https://forum.unity.com/threads/changes-to-the-webgl-loader-and-templates-introduced-in-unity-2020-1.817698/"> https://forum.unity.com/threads/changes-to-the-webgl-loader-and-templates-introduced-in-unity-2020-1.817698/</a>.</p>
 
             <h2 id="footnotes">Footnotes</h2>
             
             <p id="footnote1">1. As of June 2020, Google Poly only provides glTF download links for models made with <a href="https://arvr.google.com/blocks/">Google Blocks</a> (as opposed to <a href="https://www.tiltbrush.com/">Tilt Brush</a>). To see only Blocks-generated models on Google Poly, visit <a href="https://poly.google.com/blocks">https://poly.google.com/blocks</a>.</p>
+
+            <p id="footnote2">2. I have tested the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a> with Firefox and Google Chrome on Windows 10 64-bit. If you are using Google Chrome, you may need to <a href="https://www.lifewire.com/hardware-acceleration-in-chrome-4125122">turn on hardware acceleration</a> (i.e. GPU acceleration) in the browser settings, in order to get acceptable performance. For some reason, this option is often turned off by default.</p>
 
     </body>
 </html>

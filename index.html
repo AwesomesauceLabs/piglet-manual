@@ -129,6 +129,12 @@
                 <td>MIT License</td>
                 <td><code>Assets/Piglet/Dependencies/UnityGLTF</code></td>
             </tr>
+            <tr>
+                <td><a href="https://github.com/Bunny83/UnityWindowsFileDrag-Drop">UnityWindowsFileDragAndDrop</a></td>
+                <td><a href="https://github.com/Bunny83">Bunny83@github</a></td>
+                <td>MIT License</td>
+                <td><code>Assets/PigletViewer/Dependencies/UnityWindowsFileDragDrop</code><sup><a href="#footnote3">3</a></sup></td>
+            </tr>
         </table>
 
         <p><em>Note</em>: If your Unity project already includes one of these libraries (e.g. Json.NET), you may get errors in the Unity Console due to duplicate function/class definitions. In most cases, removing Piglet's copy of the library under <code>Assets/Piglet/Dependencies</code> should solve the issue.</p>
@@ -516,5 +522,6 @@ public class RuntimeImportBehaviour : MonoBehaviour
 
             <p id="footnote2">2. I have tested the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a> with Firefox and Google Chrome on Windows 10 64-bit. If you are using Google Chrome, you may need to <a href="https://www.lifewire.com/hardware-acceleration-in-chrome-4125122">turn on hardware acceleration</a> (i.e. GPU acceleration) in the browser settings, in order to get acceptable performance. For some reason, this option is often turned off by default.</p>
 
+            <p id="footnote3">3. <a href="https://github.com/Bunny83/UnityWindowsFileDrag-Drop">UnityWindowsFileDragAndDrop</a> is only required for building the example PigletViewer app, so it is contained inside <code>Assets/Piglet/Examples/PigletViewer/PigletViewer.unitypackage</code>.</p>
     </body>
 </html>

@@ -503,7 +503,7 @@ public class RuntimeImportBehaviour : MonoBehaviour
 
             <ol>
                 <li>Double-click <code>Assets/Piglet/Examples/PigletViewer/PigletViewer.unitypackage</code> to unpack the PigletViewer source files.</li>
-                <li>Change the active WebGL Template under <code>Edit => Project Settings... => Player => WebGL settings tab => Resolution and Presentation => WebGL Template</code>. If you are using Unity 2018 or Unity 2019, choose the <code>Piglet2018</code> template.  If you are using Unity 2020 or newer, choose the <code>Piglet2020</code> template<sup><a href="#footnote4">4</a></sup>.</li>
+                <li>Change the active WebGL Template under <code>Edit => Project Settings... => Player => WebGL settings tab => Resolution and Presentation => WebGL Template</code>. If you are using Unity 2018 or Unity 2019, choose the <code>Piglet2018</code> template<sup><a href="#footnote4">4</a></sup>.  If you are using Unity 2020 or newer, choose the <code>Piglet2020</code> template<sup><a href="#footnote5">5</a></sup>.</li>
                 <li>Double-click <code>Assets/PigletViewer/Scenes/MainScene.unity</code> to open the PigletViewer scene.</li>
                 <li>Click <code>File => Build Settings...</code> in the Unity menu.</li>
                 <li>Click <code>WebGL</code> on the left side of the <code>Build Settings</code> dialog, then click <code>Switch Platform</code> in the bottom right corner to make WebGL the active build target.</li>
@@ -522,6 +522,8 @@ public class RuntimeImportBehaviour : MonoBehaviour
 
             <p id="footnote3">3. <a href="https://github.com/Bunny83/UnityWindowsFileDrag-Drop">UnityWindowsFileDragAndDrop</a> is only required for building the example PigletViewer app, so it is contained inside <code>Assets/Piglet/Examples/PigletViewer/PigletViewer.unitypackage</code>.</p>
 
-            <p id="footnote4">4. There have been substantial changes to WebGL builds in Unity 2020, which requires using a different WebGL template (index.html). For a detailed discussion of the WebGL-related changes in Unity 2020, see:  <a href=" https://forum.unity.com/threads/changes-to-the-webgl-loader-and-templates-introduced-in-unity-2020-1.817698/"> https://forum.unity.com/threads/changes-to-the-webgl-loader-and-templates-introduced-in-unity-2020-1.817698/</a>.</p>
+            <p id="footnote4">4. Prior to Piglet version 1.0.1, the <code>Piglet2018</code> WebGL template was called <code>PigletViewer</code> and it was the only option.</p>
+
+            <p id="footnote5">5. There are substantial changes to WebGL builds in Unity 2020, which require using a different WebGL template (<code>Piglet2020</code>). For a detailed discussion of WebGL-related changes in Unity 2020, see:  <a href=" https://forum.unity.com/threads/changes-to-the-webgl-loader-and-templates-introduced-in-unity-2020-1.817698/"> https://forum.unity.com/threads/changes-to-the-webgl-loader-and-templates-introduced-in-unity-2020-1.817698/</a>.</p>
     </body>
 </html>

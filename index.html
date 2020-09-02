@@ -195,11 +195,11 @@
 
             <h2 id="runtime-imports">Runtime Imports</h2>
             
-            <p>Piglet can import a glTF model at runtime from a file path, an HTTP URL, or the raw byte content of a .gltf/.glb/.zip file (<code>byte[]</code>). Runtime imports are performed incrementally, with minimum possible interruption to the main Unity thread.</p>
+            <p>Piglet can import a glTF model at runtime from a file path, an HTTP URL, or a <code>byte[]</code> array containing the raw byte content of a .gltf/.glb/.zip file. Runtime imports are performed incrementally, with minimum possible interruption to the main Unity thread.</p>
 
             <h3 id="runtime-import-tutorial">Runtime Import Tutorial</h3>
 
-            <p>This section walks through example code for importing a glTF model at runtime. The example code presented in this section is included with Piglet under <code>Assets/Piglet/Examples/RuntimeImport</code>, and a video version of this tutorial is available online at <a href="https://youtu.be/f66wmgSTPI0">https://youtu.be/f66wmgSTPI0</a>.</p>
+            <p>This section walks through example code for importing a glTF model at runtime. The example code in this section is included with Piglet under <code>Assets/Piglet/Examples/RuntimeImport</code>, and a video version of this tutorial is available online at <a href="https://youtu.be/f66wmgSTPI0">https://youtu.be/f66wmgSTPI0</a>.</p>
 
             <p>As our example glTF model, we will use the <code>.glb</code> file for Sir Piggleston (the Piglet mascot), which may be downloaded from <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb">https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb</a>. The minimal code to import the model at runtime is as follows:</p>
 
@@ -223,6 +223,11 @@ public class RuntimeImportBehaviour : MonoBehaviour
     /// &lt;/summary&gt;
     void Start()
     {
+        // Note: To import a local .gltf/.glb/.zip file, you may
+        // instead pass an absolute file path to GetImportTask
+        // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
+        // array containing the raw byte content of the file.
+
         _task = RuntimeGltfImporter.GetImportTask(
              &quot;https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb&quot;);
     }
@@ -241,7 +246,7 @@ public class RuntimeImportBehaviour : MonoBehaviour
                 <figcaption>Figure 2: Minimal code to import a glTF file at runtime.</figcaption>
             </figure>
 
-            <p>As shown in Figure 2, a runtime glTF import happens in two parts. First, we create an import task by calling <code>RuntimeGltfImporter.GetImportTask</code>, passing in the URL of the glTF model as a parameter. Second, we advance the execution of the import task by repeatedly calling <code>MoveNext()</code> on the task.  A convenient place to call <code>MoveNext()</code> is in the <code>Update()</code> method, which is called by Unity once per frame. Continuing to call <code>MoveNext()</code> after the import has completed does no harm.</p>
+            <p>As shown in Figure 2, a runtime glTF import happens in two parts. First, we create an import task by calling <code>RuntimeGltfImporter.GetImportTask</code>, passing in the URL of the glTF model as a parameter. To load a local .gltf/.glb/.zip file, we may instead pass <code>GetImportTask</code> an absolute file path (e.g. "C:/Users/Joe/Desktop/piggleston.glb") or a <code>byte[]</code> array containing the raw byte content of the file. Second, we advance the execution of the import task by repeatedly calling <code>MoveNext()</code> on the task.  A convenient place to call <code>MoveNext()</code> is in the <code>Update()</code> method, which is called by Unity once per frame. Continuing to call <code>MoveNext()</code> after the import has completed does no harm.</p>
 
             <p>Attaching the script from Figure 2 to any game object in your Unity scene is sufficient to import a glTF model at runtime. However, in a real game/application, you will probably want tighter integration between your own code and the importer. For example, you may want to show progress messages while the model is loading, or to attach custom MonoBehaviours to the model once it has loaded. To achieve these types of behaviours, <code>GltfImportTask</code> provides callback hooks for: progress messages (<code>OnProgress</code>), user cancelation (<code>OnAborted</code>), import errors (<code>OnException</code>), and successful completion (<code>OnCompleted</code>).</p>
 
@@ -267,6 +272,11 @@ public class RuntimeImportBehaviour : MonoBehaviour
     /// &lt;/summary&gt;
     void Start()
     {
+        // Note: To import a local .gltf/.glb/.zip file, you may
+        // instead pass an absolute file path to GetImportTask
+        // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
+        // array containing the raw byte content of the file.
+
         _task = RuntimeGltfImporter.GetImportTask(
              &quot;https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb&quot;);
         <strong>_task.OnProgress = OnProgress;</strong>
@@ -336,6 +346,11 @@ public class RuntimeImportBehaviour : MonoBehaviour
     /// &lt;/summary&gt;
     void Start()
     {
+        // Note: To import a local .gltf/.glb/.zip file, you may
+        // instead pass an absolute file path to GetImportTask
+        // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
+        // array containing the raw byte content of the file.
+
         _task = RuntimeGltfImporter.GetImportTask(
             &quot;https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb&quot;);
         <strong>_task.OnCompleted = OnComplete;</strong>

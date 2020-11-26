@@ -10,28 +10,18 @@ title: 'Manual: Piglet glTF Importer 1.0.4'
 
 ## Table of Contents
 
-[Introduction](#introduction)
-
-[Features](#features)
-
-[Caveats](#caveats)
-
-[Setup](#setup)
-
-[Editor Imports](#editor-imports)
-
--   [Piglet Options Window](#piglet-options-window)
-
-[Runtime Imports](#runtime-imports)
-
--   [Runtime Import Tutorial](#runtime-import-tutorial)
--   [Runtime Import API](#runtime-import-api)
-
-[URP Support (Unity 2019.3+)](#urp-support)
-
-[Sample Application: PigletViewer](#piglet-viewer)
-
-[Footnotes](#footnotes)
+* [Introduction](#introduction)
+* [Features](#features)
+* [Caveats](#caveats)
+* [Setup](#setup)
+* [Editor Imports](#editor-imports)
+    * [Piglet Options Window](#piglet-options-window)
+* [Runtime Imports](#runtime-imports)
+    * [Runtime Import Tutorial](#runtime-import-tutorial)
+    * [Runtime Import API](#runtime-import-api)
+* [URP Support (Unity 2019.3+)](#urp-support)
+* [Sample Application: PigletViewer](#piglet-viewer)
+* [Footnotes](#footnotes)
 
 ## Introduction
 

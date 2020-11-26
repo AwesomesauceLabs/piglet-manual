@@ -1,5 +1,5 @@
 ---
-author: Awesomesauce Labs
+author-meta: Awesomesauce Labs
 description: 'Manual: Piglet glTF Importer for Unity'
 title: 'Manual: Piglet glTF Importer 1.0.4'
 ---

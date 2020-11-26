@@ -21,7 +21,11 @@ Table of Contents:
 	color: #424456; 
 }
 
+/* remove vertical gaps in Table of Contents */
 
+ul > li > ul {
+    margin: 0.5rem 0rem -0.5rem;
+}
 
 /* 2. Base Tags 
 –––––––––––––––––––––––––––––––––––––––––––– */

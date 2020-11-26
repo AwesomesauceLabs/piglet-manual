@@ -4,8 +4,6 @@ description: 'Manual: Piglet glTF Importer for Unity'
 title: 'Manual: Piglet glTF Importer 1.0.4'
 ---
 
-# Manual: Piglet glTF Importer 1.0.4
-
 -   Online documentation:
     <https://awesomesaucelabs.github.io/piglet-manual/>
 -   Support e-mail: <awesomesaucelabs@gmail.com>

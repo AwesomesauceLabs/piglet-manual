@@ -1,6 +1,10 @@
-# Description
+# Generating the HTML Version
 
-HTML source for the Piglet manual.
+To generate the HTML version of the manual:
+
+```sh
+pandoc -o output.html -c classless.css --highlight-style haddock index.md
+```
 
 # Generating the PDF Version
 

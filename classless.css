@@ -67,9 +67,9 @@ dt { font-weight: bold; }
 /* tables */
 td, th {
   padding: 0.5rem 1.5rem;
-  text-align: right;
+  text-align: left;
   border-bottom: 0.1rem solid var(--cmed);
-  white-space: nowrap;
+  white-space: normal;
 }
 td:first-child, th:first-child { padding-left:  0; text-align: left; }
 td:last-child,  th:last-child  { padding-right: 0; }

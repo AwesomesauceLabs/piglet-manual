@@ -8,7 +8,7 @@ title: 'Manual: Piglet glTF Importer 1.0.4'
     <https://awesomesaucelabs.github.io/piglet-manual/>
 -   Support e-mail: <awesomesaucelabs@gmail.com>
 
-![](images/piglet-logo.png){width="300"}
+![](images/piglet-logo.png){width="400"}
 
 ## Table of Contents
 

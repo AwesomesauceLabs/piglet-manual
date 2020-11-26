@@ -162,46 +162,48 @@ Piggleston (the Piglet mascot), which may be downloaded from
 <https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb>.
 The minimal code to import the model at runtime is as follows:
 
-    using Piglet;
-    using UnityEngine;
+```cs
+using Piglet;
+using UnityEngine;
+
+/// <summary>
+/// This MonoBehaviour provides a minimal example for using
+/// Piglet to import glTF models at runtime.
+/// </summary>
+public class RuntimeImportBehaviour : MonoBehaviour
+{
+    /// <summary>
+    /// The currently running glTF import task.
+    /// </summary>
+    private GltfImportTask _task;
 
     /// <summary>
-    /// This MonoBehaviour provides a minimal example for using
-    /// Piglet to import glTF models at runtime.
+    /// Unity callback that is invoked before the first frame.
+    /// Create the glTF import task.
     /// </summary>
-    public class RuntimeImportBehaviour : MonoBehaviour
+    void Start()
     {
-        /// <summary>
-        /// The currently running glTF import task.
-        /// </summary>
-        private GltfImportTask _task;
+        // Note: To import a local .gltf/.glb/.zip file, you may
+        // instead pass an absolute file path to GetImportTask
+        // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
+        // array containing the raw byte content of the file.
 
-        /// <summary>
-        /// Unity callback that is invoked before the first frame.
-        /// Create the glTF import task.
-        /// </summary>
-        void Start()
-        {
-            // Note: To import a local .gltf/.glb/.zip file, you may
-            // instead pass an absolute file path to GetImportTask
-            // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
-            // array containing the raw byte content of the file.
-
-            _task = RuntimeGltfImporter.GetImportTask(
-                 "https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb");
-        }
-
-        /// <summary>
-        /// Unity callback that is invoked after every frame.
-        /// Here we call MoveNext() to advance execution
-        /// of the glTF import task.
-        /// </summary>
-        void Update()
-        {
-            // advance execution of glTF import task
-            _task.MoveNext();
-        }
+        _task = RuntimeGltfImporter.GetImportTask(
+                "https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb");
     }
+
+    /// <summary>
+    /// Unity callback that is invoked after every frame.
+    /// Here we call MoveNext() to advance execution
+    /// of the glTF import task.
+    /// </summary>
+    void Update()
+    {
+        // advance execution of glTF import task
+        _task.MoveNext();
+    }
+}
+```
 
 Figure 2: Minimal code to import a glTF file at runtime.
 
@@ -231,72 +233,75 @@ from Figure 2 to print progress messages during the glTF import. We can
 achieve this by assigning a custom method to the `OnProgress` callback
 for the import task, as shown in Figure 3.
 
-    using Piglet;
-    using UnityEngine;
+```cs
+using Piglet;
+using UnityEngine;
+
+/// <summary>
+/// This MonoBehaviour provides a minimal example for using
+/// Piglet to import glTF models at runtime.
+/// </summary>
+public class RuntimeImportBehaviour : MonoBehaviour
+{
+    /// <summary>
+    /// The currently running glTF import task.
+    /// </summary>
+    private GltfImportTask _task;
 
     /// <summary>
-    /// This MonoBehaviour provides a minimal example for using
-    /// Piglet to import glTF models at runtime.
+    /// Unity callback that is invoked before the first frame.
+    /// Create the glTF import task.
     /// </summary>
-    public class RuntimeImportBehaviour : MonoBehaviour
+    void Start()
     {
-        /// <summary>
-        /// The currently running glTF import task.
-        /// </summary>
-        private GltfImportTask _task;
+        // Note: To import a local .gltf/.glb/.zip file, you may
+        // instead pass an absolute file path to GetImportTask
+        // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
+        // array containing the raw byte content of the file.
 
-        /// <summary>
-        /// Unity callback that is invoked before the first frame.
-        /// Create the glTF import task.
-        /// </summary>
-        void Start()
-        {
-            // Note: To import a local .gltf/.glb/.zip file, you may
-            // instead pass an absolute file path to GetImportTask
-            // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
-            // array containing the raw byte content of the file.
-
-            _task = RuntimeGltfImporter.GetImportTask(
-                 "https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb");
-            _task.OnProgress = OnProgress;
-        }
-
-        /// <summary>
-        /// Callback that is invoked by the glTF import task
-        /// to report intermediate progress.
-        /// </summary>
-        /// <param name="step">
-        /// The current step of the glTF import process.  Each step imports
-        /// a different type of glTF entity (e.g. textures, materials).
-        /// </param>
-        /// <param name="completed">
-        /// The number of glTF entities (e.g. textures, materials) that have been
-        /// successfully imported for the current import step.
-        /// </param>
-        /// <param name="total">
-        /// The total number of glTF entities (e.g. textures, materials) that will
-        /// be imported for the current import step.
-        /// </param>
-        private void OnProgress(ImportStep step, int completed, int total)
-        {
-            Debug.LogFormat("{0}: {1}/{2}", step, completed, total);
-        }
-
-        /// <summary>
-        /// Unity callback that is invoked after every frame.
-        /// Here we call MoveNext() to advance execution
-        /// of the glTF import task.
-        /// </summary>
-        void Update()
-        {
-            // advance execution of glTF import task
-            _task.MoveNext();
-        }
+        _task = RuntimeGltfImporter.GetImportTask(
+                "https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb");
+        _task.OnProgress = OnProgress;
     }
 
+    /// <summary>
+    /// Callback that is invoked by the glTF import task
+    /// to report intermediate progress.
+    /// </summary>
+    /// <param name="step">
+    /// The current step of the glTF import process.  Each step imports
+    /// a different type of glTF entity (e.g. textures, materials).
+    /// </param>
+    /// <param name="completed">
+    /// The number of glTF entities (e.g. textures, materials) that have been
+    /// successfully imported for the current import step.
+    /// </param>
+    /// <param name="total">
+    /// The total number of glTF entities (e.g. textures, materials) that will
+    /// be imported for the current import step.
+    /// </param>
+    private void OnProgress(ImportStep step, int completed, int total)
+    {
+        Debug.LogFormat("{0}: {1}/{2}", step, completed, total);
+    }
+
+    /// <summary>
+    /// Unity callback that is invoked after every frame.
+    /// Here we call MoveNext() to advance execution
+    /// of the glTF import task.
+    /// </summary>
+    void Update()
+    {
+        // advance execution of glTF import task
+        _task.MoveNext();
+    }
+}
+```
+
 Figure 3: An extension of the runtime import script from Figure 2 that
-prints progress messages to the Unity console. New lines are highlighted
-in bold.
+prints progress messages to the Unity console. In comparison to Figure 2,
+the new parts of the code are the `OnProgress` method and the assignment
+of `OnProgress` to `_task.OnProgress` in `Start`.
 
 Another important use of callbacks is to run custom code after a glTF
 import has successfully completed. For example, you might want to
@@ -311,73 +316,77 @@ turntable.
 The example in Figure 4 marks the end of this tutorial. Good luck and
 happy coding!
 
-    using Piglet;
-    using UnityEngine;
+```cs
+using Piglet;
+using UnityEngine;
+
+/// <summary>
+/// This MonoBehaviour provides a minimal example for using
+/// Piglet to import glTF models at runtime.
+/// </summary>
+public class RuntimeImportBehaviour : MonoBehaviour
+{
+    /// <summary>
+    /// The currently running glTF import task.
+    /// </summary>
+    private GltfImportTask _task;
 
     /// <summary>
-    /// This MonoBehaviour provides a minimal example for using
-    /// Piglet to import glTF models at runtime.
+    /// Root GameObject of the imported glTF model.
     /// </summary>
-    public class RuntimeImportBehaviour : MonoBehaviour
+    private GameObject _model;
+
+    /// <summary>
+    /// Unity callback that is invoked before the first frame.
+    /// Create the glTF import task.
+    /// </summary>
+    void Start()
     {
-        /// <summary>
-        /// The currently running glTF import task.
-        /// </summary>
-        private GltfImportTask _task;
+        // Note: To import a local .gltf/.glb/.zip file, you may
+        // instead pass an absolute file path to GetImportTask
+        // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
+        // array containing the raw byte content of the file.
 
-        /// <summary>
-        /// Root GameObject of the imported glTF model.
-        /// </summary>
-        private GameObject _model;
-
-        /// <summary>
-        /// Unity callback that is invoked before the first frame.
-        /// Create the glTF import task.
-        /// </summary>
-        void Start()
-        {
-            // Note: To import a local .gltf/.glb/.zip file, you may
-            // instead pass an absolute file path to GetImportTask
-            // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
-            // array containing the raw byte content of the file.
-
-            _task = RuntimeGltfImporter.GetImportTask(
-                "https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb");
-            _task.OnCompleted = OnComplete;
-        }
-
-        /// <summary>
-        /// Callback that is invoked by the glTF import task
-        /// after it has successfully completed.
-        /// </summary>
-        /// <param name="importedModel">
-        /// the root GameObject of the imported glTF model
-        /// </param>
-        private void OnComplete(GameObject importedModel)
-        {
-            _model = importedModel;
-            Debug.Log("Success!");
-        }
-
-        /// <summary>
-        /// Unity callback that is invoked after every frame.
-        /// Here we call MoveNext() to advance execution
-        /// of the glTF import task.
-        /// </summary>
-        void Update()
-        {
-            // advance execution of glTF import task
-            _task.MoveNext();
-
-            // spin model about y-axis
-            if (_model != null)
-                _model.transform.Rotate(0, 1, 0);
-        }
+        _task = RuntimeGltfImporter.GetImportTask(
+            "https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/piggleston.glb");
+        _task.OnCompleted = OnComplete;
     }
 
+    /// <summary>
+    /// Callback that is invoked by the glTF import task
+    /// after it has successfully completed.
+    /// </summary>
+    /// <param name="importedModel">
+    /// the root GameObject of the imported glTF model
+    /// </param>
+    private void OnComplete(GameObject importedModel)
+    {
+        _model = importedModel;
+        Debug.Log("Success!");
+    }
+
+    /// <summary>
+    /// Unity callback that is invoked after every frame.
+    /// Here we call MoveNext() to advance execution
+    /// of the glTF import task.
+    /// </summary>
+    void Update()
+    {
+        // advance execution of glTF import task
+        _task.MoveNext();
+
+        // spin model about y-axis
+        if (_model != null)
+            _model.transform.Rotate(0, 1, 0);
+    }
+}
+```
+
 Figure 4: An extension of the runtime import script from Figure 2 that
-spins the imported model about the y-axis. New lines are highlighted in
-bold.
+spins the imported model about the y-axis. In comparison to Figure 2,
+the new parts of the code are the `OnComplete` method, the
+assignment of `OnComplete` to `_task.OnCompleted` in `Start`,
+and the call to `_model.transform.Rotate` in `Update`.
 
 ### Runtime Import API
 

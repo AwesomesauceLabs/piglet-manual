@@ -105,7 +105,7 @@ Piglet places the generated prefab and any dependent asset files (e.g.
 textures, materials, meshes) under a newly-created subfolder named after
 the input `.gltf`/`.glb`/`.zip` file.
 
-![](images/editor-import-figure.png){#editor-import-figure width="1024"}
+![](images/editor-import-figure.png){#editor-import-figure width="100%"}
 
 Figure 1: Importing a glTF model in the Editor. (A) The user
 drags-and-drops a .gltf/.glb/.zip file from Windows File Explorer to the

@@ -52,17 +52,12 @@ to try Piglet before you buy it.
 
 # Caveats
 
--   **Piglet does not import animations (yet!)**. However, glTF models
-    containing animation data can still be imported as static models. In
-    addition, any skinning data or blendshape data (a.k.a. "morph
-    targets") will be correctly imported alongside the model(s).
--   **Runtime imports may stall the main Unity thread**. While I have
-    attempted to minimize interruptions to the main Unity thread during
-    runtime imports, I cannot provide any hard guarantees about this
-    yet. Unity requires certain operations (e.g. mesh creation) to be
-    performed on the main Unity thread, and so it is possible for
-    runtime imports of large/complex models to cause "hiccups" during
-    game execution.
+-   **Runtime imports may stall the main Unity thread**. I have
+    done my best to minimize interruptions to the main Unity thread during
+    runtime imports, but I cannot provide any hard guarantees about this
+    yet. Unity requires certain operations (e.g. texture uploads to the GPU,
+    mesh creation) to be performed on the main Unity thread, so it is possible for
+    runtime imports to cause "hiccups" during game execution.
 
 # Setup
 

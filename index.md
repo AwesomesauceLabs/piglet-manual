@@ -107,10 +107,10 @@ the input `.gltf`/`.glb`/`.zip` file.
 
 ![](images/editor-import-figure.png){#editor-import-figure width="100%"}
 
-Figure 1: Importing a glTF model in the Editor. (A) The user
+*Figure 1: Importing a glTF model in the Editor. (A) The user
 drags-and-drops a .gltf/.glb/.zip file from Windows File Explorer to the
 Unity Project Browser window. (B) Piglet creates a Unity prefab for the
-model and opens it in the Prefab View.
+model and opens it in the Prefab View.*
 
 There may be circumstances where you want copy a `.gltf`/`.glb`/`.zip`
 file into your project without automatically converting it to a Unity
@@ -204,8 +204,7 @@ public class RuntimeImportBehaviour : MonoBehaviour
     }
 }
 ```
-
-Figure 2: Minimal code to import a glTF file at runtime.
+*Figure 2: Minimal code to import a glTF file at runtime.*
 
 As shown in Figure 2, a runtime glTF import happens in two parts. First,
 we create an import task by calling `RuntimeGltfImporter.GetImportTask`,
@@ -298,10 +297,10 @@ public class RuntimeImportBehaviour : MonoBehaviour
 }
 ```
 
-Figure 3: An extension of the runtime import script from Figure 2 that
+*Figure 3: An extension of the runtime import script from Figure 2 that
 prints progress messages to the Unity console. In comparison to Figure 2,
 the new parts of the code are the `OnProgress` method and the assignment
-of `OnProgress` to `_task.OnProgress` in `Start`.
+of `OnProgress` to `_task.OnProgress` in `Start`.*
 
 Another important use of callbacks is to run custom code after a glTF
 import has successfully completed. For example, you might want to
@@ -382,11 +381,11 @@ public class RuntimeImportBehaviour : MonoBehaviour
 }
 ```
 
-Figure 4: An extension of the runtime import script from Figure 2 that
+*Figure 4: An extension of the runtime import script from Figure 2 that
 spins the imported model about the y-axis. In comparison to Figure 2,
 the new parts of the code are the `OnComplete` method, the
 assignment of `OnComplete` to `_task.OnCompleted` in `Start`,
-and the call to `_model.transform.Rotate` in `Update`.
+and the call to `_model.transform.Rotate` in `Update`.*
 
 ### Runtime Import API
 
@@ -447,8 +446,8 @@ an error message reminding you to install the shaders.)
 
 ![](images/piglet-webgl-demo.png){#webgl-demo-figure width="800"}
 
-Figure 5: A screenshot of PigletViewer, a sample application which uses
-Piglet to view 3D models from glTF files.
+*Figure 5: A screenshot of PigletViewer, a sample application which uses
+Piglet to view 3D models from glTF files.*
 
 PigletViewer is sample application which uses Piglet to view 3D models
 from glTF files (\`.gltf\`, \`.glb\`, or \`.zip\`), and which is used

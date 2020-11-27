@@ -10,7 +10,7 @@ title: 'Manual: Piglet glTF Importer 1.0.4'
 
 ![](images/piglet-logo.png){width="40%"}
 
-## Table of Contents
+# Table of Contents
 
 * [Introduction](#introduction)
 * [Features](#features)
@@ -25,7 +25,7 @@ title: 'Manual: Piglet glTF Importer 1.0.4'
 * [Sample Application: PigletViewer](#piglet-viewer)
 * [Footnotes](#footnotes)
 
-## Introduction
+# Introduction
 
 Piglet is a Unity asset that allows you to import 3D models from glTF
 files, both in the Editor and at runtime. This provides Unity developers
@@ -37,7 +37,7 @@ Visit the [Web
 Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/)^[2](#footnote2)^
 to try Piglet before you buy it.
 
-## Features
+# Features
 
 -   import glTF models in the Editor or at runtime
 -   import glTF models from `.gltf`, `.glb`, or `.zip` files, using file
@@ -50,7 +50,7 @@ to try Piglet before you buy it.
 -   supported platforms: Windows, Android, WebGL (Unity 2018.4 or newer)
 -   full source code provided
 
-## Caveats
+# Caveats
 
 -   **Piglet does not import animations (yet!)**. However, glTF models
     containing animation data can still be imported as static models. In
@@ -64,7 +64,7 @@ to try Piglet before you buy it.
     runtime imports of large/complex models to cause "hiccups" during
     game execution.
 
-## Setup
+# Setup
 
 To set up Piglet in your project, purchase and install Piglet from the
 Unity Asset Store page. Piglet works with Unity 2018.4 or later, and
@@ -87,7 +87,7 @@ duplicate function/class definitions. In most cases, removing Piglet's
 copy of the library under `Assets/Piglet/Dependencies` should solve the
 issue.
 
-## Editor Imports
+# Editor Imports
 
 *Note*: For a video demonstration of Piglet Editor imports, see
 <https://youtu.be/wf26w0gcVcA>.
@@ -143,14 +143,14 @@ menu.
   `Select prefab instance in scene`      Select/highlight the prefab in the scene hierarchy after adding it to the scene
   `Open prefab in Prefab View`           After a glTF import has completed, open the generated prefab in the Prefab View. (This is equivalent to double-clicking the prefab in the Project Browser.)
 
-## Runtime Imports
+# Runtime Imports
 
 Piglet can import a glTF model at runtime from a file path, an HTTP URL,
 or a `byte[]` array containing the raw byte content of a .gltf/.glb/.zip
 file. Runtime imports are performed incrementally, with minimum possible
 interruption to the main Unity thread.
 
-### Runtime Import Tutorial
+## Runtime Import Tutorial
 
 This section walks through example code for importing a glTF model at
 runtime. The example code in this section is included with Piglet under
@@ -387,7 +387,7 @@ the new parts of the code are the `OnComplete` method, the
 assignment of `OnComplete` to `_task.OnCompleted` in `Start`,
 and the call to `_model.transform.Rotate` in `Update`.*
 
-### Runtime Import API
+## Runtime Import API
 
 In Piglet, a runtime glTF import is accomplished by the following steps:
 
@@ -434,7 +434,7 @@ integrating custom code with the importer:
 
   : GltfImportTask Callbacks
 
-## URP Support (Unity 2019.3+) {#urp-support}
+# URP Support (Unity 2019.3+) {#urp-support}
 
 Piglet supports the Universal Render Pipeline (URP) in Unity 2019.3 or
 newer. To use Piglet in a URP-based project, simply unpack the URP
@@ -442,7 +442,7 @@ shader files in `Assets/Piglet/Extras/URPShaders.unitypackage`. (If you
 to forget unpack `URPShaders.unitypackage`, glTF imports will fail with
 an error message reminding you to install the shaders.)
 
-## Sample Application: PigletViewer {#piglet-viewer}
+# Sample Application: PigletViewer {#piglet-viewer}
 
 ![](images/piglet-webgl-demo.png){#webgl-demo-figure width="800"}
 
@@ -463,7 +463,7 @@ developing for those platforms. In general, I recommend looking at the
 PigletViewer code, as the tutorial provides a much more succinct
 introduction to the Piglet API.
 
-## Footnotes
+# Footnotes
 
 1\. As of June 2020, Google Poly only provides glTF download links for
 models made with [Google Blocks](https://arvr.google.com/blocks/) (as

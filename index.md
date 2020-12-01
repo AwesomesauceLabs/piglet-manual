@@ -84,6 +84,8 @@ issue.
 
 # Editor Imports
 
+## Importing glTF Files by Drag-and-Drop
+
 *Note*: For a video demonstration of Piglet Editor imports, see
 <https://youtu.be/wf26w0gcVcA>.
 

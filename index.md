@@ -150,18 +150,72 @@ click the Play button to view the animation.
 
 ![](images/animation-preview-figure.png){#animation-preview-figure width="100%"}
 
-*Figure XXX: Previewing an animation clip in the Editor.(A) The user selects an animation clip in the "Animations"
-subdirectory, causing the Animation Preview Area to appear in the
-Inspector window (bottom right).  (B) The user drags the prefab from
-the main import directory onto the Animation Preview Area, in order to
-associate the model with the animation clip. The user is now able to
-play the animation in the Animation Preview Area. **Attribution**: These
-screenshots use the [Cartoon
+*Figure XXX: Previewing an animation clip in the Editor.(A) The user
+selects an animation clip in the "Animations" subdirectory, causing
+the Animation Preview Area to appear in the Inspector (bottom right
+corner).  (B) The user drags the prefab from the main import directory
+onto the Animation Preview Area, in order to associate the model with
+the animation. Having established this link, the user is now able to
+preview the animation by clicking the Play button in the Animation
+Preview Area. **Attribution**: These screenshots use the [Cartoon
 Hartman](https://sketchfab.com/3d-models/morpher-animated-face-military-cartoon-hartman-538a674c39e24c15965231ab2bdb656a)
-model by Willy Decarpentrie, skudgee@sketchfab, under the CC Attribution
-License.*
+model by Willy Decarpentrie, skudgee@sketchfab, under the CC
+Attribution License.*
 
 ### Playing (Mecanim) Animations at Runtime
+
+This section demonstrates how runtime scripts can play animation clips
+that were created during an Editor (i.e. drag-and-drop) glTF import.
+By default, Editor glTF imports create _Mecanim_ (Footnote XXX)
+animation clips, and the instructions in this section are specific to
+Mecanim.  For a more general introduction to the Mecanim animation
+system, I recommend [Controlling
+Animation](https://learn.unity.com/tutorial/controlling-animation) on
+Unity Learn. For details about playing Legacy animation clips at
+runtime, see the [Runtime Animation
+Tutorial](#runtime-animation-tutorial) section of this manual.
+(Piglet runtime glTF imports use the Legacy animation system because
+Mecanim is not (yet) capable of programmatically creating animations
+at runtime.)
+
+When a glTF file contains one or more animations, Piglet will attach
+two additional components to the root `GameObject` of the imported
+model: (1) an `Animator` component for controlling runtime playback of
+(Mecanim) animation clips, and (2) an `AnimationList` component
+containing an ordered list of the imported animation clips (Figure
+XXX). The `AnimationList` component allows users to access the
+imported animation clips by their original index in the glTF
+file. More importantly, it allows users to access the `.name` field of
+each animation clip, which is used as the identifying key for playing
+that clip with the `Animator` component.
+
+![](images/mecanim-animation-components-figure.png){#mecanim-animation-components-figure width="100%"}
+
+We can trigger playback of animations in runtime scripts by accessing the
+`Animator` component and calling its `Play` method, as demonstrated by
+the example `AnimationBehaviour` script in Figure XXX. If we attach the
+`AnimationBehaviour` script to the root `GameObject` of the model,
+the animation will start playing as soon as the Unity enters Play Mode.
+
+```cs
+using UnityEngine;
+using Piglet;
+
+public class AnimationBehaviour : MonoBehaviour
+{
+    void Start()
+    {
+        var anim = GetComponent<Animator>();
+        var animList = GetComponent<AnimationList>();
+        var stateName = animList.Clips[1].name;
+        anim.Play(stateName, 0);
+    }
+}
+```
+*Figure XXX: A minimal example script for playing a Mecanim animation clip
+at runtime. When this component is attached to the root GameObject
+of the glTF model, it triggers playback of the animation clip at index 1
+in the `AnimationList`, immediately after Unity enters Play Mode.*
 
 ## Piglet Options Window
 

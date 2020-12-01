@@ -516,3 +516,18 @@ Chrome, you can improve performance of the demo by [turning on hardware
 acceleration](https://www.lifewire.com/hardware-acceleration-in-chrome-4125122)
 (i.e. GPU acceleration) in the browser settings. Currently this option
 is disabled in Chrome by default.
+
+XXX. As of December 2020, Unity has two animation systems: Mecanim and
+Legacy.  While Unity recommends that new projects use Mecanim, each
+system has its own advantages and drawbacks, and choosing which system
+to use is a frequent source of confusion for Unity developers.
+Briefly, Mecanim is a newer system that has many more features than
+Legacy (e.g. state machines, blending, retargeting), but has a
+steeper learning curve and does not (yet) provide an API for
+programmatically creating animations at runtime. On the other hand,
+the Legacy animation system is simpler, easier to learn, and fully
+supports programmatic creation of animations at runtime. In spite of
+its disparaging name, Unity has continued to support the Legacy system
+since the introduction of Mecanim in Unity 4, and is likely to
+continue supporting it for a long time.
+

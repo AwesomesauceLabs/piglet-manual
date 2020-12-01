@@ -120,7 +120,48 @@ by any of the following methods:
     from a file browser window or on the command line. (In other words,
     copy the file "behind Unity's back".)
 
-Piglet Options Window
+## Working with Animations
+
+Piglet can import and play animations from glTF files, both in the
+Editor and at runtime.  This section describes how to work with
+animations created during Editor imports.
+
+### Previewing Animations in the Editor
+
+If a glTF file contains animations, Piglet will create an additional
+`Animations` subdirectory containing: (1) an `AnimatorController`
+asset (`controller`) for playing the animations at runtime, (2) a
+"Static Pose" `AnimationClip` for resetting the model to its default
+pose, and (3) one `AnimationClip` asset for each animation from the
+glTF file (Figure XXX). The `controller` asset is not needed for
+previewing animations and is further explained in [Playing (Mecanim)
+Animations at Runtime](#playing--mecanim--animations-at-runtime).
+
+To preview an glTF animation in the Editor, first select the
+AnimationClip asset in the Project Browser window (Figure XXX). This
+will cause a blank Animation Preview Area to appear in the Inspector
+window with the message `No model is available for preview. Please
+drag a model into this Preview Area`. Next, drag the prefab for the
+imported glTF model (located one level up from the `Animations`
+folder) onto the Animation Preview Area. You will then be able to
+click the Play button to view the animation.
+
+![](images/animation-preview-figure.png){#animation-preview-figure width="100%"}
+
+*Figure XXX: Previewing an animation clip in the Editor.(A) The user selects an animation clip in the "Animations"
+subdirectory, causing the Animation Preview Area to appear in the
+Inspector window (bottom right).  (B) The user drags the prefab from
+the main import directory onto the Animation Preview Area, in order to
+associate the model with the animation clip. The user is now able to
+play the animation in the Animation Preview Area. **Attribution**: These
+screenshots use the [Cartoon
+Hartman](https://sketchfab.com/3d-models/morpher-animated-face-military-cartoon-hartman-538a674c39e24c15965231ab2bdb656a)
+model by Willy Decarpentrie, skudgee@sketchfab, under the CC Attribution
+License.*
+
+### Playing (Mecanim) Animations at Runtime
+
+## Piglet Options Window
 
 A number of options relating Editor imports can be set in the Piglet
 Options window, located under `Window => Piglet Options` in the Unity

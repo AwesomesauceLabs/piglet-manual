@@ -493,6 +493,37 @@ the new parts of the code are the `OnComplete` method, the
 assignment of `OnComplete` to `_task.OnCompleted` in `Start`,
 and the call to `_model.transform.Rotate` in `Update`.*
 
+### Playing (Legacy) Animations at Runtime
+
+This section demonstrates how to import and play animations from a
+glTF file/URL at runtime. Runtime glTF imports always use Legacy
+animation clips, because Unity does not yet provide an API for
+creating Mecanim animation clips at runtime (as of December 2020)
+[Footnote: XXX]. For playing glTF animations without modification
+(e.g. blending, retargeting), it makes little practical difference
+whether the Mecanim or Legacy animation system is used.
+
+When Piglet imports a glTF model with one or more animations at
+runtime, it attaches two additional components to the root
+`GameObject` of the model: (1) an `Animation` component for
+controlling playback of the imported (Legacy) animation clips, and (2)
+and `AnimationList` component containing an ordered list of the
+imported animation clips (Figure XXX).  The `AnimationList` component
+allows users to access the imported animation clips by their index in
+the glTF file. More importantly, it provides access to the `.name`
+field of each animation clip, which is needed for playing the clip
+with the `Animation` component.
+
+![](images/legacy-animation-components-figure.png){#legacy-animation-components-figure width="100%"}
+
+Figure XXX shows an example script that performs a runtime import
+a glTF model with an animation, and then plays that animation once the
+model has finished loading. The code for importing the animated model is
+largely the same as the code for importing a static model (Figure
+XXX). First we create a `GltfImportTask` in the `Start` method, and then
+we advance execution of that task by calling `GltfImportTask.MoveNext` in
+`Update`. 
+
 ## Runtime Import API
 
 In Piglet, a runtime glTF import is accomplished by the following steps:
@@ -599,3 +630,6 @@ its disparaging name, Unity has continued to support the Legacy system
 since the introduction of Mecanim in Unity 4, and is likely to
 continue supporting it for a long time.
 
+XXX. The main limitation is that `AnimationClip.SetCurve` method only works
+at runtime for Legacy animation clips, as stated in [the documentation
+for `Animation.SetCurve`](https://docs.unity3d.com/ScriptReference/AnimationClip.SetCurve.html).

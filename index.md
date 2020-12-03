@@ -18,13 +18,13 @@ title: 'Manual: Piglet glTF Importer 1.0.4'
 * [Setup](#setup)
 * [Editor Imports](#editor-imports)
     * [Importing glTF Files by Drag-and-Drop](#importing-gltf-files-by-drag-and-drop)
-    * [Working with Animations](#working-with-animations)
+    * [Editor Animation Tutorial](#editor-animation-tutorial)
         * [Previewing Animations in the Editor](#previewing-animations-in-the-editor)
         * [Playing (Mecanim) Animations at Runtime](#playing-mecanim-animations-at-runtime)
     * [Piglet Options Window](#piglet-options-window)
 * [Runtime Imports](#runtime-imports)
     * [Runtime Import Tutorial](#runtime-import-tutorial)
-        * [Playing (Legacy) Animations at Runtime](#playing-legacy-animations-at-runtime)
+    * [Runtime Animation Tutorial](#runtime-animation-tutorial)
     * [Runtime Import API](#runtime-import-api)
 * [URP Support (Unity 2019.3+)](#urp-support)
 * [Sample Application: PigletViewer](#piglet-viewer)
@@ -128,10 +128,10 @@ by any of the following methods:
     from a file browser window or on the command line. (In other words,
     copy the file "behind Unity's back".)
 
-## Working with Animations
+## Editor Animation Tutorial
 
 Piglet can import and play animations from glTF files, both in the
-Editor and at runtime.  This section describes how to work with
+Editor and at runtime.  This section demonstrates how to work with
 animations created during Editor imports.
 
 ### Previewing Animations in the Editor
@@ -499,7 +499,7 @@ the new parts of the code are the `OnComplete` method, the
 assignment of `OnComplete` to `_task.OnCompleted` in `Start`,
 and the call to `_model.transform.Rotate` in `Update`.*
 
-### Playing (Legacy) Animations at Runtime
+### Runtime Animation Tutorial
 
 This section demonstrates how to import and play animations from a
 glTF file/URL at runtime. Runtime glTF imports always use Legacy

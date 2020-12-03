@@ -239,7 +239,7 @@ in the `AnimationList`, immediately after Unity enters Play Mode.*
 
 ## Piglet Options Window
 
-A number of options relating Editor imports can be set in the Piglet
+A number of options controlling Editor glTF imports can be set in the Piglet
 Options window, located under `Window => Piglet Options` in the Unity
 menu.
 
@@ -248,12 +248,28 @@ menu.
   Option                                 Description
   -------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   `Enable drag-and-drop glTF import`     Enable/disable automatic glTF imports when dragging .gltf/.glb/.zip files onto the Project Browser window
+  
+  : Global Options
+
+  Option                                 Description
+  -------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  `Scale model to standard size`         Enable/disable automatic resizing of imported model
+  `Size`                                 Target size of model, along its longest dimension
+  `Import animations`                    Enable/disable import of glTF animations as Unity `AnimationClip` assets
+  `Animation clip type`                  "Mecanim" or "Legacy"
+  
+  : Import Options
+
+  Option                                 Description
+  -------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   `Prompt before overwriting files`      Show confirmation prompt if glTF import directory already exists
   `Print progress messages in Console`   Log progress messages to Unity Console window during glTF imports (useful for debugging)
   `Select prefab in Project Browser`     After a glTF import has completed, select/highlight the generated prefab in the Project Browser window
   `Add prefab instance to scene`         After a glTF import has completed, add the generated prefab to the current Unity scene, as a child of the currently selected game object. If no game object is selected in the scene, add the prefab at the root of the scene instead.
   `Select prefab instance in scene`      Select/highlight the prefab in the scene hierarchy after adding it to the scene
   `Open prefab in Prefab View`           After a glTF import has completed, open the generated prefab in the Prefab View. (This is equivalent to double-clicking the prefab in the Project Browser.)
+  
+  : Editor Options
 
 # Runtime Imports
 

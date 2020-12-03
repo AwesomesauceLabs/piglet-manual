@@ -203,7 +203,7 @@ Both of these tasks are done with the `Animator.Play` method.
 
 Figure XXX shows an example script that plays a Mecanim animation clip
 as soon as Unity enters Play Mode. We start the animation by calling
-the `Animator.Play` method, passing in the target `AnimatorController`
+the `Animator.Play` method, passing in the initial `AnimatorController`
 state and layer as arguments. We get the controller state name from
 the `.name` field of the target animation clip, from the
 `AnimationList` component. We pass in 0 for the layer argument, since

@@ -516,13 +516,97 @@ with the `Animation` component.
 
 ![](images/legacy-animation-components-figure.png){#legacy-animation-components-figure width="100%"}
 
-Figure XXX shows an example script that performs a runtime import
-a glTF model with an animation, and then plays that animation once the
-model has finished loading. The code for importing the animated model is
-largely the same as the code for importing a static model (Figure
-XXX). First we create a `GltfImportTask` in the `Start` method, and then
-we advance execution of that task by calling `GltfImportTask.MoveNext` in
-`Update`. 
+Figure XXX shows an example script that imports a glTF model with an
+animation, and plays the animation once the model has finished
+loading. The basic steps for importing a model with animations are 
+the same as for importing a static model, as discussed previously
+in [Runtime Import Tutorial](#runtime-import-tutorial). First we create
+a `GltfImportTask` in the `Start` method, then we advance
+execution of the task in each frame by calling `GltfImportTask.MoveNext` in
+`Update`.
+
+The `OnComplete` method of Figure XXX handles playing the
+animation. By assigning `OnComplete` to `_task.OnCompleted` in
+`Start`, the method is automatically invoked after the glTF import
+successfully completes. Piglet passes the root `GameObject` of the
+imported model as an argument to `OnComplete` , which is
+then used to get a reference to the `Animation` component for playing
+the animation. The `Animation` component may contain any number of
+animation clips, where each clip is identified by a unique, string-based
+key. By convention, Piglet uses the `.name` field of each animation clip
+as its key, and this key can be obtained by accessing the relevant
+animation clip from the `AnimationList` component.
+
+```cs
+using Piglet;
+using UnityEngine;
+
+/// <summary>
+/// This MonoBehaviour provides a minimal example for
+/// importing and playing glTF animations at runtime.
+/// </summary>
+public class RuntimeAnimationBehaviour : MonoBehaviour
+{
+    /// <summary>
+    /// The currently running glTF import task.
+    /// </summary>
+    private GltfImportTask _task;
+
+    /// <summary>
+    /// Unity callback that is invoked before the first frame.
+    /// Create the glTF import task and set up callbacks for
+    /// progress messages and successful completion.
+    /// </summary>
+    void Start()
+    {
+        // Uniformly scale the model such that the longest
+        // dimension of its world-space axis-aligned bounding
+        // box becomes 4.0 units.
+        var importOptions = new GltfImportOptions();
+        importOptions.AutoScale = true;
+        importOptions.AutoScaleSize = 4.0f;
+
+        // Note: To import a local .gltf/.glb/.zip file, you may
+        // instead pass an absolute file path to GetImportTask
+        // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
+        // array containing the raw byte content of the file.
+        _task = RuntimeGltfImporter.GetImportTask(
+            "https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/cartoon_hartman.zip",
+            importOptions);
+
+        _task.OnCompleted = OnComplete;
+    }
+
+    /// <summary>
+    /// Callback that is invoked by the glTF import task
+    /// after it has successfully completed.
+    /// </summary>
+    /// <param name="importedModel">
+    /// the root GameObject of the imported glTF model
+    /// </param>
+    private void OnComplete(GameObject importedModel)
+    {
+        var anim = importedModel.GetComponent<Animation>();
+        var animList = importedModel.GetComponent<AnimationList>();
+        var clipKey = animList.Clips[1].name;
+        anim.Play(clipKey);
+
+        Debug.Log("Success!");
+    }
+
+    /// <summary>
+    /// Unity callback that is invoked after every frame.
+    /// Here we call MoveNext() to advance execution
+    /// of the glTF import task. Once the model has been successfully
+    /// imported, we auto-spin the model about the y-axis.
+    /// </summary>
+    void Update()
+    {
+        // advance execution of glTF import task
+        _task.MoveNext();
+    }
+}
+```
 
 ## Runtime Import API
 

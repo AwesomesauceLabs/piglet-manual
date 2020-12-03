@@ -499,9 +499,8 @@ This section demonstrates how to import and play animations from a
 glTF file/URL at runtime. Runtime glTF imports always use Legacy
 animation clips, because Unity does not yet provide an API for
 creating Mecanim animation clips at runtime (as of December 2020)
-[Footnote: XXX]. For playing glTF animations without modification
-(e.g. blending, retargeting), it makes little practical difference
-whether the Mecanim or Legacy animation system is used.
+[Footnote: XXX]. For basic playback of glTF animations,
+it makes little difference which system is used.
 
 When Piglet imports a glTF model with one or more animations at
 runtime, it attaches two additional components to the root

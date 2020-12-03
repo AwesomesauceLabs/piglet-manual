@@ -1,0 +1,3 @@
+# ignore .meta files created by symlinking this repo
+# to Assets/Piglet/Documentation
+*.meta

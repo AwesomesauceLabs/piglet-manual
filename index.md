@@ -28,6 +28,7 @@ title: 'Manual: Piglet glTF Importer 1.0.4'
     * [Runtime Import API](#runtime-import-api)
 * [URP Support (Unity 2019.3+)](#urp-support)
 * [Sample Application: PigletViewer](#piglet-viewer)
+* [Change Log](#change-log)
 * [Footnotes](#footnotes)
 
 # Introduction
@@ -687,6 +688,72 @@ developing for those platforms. In general, I recommend looking at the
 [Runtime Import Tutorial](#runtime-import-tutorial) before exploring the
 PigletViewer code, as the tutorial provides a much more succinct
 introduction to the Piglet API.
+
+# Change Log
+
+## Release 1.0.4 (2020-09-28)
+
+Added support for URP in Unity 2019.3+:
+
+* If your project uses URP, just unpack Assets/Piglet/Extras/URPShaders.unitypackage and you are ready to go!
+
+Bugfixes:
+
+* Fix import failures when file path contains spaces
+* Fix _emissiveFactor in shaders for built-in render pipeline
+* Fix warning: "Script 'Animation' has the same name as built-in Unity component."
+* Fix warnings about obsolete UnityWebRequest API in Unity 2020.2
+
+## Release 1.0.3 (2020-09-02)
+
+Bugfix release.
+
+GltfImporter:
+
+* Support models with > 64k vertices per mesh
+* Minor code cleanup and refactoring (e.g.
+use more consistent method names, remove
+unused method parameters)
+
+## Release 1.0.2 (2020-08-10)
+
+Bugfix release.
+
+* Add .asmdef files to Piglet tree, so that advanced
+users have better control over their build config
+
+ChangeLog.txt [new]:
+
+* Move ChangeLog.txt to Assets/Piglet/Documentation, so
+that users can see it.
+
+GltfImporter:
+
+* Throw Piglet.JsonParseException instead of
+Newtonsoft.Json.JsonParseException on glTF parsing errors. This
+decouples Piglet applications from Json.NET, so that Piglet has
+the option to use other JSON parsing libraries in the future.
+
+UnityGLTF:
+
+* Replace GLTFSerialization.dll with C# source files, so that
+Piglet no longer depends on a specific version of
+Newtonsoft.Json.dll (10:0:0:0).  This allows users to resolve the
+multiple-copies-of-Json.NET problem by deleting Piglet's copy of
+Newtonsoft.Json.dll. It also gives users more convenient access to
+the glTF parsing code, for their own understanding/modification.
+
+## Release 1.0.1 (2020-07-20)
+
+Bugfixes:
+
+* Fix hardcoded paths that would cause NullReferenceException
+after "Piglet" folder was moved/renamed
+* Speed up reads from Android content URIs
+
+## Release 1.0.0 (2020-07-10)
+
+First release!
 
 # Footnotes
 

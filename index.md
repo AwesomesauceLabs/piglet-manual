@@ -26,6 +26,10 @@ title: 'Manual: Piglet glTF Importer 1.0.4'
     * [Runtime Import Tutorial](#runtime-import-tutorial)
     * [Runtime Animation Tutorial](#runtime-animation-tutorial)
     * [Runtime Import API](#runtime-import-api)
+        * [Overview](#overview)
+        * [Creating a GltfImportTask](#creating-a-gltfimporttask)
+        * [Configuring Callbacks on a GltfImportTask](#configuring-callbacks-on-a-gltfimporttask)
+        * [Executing a GltfImportTask](#executing-a-gltfimporttask)
 * [URP Support (Unity 2019.3+)](#urp-support)
 * [Sample Application: PigletViewer](#piglet-viewer)
 * [Change Log](#change-log)
@@ -631,19 +635,30 @@ public class RuntimeAnimationBehaviour : MonoBehaviour
 
 ## Runtime Import API
 
+### Overview
+
 In Piglet, a runtime glTF import is accomplished by the following steps:
 
 1.  Create a `GltfImportTask` by calling
-    `RuntimeGltfImporter.GetImportTask`, passing in the file path or URL
-    of the input `.gltf`/`.glb`/`.zip` as a parameter.
-2.  Configure callbacks on the `GltfImportTask` (optional).
-3.  Call `MoveNext()` on the `GltfImportTask` until the glTF import has
-    completed.
+    `RuntimeGltfImporter.GetImportTask`, passing in the file path,
+    URL, or raw byte content of the input `.gltf`/`.glb`/`.zip` file
+    as a parameter.  See [Creating a
+    GltfImportTask](#creating-a-gltfimporttask) for details.
+2.  Configure callbacks on the `GltfImportTask` to execute custom code
+    for success/failure/progress events (optional). See [Configuring
+    Callbacks on a
+    GltfImportTask](#configuring-callbacks-on-a-gltfimporttask) for
+    details.
+3.  Execute the `GltfImportTask` by calling `MoveNext()` until the
+    import has completed. See [Executing a
+    GltfImportTask](#executing-a-gltfimporttask) for details.
 
 For concrete code examples demonstrating the above steps, see the
 [Runtime Import Tutorial](#runtime-import-tutorial).
 
-`RuntimeGltfImporter` provides the following methods for creating a
+### Creating a GltfImportTask
+
+`RuntimeGltfImporter` provides the following static methods for creating a
 `GltfImportTask`:
 
   Method                         Return Type        Description
@@ -654,6 +669,25 @@ For concrete code examples demonstrating the above steps, see the
 
   : RuntimeGltfImporter Methods
 
+### Configuring Callbacks on a GltfImportTask
+
+You can assign callback methods to delegate members of a
+`GltfImportTask`, in order to run custom code for
+success/failure/progress events. For example, callbacks can be used to
+position a successfully imported model within a scene or to attach a
+custom `MonoBehaviour`.
+
+  Callback        Description
+  --------------- -------------------------------------------------------------------------
+  `OnProgress`    Invoked at regular intervals to report progress of `GltfImportTask`
+  `OnAborted`     Invoked when `Abort()` is called on `GltfImportTask`
+  `OnException`   Invoked when `GltfImportTask` throws an exception (e.g. file not found)
+  `OnCompleted`   Invoked when `GltfImportTask` completes successfully
+
+  : GltfImportTask Delegate Members
+
+### Executing a GltfImportTask
+
 `GltfImportTask` provides the following methods for controlling its own
 execution:
 
@@ -663,18 +697,6 @@ execution:
   `Abort()`      Abort the import task. This method should typically be called in response to a user action, such as pressing a "Cancel" button.
 
   : GltfImportTask Methods
-
-In addition, `GltfImportTask` provides the following callbacks for
-integrating custom code with the importer:
-
-  Callback        Description
-  --------------- -------------------------------------------------------------------------
-  `OnProgress`    Invoked at regular intervals to report progress of `GltfImportTask`
-  `OnAborted`     Invoked when `Abort()` is called on `GltfImportTask`
-  `OnException`   Invoked when `GltfImportTask` throws an exception (e.g. file not found)
-  `OnCompleted`   Invoked when `GltfImportTask` completes successfully
-
-  : GltfImportTask Callbacks
 
 # URP Support (Unity 2019.3+) {#urp-support}
 

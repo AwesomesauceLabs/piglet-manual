@@ -661,13 +661,37 @@ For concrete code examples demonstrating the above steps, see the
 `RuntimeGltfImporter` provides the following static methods for creating a
 `GltfImportTask`:
 
-  Method                         Return Type        Description
-  ------------------------------ ------------------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  `GetImportTask(string uri)`    `GltfImportTask`   Create an import task that imports the glTF model from `uri`, where `uri` is an absolute file path, HTTP(S) URL, or Android content URI that points to a `.gltf`/`.glb`/`.zip` file.
-  `GetImportTask(Uri uri)`       `GltfImportTask`   Create an import task that imports the glTF model from `uri`, where `uri` is an absolute file path, HTTP(S) URL, or Android content URI that points to a `.gltf`/`.glb`/`.zip` file.
-  `GetImportTask(byte[] data)`   `GltfImportTask`   Create an import task that imports from the raw byte content of a `.gltf`/`.glb`/`.zip` file (`data`).
+  ----------------------------------------------------------------------------------------------------------
+  Method                                Return Type        Description
+  -----------------------------------   -----------------  -------------------------------------------------
+  `GetImportTask(string uri,`           `GltfImportTask`   Create an import task that imports the glTF model
+  `GltfImportOptions options=null)`                        from `uri`, where `uri` is an absolute file path,
+                                                           HTTP(S) URL, or Android content URI that points
+                                                           to a `.gltf`/`.glb`/`.zip` file.
+
+  `GetImportTask(Uri uri,`              `GltfImportTask`   Create an import task that imports the glTF model
+  `GltfImportOptions options=null)`                        from `uri`, where `uri` is an absolute file path,
+                                                           HTTP(S) URL, or Android content URI that points
+                                                           to a `.gltf`/`.glb`/`.zip` file.
+
+  `GetImportTask(byte[] data,`          `GltfImportTask`   Create an import task that imports from the raw
+  `GltfImportOptions options=null)`                        byte content of a `.gltf`/`.glb`/`.zip` file.
+  ---------------------------------------------------------------------------------------------------------
 
   : RuntimeGltfImporter Methods
+
+All versions of `GetImportTask` accept an instance of `GltfImportOptions`
+as an optional second argument. `GltfImportOptions` currently
+provides the following options:
+
+  Option                  Default Description
+  ----------------------- ------- -------------------------------------------------------------------------
+  `ShowModelAfterImport`  `true`  Automatically unhide the model after a successful glTF import, by calling `SetActive(true)` on the root GameObject. Users might want to keep the model hidden until they have completed their own post-processing on the model (e.g. adding colliders).
+  `AutoScale`             `false` Automatically resize the model after a successful glTF import
+  `AutoScaleSize`         `1.0`   Target size of model along its longest dimension
+  `ImportAnimations`      `true`  Import glTF animations as Legacy animation clips
+  
+  : GltfImportOptions Members
 
 ### Configuring Callbacks on a GltfImportTask
 

@@ -578,25 +578,25 @@ model by Willy Decarpentrie,
 License](https://creativecommons.org/licenses/by/4.0/).*
 
 Figure XXX shows an example script that imports a glTF model with an
-animation, and plays the animation once the model has finished
-loading. The basic steps for importing a model with animations are 
-the same as for importing a static model, as discussed previously
-in [Runtime Import Tutorial](#runtime-import-tutorial). First we create
-a `GltfImportTask` in the `Start` method, then we advance
-execution of the task in each frame by calling `GltfImportTask.MoveNext` in
-`Update`.
+animation, and then immediately plays the animation. The steps
+for importing the model with animations are the same as those for
+importing a static model (see the [Runtime Import
+Tutorial](#runtime-import-tutorial) for further examples): (1)
+create a `GltfImportTask` in the `Start` method, and (2) advance
+execution of the task by calling `GltfImportTask.MoveNext` in `Update`.
 
-The `OnComplete` method of Figure XXX handles playing the
-animation. By assigning `OnComplete` to `_task.OnCompleted` in
-`Start`, the method is automatically invoked after the glTF import
-successfully completes. Piglet passes the root `GameObject` of the
-imported model as an argument to `OnComplete` , which is
-then used to get a reference to the `Animation` component for playing
-the animation. The `Animation` component may contain any number of
-animation clips, where each clip is identified by a unique, string-based
-key. By convention, Piglet uses the `.name` field of each animation clip
-as its key, and this key can be obtained by accessing the relevant
-animation clip from the `AnimationList` component.
+The `OnComplete` method of Figure XXX handles playing the animation
+once the model has finished loading. By assigning `OnComplete` to
+`_task.OnCompleted` in `Start`, the `OnComplete` method is automatically invoked 
+by Piglet after the glTF import completes. Piglet passes the
+root `GameObject` of the imported model as an argument to
+`OnComplete`, which can then be used to access the `Animation` component
+for playing the animation(s). The `Animation` component may hold any
+number of animation clips, where each clip is identified by a unique,
+string-based key. By convention, Piglet uses the `.name` field of each
+animation clip as its key in the `Animation` component, and the value
+of the `.name` field for each imported clip may be obtained by index
+from the `AnimationList` component.
 
 ```cs
 using Piglet;

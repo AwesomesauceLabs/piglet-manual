@@ -41,10 +41,10 @@ Piglet is a Unity asset that allows you to import 3D models from glTF
 files, both in the Editor and at runtime. This provides Unity developers
 access to a large collection of free textures, materials, and models
 from sites like [Sketchfab](https://sketchfab.com/) and [Google
-Poly](https://poly.google.com)^[1](#footnote1)^.
+Poly](https://poly.google.com)[^1].
 
 Visit the [Web
-Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/)^[2](#footnote2)^
+Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/)[^2]
 to try Piglet before you buy it.
 
 # Features
@@ -55,7 +55,7 @@ to try Piglet before you buy it.
 -   extract textures and materials from glTF models, for use with your
     own 3D models
 -   tested with glTF models from [Sketchfab](https://sketchfab.com/),
-    [Google Poly](https://poly.google.com)^[1](#footnote1)^, and
+    [Google Poly](https://poly.google.com), and
     [Blender](https://www.blender.org/)
 -   supported platforms: Windows, Android, WebGL (Unity 2018.4 or newer)
 -   full source code provided
@@ -178,7 +178,7 @@ License](https://creativecommons.org/licenses/by/4.0/).*
 
 This section demonstrates how runtime scripts can play animation clips
 that were created during an Editor (i.e. drag-and-drop) glTF import.
-By default, Editor glTF imports create _Mecanim_ (Footnote XXX)
+By default, Editor glTF imports create _Mecanim_[^3]
 animation clips, and the instructions in this section are specific to
 Mecanim. (If you are looking for a good introduction to the Mecanim animation
 system, I highly recommend [Controlling
@@ -549,9 +549,9 @@ and the call to `_model.transform.Rotate` in `Update`.*
 This section demonstrates how to import and play animations from a
 glTF file/URL at runtime. Runtime glTF imports always use Legacy
 animation clips, because Unity does not yet provide an API for
-creating Mecanim animation clips at runtime (as of December 2020)
-[Footnote: XXX]. For basic playback of glTF animations,
-it makes little difference which system is used.
+creating Mecanim animation clips at runtime[^4] (as of December 2020)
+. For basic playback of glTF animations, the Legacy system
+is just as good as Mecanim.
 
 When Piglet imports a glTF model with one or more animations at
 runtime, it attaches two additional components to the root
@@ -869,34 +869,33 @@ First release!
 
 # Footnotes
 
-1\. As of June 2020, Google Poly only provides glTF download links for
-models made with [Google Blocks](https://arvr.google.com/blocks/) (as
-opposed to [Tilt Brush](https://www.tiltbrush.com/)). To see only
-Blocks-generated models on Google Poly, visit
-<https://poly.google.com/blocks>.
+[^1]: As of June 2020, Google Poly only provides glTF download links for
+      models made with [Google Blocks](https://arvr.google.com/blocks/) (as
+      opposed to [Tilt Brush](https://www.tiltbrush.com/)). To see only
+      Blocks-generated models on Google Poly, visit
+      <https://poly.google.com/blocks>.
 
-2\. I have tested the [Piglet Web
-Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/) with
-Firefox and Google Chrome on Windows 10 64-bit. If you are using Google
-Chrome, you can improve performance of the demo by [turning on hardware
-acceleration](https://www.lifewire.com/hardware-acceleration-in-chrome-4125122)
-(i.e. GPU acceleration) in the browser settings. Currently this option
-is disabled in Chrome by default.
+[^2]: I have tested the [Piglet Web
+      Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/) with
+      Firefox and Google Chrome on Windows 10 64-bit. If you are using Google
+      Chrome, you can improve performance of the demo by [turning on hardware
+      acceleration](https://www.lifewire.com/hardware-acceleration-in-chrome-4125122)
+      (i.e. GPU acceleration) in the browser settings. Currently this option
+      is disabled in Chrome by default.
 
-XXX. As of December 2020, Unity has two animation systems: Mecanim and
-Legacy.  While Unity recommends that new projects use Mecanim, each
-system has its own advantages and drawbacks, and choosing which system
-to use is a frequent source of confusion for Unity developers.
-Briefly, Mecanim is a newer system that has many more features than
-Legacy (e.g. state machines, blending, retargeting), but has a
-steeper learning curve and does not (yet) provide an API for
-programmatically creating animations at runtime. On the other hand,
-the Legacy animation system is simpler, easier to learn, and fully
-supports programmatic creation of animations at runtime. In spite of
-its disparaging name, Unity has continued to support the Legacy system
-since the introduction of Mecanim in Unity 4, and is likely to
-continue supporting it for a long time.
+[^3]: As of December 2020, Unity has two animation systems: Mecanim
+      and Legacy.  While Unity recommends that new projects use
+      Mecanim, each system has its own advantages and
+      drawbacks. Briefly, Mecanim is a newer system that has many more
+      features than Legacy (e.g. blending, retargeting), but has a
+      steeper learning curve and does not (yet) provide an API for
+      creating animations at runtime. On the other hand, the Legacy
+      animation system is simpler, easier to learn, and fully supports
+      creation of animations at runtime. In spite of its name, Unity
+      has continued to support and maintain the Legacy system since
+      the introduction of Mecanim in Unity 4, and is likely to
+      continue supporting Legacy until Mecanim can fully replace it.
 
-XXX. The main limitation is that `AnimationClip.SetCurve` method only works
-at runtime for Legacy animation clips, as stated in [the documentation
-for `Animation.SetCurve`](https://docs.unity3d.com/ScriptReference/AnimationClip.SetCurve.html).
+[^4]: The main limitation is that
+      [AnimationClip.SetCurve](https://docs.unity3d.com/ScriptReference/AnimationClip.SetCurve.html)
+      only works at runtime for Legacy animation clips.

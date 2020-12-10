@@ -112,12 +112,10 @@ Piglet places the generated prefab and any dependent asset files (e.g.
 textures, materials, meshes) under a newly-created subfolder named after
 the input `.gltf`/`.glb`/`.zip` file.
 
-![](images/editor-import-figure.png){#editor-import-figure width="100%"}
-
-*Figure 1: Importing a glTF model in the Editor. (A) The user
+![Importing a glTF model in the Editor. (A) The user
 drags-and-drops a .gltf/.glb/.zip file from Windows File Explorer to the
 Unity Project Browser window. (B) Piglet creates a Unity prefab for the
-model and opens it in the Prefab View.*
+model and opens it in the Prefab View.](images/editor-import-figure.png){#fig:editor-import width="100%"}
 
 There may be circumstances where you want copy a `.gltf`/`.glb`/`.zip`
 file into your project without automatically converting it to a Unity
@@ -158,9 +156,7 @@ imported glTF model (located one level up from the `Animations`
 folder) onto the Animation Preview Area. You will then be able to
 click the Play button to view the animation.
 
-![](images/animation-preview-figure.png){#animation-preview-figure width="100%"}
-
-*Figure XXX: Previewing an animation clip in the Editor. (A) The user
+![Previewing an animation clip in the Editor. (A) The user
 selects an animation clip in the "Animations" subdirectory, causing
 the Animation Preview Area to appear in the Inspector (bottom right).
 (B) The user drags the prefab for the model from the main import
@@ -172,7 +168,7 @@ Animation Preview Area. **Attribution**: These screenshots depict the
 Hartman"](https://sketchfab.com/3d-models/morpher-animated-face-military-cartoon-hartman-538a674c39e24c15965231ab2bdb656a)
 model by Willy Decarpentrie,
 [skudgee@sketchfab](https://sketchfab.com/skudgee), [CC Attribution
-License](https://creativecommons.org/licenses/by/4.0/).*
+License](https://creativecommons.org/licenses/by/4.0/).](images/animation-preview-figure.png){#fig:animation-preview width="100%"}
 
 ### Playing (Mecanim) Animations at Runtime
 
@@ -201,9 +197,7 @@ importantly, it allows provides access the `.name` field of each
 animation clip, which is needed for playing the clip with the
 `Animator` component.
 
-![](images/mecanim-animation-components-figure.png){#mecanim-animation-components-figure width="100%"}
-
-*Figure XXX: Animation-related components on the root `GameObject` (A)
+![Animation-related components on the root `GameObject` (A)
 of an Editor-imported model. When a glTF model has one or more animations,
 Piglet will attach: an `Animator` component for playing the
 animation clips at runtime (B), and an `AnimationList` component for
@@ -212,7 +206,7 @@ file (C). **Attribution**: These screenshots depict the ["Cartoon
 Hartman"](https://sketchfab.com/3d-models/morpher-animated-face-military-cartoon-hartman-538a674c39e24c15965231ab2bdb656a)
 model by Willy Decarpentrie,
 [skudgee@sketchfab](https://sketchfab.com/skudgee), [CC Attribution
-License](https://creativecommons.org/licenses/by/4.0/).*
+License](https://creativecommons.org/licenses/by/4.0/).](images/mecanim-animation-components-figure.png){#fig:mecanim-animation-components width="100%"}
 
 Every `Animator` component depends on a state machine called an
 `AnimatorController`, in order to determine which animation clip to
@@ -222,9 +216,7 @@ animation clips. In order to start playing a particular clip at runtime, we
 simply need to activate the correct state and start the state machine.
 Both of these tasks are done with the `Animator.Play` method.
 
-![](images/animator-controller-figure.png){#animator-controller-figure width="100%"}
-
-*Figure XXX: An example `AnimatorController` used for playing
+![An example `AnimatorController` used for playing
 Editor-imported animation clips at runtime. An `AnimatorController` is
 a state machine used by the `Animator` component to determine which
 animation clip to play at any given time.  Piglet creates a default
@@ -233,7 +225,7 @@ subdirectory (C). This controller contains one state per animation
 clip (D) and two special states that are present in every
 `AnimatorController`: "Any State" (A) and "Entry" (B). For regular
 controller states, the link between a state and its corresponding
-animation clip is set by the `Motion` field (E).*
+animation clip is set by the `Motion` field (E).](images/animator-controller-figure.png){#fig:animator-controller width="100%"}
 
 Figure XXX shows an example script that plays a Mecanim animation clip
 as soon as Unity enters Play Mode. We start the animation by calling
@@ -564,9 +556,7 @@ the glTF file. More importantly, it provides access to the `.name`
 field of each animation clip, which is needed for playing the clip
 with the `Animation` component.
 
-![](images/legacy-animation-components-figure.png){#legacy-animation-components-figure width="100%"}
-
-*Figure XXX: Animation-related components on the root `GameObject` (A)
+![Animation-related components on the root `GameObject` (A)
 of an runtime-imported model. When a glTF model has one or more animations,
 Piglet will attach: an `Animation` component for playing the
 animation clips (B), and an `AnimationList` component for
@@ -575,7 +565,7 @@ file (C). **Attribution**: These screenshots depict the ["Cartoon
 Hartman"](https://sketchfab.com/3d-models/morpher-animated-face-military-cartoon-hartman-538a674c39e24c15965231ab2bdb656a)
 model by Willy Decarpentrie,
 [skudgee@sketchfab](https://sketchfab.com/skudgee), [CC Attribution
-License](https://creativecommons.org/licenses/by/4.0/).*
+License](https://creativecommons.org/licenses/by/4.0/).](images/legacy-animation-components-figure.png){#legacy-animation-components-figure width="100%"}
 
 Figure XXX shows an example script that imports a glTF model with an
 animation, and then immediately plays the animation. The steps
@@ -782,10 +772,8 @@ will fail with an error reminding you to install the shaders.
 
 # Sample Application: PigletViewer {#piglet-viewer}
 
-![](images/piglet-webgl-demo.png){#webgl-demo-figure width="800"}
-
-*Figure 5: A screenshot of PigletViewer, a sample application which uses
-Piglet to view 3D models from glTF files.*
+![A screenshot of PigletViewer, a sample application which uses
+Piglet to view 3D models from glTF files.](images/piglet-webgl-demo.png){#fig:webgl-demo width="800"}
 
 PigletViewer is sample application which uses Piglet to view 3D models
 from glTF files (\`.gltf\`, \`.glb\`, or \`.zip\`), and which is used

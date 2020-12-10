@@ -3,6 +3,8 @@ author-meta: Awesomesauce Labs
 description: 'Manual: Piglet glTF Importer for Unity'
 title: 'Manual: Piglet glTF Importer 1.0.4'
 codeBlockCaptions: true
+figPrefix: Figure
+lstPrefix: Listing
 ---
 
 -   Online documentation:
@@ -103,7 +105,7 @@ issue.
 Once you have installed Piglet from the Unity Asset Store, you can
 import glTF models into your Unity project by dragging-and-dropping
 `.gltf`/`.glb`/`.zip` files from a file browser window (e.g. Windows
-File Explorer) to a folder inside the Unity Project Browser (Figure 1).
+File Explorer) to a folder inside the Unity Project Browser (@fig:editor-import).
 Any folder under `Assets` can be used as the drop target, including the
 `Assets` directory itself.
 
@@ -144,12 +146,12 @@ If a glTF file contains animations, Piglet will create an additional
 asset (`controller`) for playing the animations at runtime, (2) a
 "Static Pose" `AnimationClip` for resetting the model to its default
 pose, and (3) one `AnimationClip` asset for each animation from the
-glTF file (Figure XXX). The `controller` asset is not needed for
+glTF file (@fig:animation-preview). The `controller` asset is not needed for
 previewing animations and is further explained in [Playing (Mecanim)
 Animations at Runtime](#playing-mecanim-animations-at-runtime).
 
 To preview an glTF animation in the Editor, first select the
-AnimationClip asset in the Project Browser window (Figure XXX). This
+AnimationClip asset in the Project Browser window (@fig:animation-preview). This
 will cause a blank Animation Preview Area to appear in the Inspector
 window with the message `No model is available for preview. Please
 drag a model into this Preview Area`. Next, drag the prefab for the
@@ -192,7 +194,7 @@ two additional components to the root `GameObject` of the imported
 model: (1) an `Animator` component for controlling playback of the
 imported (Mecanim) animation clips, and (2) an `AnimationList`
 component containing an ordered list of the imported animation clips
-(Figure XXX). The `AnimationList` component allows users to access the
+(@fig:mecanim-animation-components). The `AnimationList` component allows users to access the
 imported animation clips by their index in the glTF file. More
 importantly, it allows provides access the `.name` field of each
 animation clip, which is needed for playing the clip with the
@@ -211,7 +213,7 @@ License](https://creativecommons.org/licenses/by/4.0/).](images/mecanim-animatio
 
 Every `Animator` component depends on a state machine called an
 `AnimatorController`, in order to determine which animation clip to
-play at any given time (Figure XXX). In most cases, there is a
+play at any given time (@fig:animator-controller). In most cases, there is a
 one-to-one correspondence between `AnimatorController` states and
 animation clips. In order to start playing a particular clip at runtime, we
 simply need to activate the correct state and start the state machine.
@@ -228,7 +230,7 @@ clip (D) and two special states that are present in every
 controller states, the link between a state and its corresponding
 animation clip is set by the `Motion` field (E).](images/animator-controller-figure.png){#fig:animator-controller width="100%"}
 
-Figure XXX shows an example script that plays a Mecanim animation clip
+@lst:play-mecanim-clip shows an example script that plays a Mecanim animation clip
 as soon as Unity enters Play Mode. We start the animation by calling
 the `Animator.Play` method, passing in the initial `AnimatorController`
 state and layer as arguments. We get the controller state name from
@@ -355,7 +357,7 @@ public class RuntimeImportBehaviour : MonoBehaviour
 ```
 : Minimal code to import a glTF file at runtime.
 
-As shown in Figure 2, a runtime glTF import happens in two parts. First,
+As shown in @lst:runtime-import, a runtime glTF import happens in two parts. First,
 we create an import task by calling `RuntimeGltfImporter.GetImportTask`,
 passing in the URL of the glTF model as a parameter. To load a local
 .gltf/.glb/.zip file, we may instead pass `GetImportTask` an absolute
@@ -366,7 +368,7 @@ the task. A convenient place to call `MoveNext()` is in the `Update()`
 method, which is called by Unity once per frame. Continuing to call
 `MoveNext()` after the import has completed does no harm.
 
-Attaching the script from Figure 2 to any game object in your Unity
+Attaching the script from @lst:runtime-import to any game object in your Unity
 scene is sufficient to import a glTF model at runtime. However, in a
 real game/application, you will probably want tighter integration
 between your own code and the importer. For example, you may want to
@@ -377,9 +379,9 @@ messages (`OnProgress`), user cancelation (`OnAborted`), import errors
 (`OnException`), and successful completion (`OnCompleted`).
 
 As a first example of callback usage, we'll extend the example script
-from Figure 2 to print progress messages during the glTF import. We can
+from @lst:runtime-import to print progress messages during the glTF import. We can
 achieve this by assigning a custom method to the `OnProgress` callback
-for the import task, as shown in Figure 3.
+for the import task, as shown in @lst:runtime-import-with-progress.
 
 ```{#lst:runtime-import-with-progress .cs}
 using Piglet;
@@ -445,8 +447,8 @@ public class RuntimeImportBehaviour : MonoBehaviour
     }
 }
 ```
-: An extension of the runtime import script from Figure 2 that
-prints progress messages to the Unity console. In comparison to Figure 2,
+: An extension of the runtime import script from @lst:runtime-import that
+prints progress messages to the Unity console. In comparison to @lst:runtime-import,
 the new parts of the code are the `OnProgress` method and the assignment
 of `OnProgress` to `_task.OnProgress` in `Start`.
 
@@ -455,13 +457,13 @@ import has successfully completed. For example, you might want to
 automatically resize the model, parent the model to another game object,
 or attach a custom `MonoBehaviour` to the model. These types of tasks
 can be accomplished using the `OnCompleted` callback. To demonstrate,
-the example script in Figure 4 uses the `OnCompleted` callback to obtain
+the example script in @lst:runtime-import-spin uses the `OnCompleted` callback to obtain
 a reference to the imported model, then uses that reference to
 continually spin the model about the y-axis as if it were on a record
 turntable.
 
-The example in Figure 4 marks the end of this tutorial. Good luck and
-happy coding!
+The example in @lst:runtime-import-spin marks the end of this
+tutorial. Good luck and happy coding!
 
 ```{#lst:runtime-import-spin .cs}
 using Piglet;
@@ -528,8 +530,8 @@ public class RuntimeImportBehaviour : MonoBehaviour
     }
 }
 ```
-: An extension of the runtime import script from Figure 2 that
-spins the imported model about the y-axis. In comparison to Figure 2,
+: An extension of the runtime import script from @lst:runtime-import that
+spins the imported model about the y-axis. In comparison to @lst:runtime-import,
 the new parts of the code are the `OnComplete` method, the
 assignment of `OnComplete` to `_task.OnCompleted` in `Start`,
 and the call to `_model.transform.Rotate` in `Update`.
@@ -548,7 +550,7 @@ runtime, it attaches two additional components to the root
 `GameObject` of the model: (1) an `Animation` component for
 controlling playback of the imported (Legacy) animation clips, and (2)
 and `AnimationList` component containing an ordered list of the
-imported animation clips (Figure XXX).  The `AnimationList` component
+imported animation clips (@fig:legacy-animation-components).  The `AnimationList` component
 allows users to access the imported animation clips by their index in
 the glTF file. More importantly, it provides access to the `.name`
 field of each animation clip, which is needed for playing the clip
@@ -565,7 +567,7 @@ model by Willy Decarpentrie,
 [skudgee@sketchfab](https://sketchfab.com/skudgee), [CC Attribution
 License](https://creativecommons.org/licenses/by/4.0/).](images/legacy-animation-components-figure.png){#fig:legacy-animation-components width="100%"}
 
-Figure XXX shows an example script that imports a glTF model with an
+@lst:runtime-animation shows an example script that imports a glTF model with an
 animation, and then immediately plays the animation. The steps
 for importing the model with animations are the same as those for
 importing a static model (see the [Runtime Import
@@ -573,7 +575,7 @@ Tutorial](#runtime-import-tutorial) for further examples): (1)
 create a `GltfImportTask` in the `Start` method, and (2) advance
 execution of the task by calling `GltfImportTask.MoveNext` in `Update`.
 
-The `OnComplete` method of Figure XXX handles playing the animation
+The `OnComplete` method of @lst:runtime-animation handles playing the animation
 once the model has finished loading. By assigning `OnComplete` to
 `_task.OnCompleted` in `Start`, the `OnComplete` method is automatically invoked 
 by Piglet after the glTF import completes. Piglet passes the

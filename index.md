@@ -563,7 +563,7 @@ file (C). **Attribution**: These screenshots depict the ["Cartoon
 Hartman"](https://sketchfab.com/3d-models/morpher-animated-face-military-cartoon-hartman-538a674c39e24c15965231ab2bdb656a)
 model by Willy Decarpentrie,
 [skudgee@sketchfab](https://sketchfab.com/skudgee), [CC Attribution
-License](https://creativecommons.org/licenses/by/4.0/).](images/legacy-animation-components-figure.png){#legacy-animation-components-figure width="100%"}
+License](https://creativecommons.org/licenses/by/4.0/).](images/legacy-animation-components-figure.png){#fig:legacy-animation-components width="100%"}
 
 Figure XXX shows an example script that imports a glTF model with an
 animation, and then immediately plays the animation. The steps

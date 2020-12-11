@@ -9,7 +9,7 @@ lstPrefix: Listing
 
 -   Online documentation:
     <https://awesomesaucelabs.github.io/piglet-manual/>
--   Support e-mail: <awesomesaucelabs@gmail.com>
+-   Support e-mail: "awesomesaucelabs" (at gmail)
 
 ![](images/piglet-logo.png){width="40%"}
 

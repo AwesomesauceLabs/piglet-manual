@@ -1,7 +1,7 @@
 ---
 author-meta: Awesomesauce Labs
 description: 'Manual: Piglet glTF Importer for Unity'
-title: 'Manual: Piglet glTF Importer 1.0.4'
+title: 'Manual: Piglet glTF Importer 1.1.0'
 codeBlockCaptions: true
 figPrefix: Figure
 lstPrefix: Listing
@@ -813,6 +813,31 @@ PigletViewer code, as the tutorial provides a much more succinct
 introduction to the Piglet API.
 
 # Changelog
+
+## Release 1.1.0 (2020-12-11)
+
+Major release!
+
+This release adds animation support:
+
+* Import and play glTF animations, in the Editor or at runtime
+* Animation of skins and blendshapes is fully supported
+* Editor imports create Mecanim (default) or Legacy clips, runtime imports create Legacy clips
+* A special "Static Pose" clip is automatically generated to reset the model to its default pose
+* Full details provided in new manual sections and tutorial videos
+
+Minor features:
+
+* `RuntimeGltfImporter.GetGltfImportTask` methods now accepts an optional `GltfImportOptions` argument
+* New option to automatically unhide model after import (enabled by default)
+* New option to scale imported models to a standard size (disabled by default)
+* New option to enable/disable import of animations (enabled by default)
+* New options available in Piglet Options Window (see Window -> Piglet Options in Unity Menu)
+
+Bugfixes:
+
+* Fix URP shader compile error in Unity 2020.2.0b14+
+* Split URP shaders into URP-Shaders-2019.3.unitypackage and URP-Shaders-2020.2.unitypackage, based on Unity version
 
 ## Release 1.0.4 (2020-09-28)
 

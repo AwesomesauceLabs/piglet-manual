@@ -42,7 +42,7 @@ lstPrefix: Listing
 
 Piglet is a Unity asset that allows you to import 3D models from glTF
 files, both in the Editor and at runtime. This provides Unity developers
-access to a large collection of free textures, materials, and models
+with access to a large collection of free textures, materials, and models
 from sites like [Sketchfab](https://sketchfab.com/) and [Google
 Poly](https://poly.google.com)[^poly].
 

@@ -99,8 +99,9 @@ issue.
 
 ## Importing glTF Files by Drag-and-Drop
 
-*Note*: For a video demonstration of Piglet Editor imports, see
-<https://youtu.be/wf26w0gcVcA>.
+This section demonstrates how to import glTF models in the Editor.  For
+a video version of this section, see the [Editor Import Demo
+video](https://youtu.be/wf26w0gcVcA).
 
 Once you have installed Piglet from the Unity Asset Store, you can
 import glTF models into your Unity project by dragging-and-dropping
@@ -136,8 +137,10 @@ by any of the following methods:
 ## Editor Animation Tutorial
 
 Piglet can import and play animations from glTF files, both in the
-Editor and at runtime.  This section demonstrates how to work with
-animation clips created during Editor imports.
+Editor and at runtime.  This section demonstrates how to preview
+animation clips created during Editor imports, and how to play them
+back from runtime scripts. For a video version of this section, see
+the [Editor Animation Tutorial video](https://youtu.be/MX2cIKCxm90).
 
 ### Previewing Animations in the Editor
 
@@ -315,9 +318,10 @@ interruption to the main Unity thread.
 ## Runtime Import Tutorial
 
 This section walks through example code for importing a glTF model at
-runtime. The example code in this section is included with Piglet under
-`Assets/Piglet/Examples/RuntimeImport`, and a video version of this
-tutorial is available online at <https://youtu.be/f66wmgSTPI0>.
+runtime. For a video version of this section, see the [Runtime Import
+Tutorial video](https://youtu.be/f66wmgSTPI0).  In addition, the
+example code in this section is included with Piglet under
+`Assets/Piglet/Examples/RuntimeImport`.
 
 As our example glTF model, we will use the `.glb` file for Sir
 Piggleston (the Piglet mascot), which may be downloaded from
@@ -550,7 +554,10 @@ and the call to `_model.transform.Rotate` in `Update`.
 ### Runtime Animation Tutorial
 
 This section demonstrates how to import and play animations from a
-glTF file at runtime. Runtime glTF imports always use the Legacy
+glTF file at runtime. For a video version of this section, see the
+[Runtime Animation Tutorial video](https://youtu.be/FBLCKLZljRE).
+
+Runtime glTF imports always use the Legacy
 animation system, because Mecanim cannot create animation clips at
 runtime[^mecanim-limitation] (as of December 2020). In practice,
 I have not found this to be an issue -- for simple playback of glTF

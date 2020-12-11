@@ -796,7 +796,7 @@ will fail with an error reminding you to install the shaders.
 ![A screenshot of PigletViewer, a sample application which uses
 Piglet to view 3D models from glTF files.](images/piglet-webgl-demo.png){#fig:webgl-demo width="800"}
 
-PigletViewer is sample application which uses Piglet to view 3D models
+PigletViewer is a sample application which uses Piglet to view 3D models
 from glTF files (\`.gltf\`, \`.glb\`, or \`.zip\`), and which is used
 for the [Piglet Web
 Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/). For the

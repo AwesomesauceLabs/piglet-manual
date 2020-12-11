@@ -75,10 +75,11 @@ to try Piglet before you buy it.
 # Setup
 
 To set up Piglet in your project, purchase and install Piglet from the
-Unity Asset Store page. Piglet works with Unity 2018.4 or later, and
-does not require installation of any third-party dependencies. If you
-wish to try your own glTF models with Piglet prior to purchasing the
-asset, please see the [Piglet WebGL
+[Asset Store
+page](https://assetstore.unity.com/packages/slug/173425). Piglet works
+with Unity 2018.4 or later, and does not require installation of any
+third-party dependencies. If you wish to try your own glTF models with
+Piglet prior to purchasing the asset, please see the [Piglet WebGL
 Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/).
 
 Piglet bundles the following libraries:

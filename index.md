@@ -52,16 +52,17 @@ to try Piglet before you buy it.
 
 # Features
 
--   import glTF models in the Editor or at runtime
--   import glTF models from `.gltf`, `.glb`, or `.zip` files, using file
-    paths or HTTP URLs
--   extract textures and materials from glTF models, for use with your
-    own 3D models
--   tested with glTF models from [Sketchfab](https://sketchfab.com/),
-    [Google Poly](https://poly.google.com), and
-    [Blender](https://www.blender.org/)
--   supported platforms: Windows, Android, WebGL (Unity 2018.4 or newer)
--   full source code provided
+* import glTF models in the Editor or at runtime
+* import glTF models from `.gltf`, `.glb`, or `.zip` files, using file
+  paths or HTTP URLs
+* supports animations, including skins and blendshapes
+* extract textures and materials from glTF files to use with your own models
+* tested with glTF models from [Sketchfab](https://sketchfab.com/),
+  [Google Poly](https://poly.google.com), and
+  [Blender](https://www.blender.org/)
+* supported platforms: Windows, Android, WebGL (Unity 2018.4 or newer)
+* supported render pipelines: built-in (Unity 2018.4+), URP (Unity 2019.3+)
+* full source code provided
 
 # Caveats
 

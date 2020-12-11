@@ -35,7 +35,7 @@ lstPrefix: Listing
         * [Executing a GltfImportTask](#executing-a-gltfimporttask)
 * [URP Support (Unity 2019.3+)](#urp-support)
 * [Sample Application: PigletViewer](#piglet-viewer)
-* [Change Log](#change-log)
+* [Changelog](#changelog)
 * [Footnotes](#footnotes)
 
 # Introduction
@@ -810,7 +810,7 @@ developing for those platforms. In general, I recommend looking at the
 PigletViewer code, as the tutorial provides a much more succinct
 introduction to the Piglet API.
 
-# Change Log
+# Changelog
 
 ## Release 1.0.4 (2020-09-28)
 

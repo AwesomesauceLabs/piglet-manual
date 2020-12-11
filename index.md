@@ -589,10 +589,10 @@ License](https://creativecommons.org/licenses/by/4.0/).](images/legacy-animation
 
 @lst:runtime-animation shows an example script that imports a glTF
 model with an animation at runtime, and then immediately plays the
-animation. The basic steps for importing a glTF model are always the
-same, regardless of whether the model has animations: (1) create a
-`GltfImportTask` in the `Start` method, and (2) advance execution of
-the task by calling `GltfImportTask.MoveNext` in `Update`.
+animation. The basic steps for importing an animated glTF model are
+the same as for static models: (1) create a `GltfImportTask` in the
+`Start` method, and (2) advance execution of the task by calling
+`GltfImportTask.MoveNext` in `Update`.
 
 To play the animation after the model has finished loading, we assign
 the `OnComplete` method to `_task.OnCompleted` in `Start`. Piglet

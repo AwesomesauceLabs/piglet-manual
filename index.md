@@ -568,7 +568,7 @@ animations, the Legacy system works very well.
 When Piglet imports a glTF model with one or more animations at
 runtime, it attaches two additional components to the root
 `GameObject` of the model: (1) an `Animation` component for
-controlling playback of the animation clips, and (2) and
+controlling playback of the animation clips, and (2) an
 `AnimationList` component containing an ordered list of the animation
 clips (@fig:legacy-animation-components).  The `AnimationList`
 component allows users to access the imported animation clips by their

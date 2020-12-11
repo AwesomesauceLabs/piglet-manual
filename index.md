@@ -44,10 +44,10 @@ Piglet is a Unity asset that allows you to import 3D models from glTF
 files, both in the Editor and at runtime. This provides Unity developers
 access to a large collection of free textures, materials, and models
 from sites like [Sketchfab](https://sketchfab.com/) and [Google
-Poly](https://poly.google.com)[^1].
+Poly](https://poly.google.com)[^poly].
 
 Visit the [Web
-Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/)[^2]
+Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/)[^web-demo]
 to try Piglet before you buy it.
 
 # Features
@@ -137,17 +137,17 @@ by any of the following methods:
 
 Piglet can import and play animations from glTF files, both in the
 Editor and at runtime.  This section demonstrates how to work with
-animations created during Editor imports.
+animation clips created during Editor imports.
 
 ### Previewing Animations in the Editor
 
-If a glTF file contains animations, Piglet will create an additional
-`Animations` subdirectory containing: (1) an `AnimatorController`
-asset (`controller`) for playing the animations at runtime, (2) a
+If a glTF file contains animations, Piglet will create an
+`Animations` subdirectory under the main import directory containing: (1) an `AnimatorController`
+asset ("controller") for playing the animations at runtime, (2) a
 "Static Pose" `AnimationClip` for resetting the model to its default
-pose, and (3) one `AnimationClip` asset for each animation from the
-glTF file (@fig:animation-preview). The `controller` asset is not needed for
-previewing animations and is further explained in [Playing (Mecanim)
+pose, and (3) an `AnimationClip` asset for each animation from the
+glTF file (@fig:animation-preview). The "controller" asset is not needed for
+previewing animations but is further explained in [Playing (Mecanim)
 Animations at Runtime](#playing-mecanim-animations-at-runtime).
 
 To preview an glTF animation in the Editor, first select the
@@ -156,8 +156,8 @@ will cause a blank Animation Preview Area to appear in the Inspector
 window with the message `No model is available for preview. Please
 drag a model into this Preview Area`. Next, drag the prefab for the
 imported glTF model (located one level up from the `Animations`
-folder) onto the Animation Preview Area. You will then be able to
-click the Play button to view the animation.
+folder) onto the Animation Preview Area. You should then be able to
+click the Play button to view the animation in the Editor.
 
 ![Previewing an animation clip in the Editor. (A) The user
 selects an animation clip in the "Animations" subdirectory, causing
@@ -175,30 +175,22 @@ License](https://creativecommons.org/licenses/by/4.0/).](images/animation-previe
 
 ### Playing (Mecanim) Animations at Runtime
 
-This section demonstrates how runtime scripts can play animation clips
-that were created during an Editor (i.e. drag-and-drop) glTF import.
-By default, Editor glTF imports create _Mecanim_[^3]
-animation clips, and the instructions in this section are specific to
-Mecanim. (If you are looking for a good introduction to the Mecanim animation
-system, I highly recommend [Controlling
-Animation](https://learn.unity.com/tutorial/controlling-animation) on
-Unity Learn.) For details about playing Legacy animation clips at
-runtime, see the [Runtime Animation
-Tutorial](#runtime-animation-tutorial) section of this manual.
-(Piglet runtime glTF imports use the Legacy animation system because
-Mecanim is not (yet) capable of programmatically creating animations
-at runtime.)
+This section demonstrates how play animation clip assets from runtime
+scripts.  By default, Editor glTF imports create Mecanim animation
+clips, and the instructions in this section are specific to
+Mecanim[^mecanim-vs-legacy] [^mecanim-tutorial]. For details about
+playing Legacy animation clips at runtime, see the [Runtime Animation
+Tutorial](#runtime-animation-tutorial) section of this manual[^why-legacy].
 
 When a glTF file contains one or more animations, Piglet will attach
-two additional components to the root `GameObject` of the imported
-model: (1) an `Animator` component for controlling playback of the
-imported (Mecanim) animation clips, and (2) an `AnimationList`
-component containing an ordered list of the imported animation clips
-(@fig:mecanim-animation-components). The `AnimationList` component allows users to access the
-imported animation clips by their index in the glTF file. More
-importantly, it allows provides access the `.name` field of each
-animation clip, which is needed for playing the clip with the
-`Animator` component.
+two additional components to the root `GameObject` of the model: (1)
+an `Animator` component for controlling playback of the animation
+clips, and (2) an `AnimationList` component with an ordered list of
+the animation clips (@fig:mecanim-animation-components). The
+`AnimationList` component allows users to access the
+animation clips by their original index in the glTF file. More importantly, it
+provides access to the `.name` field of each animation clip, which
+is needed for play that clip with the `Animator` component.
 
 ![Animation-related components on the root `GameObject` (A)
 of an Editor-imported model. When a glTF model has one or more animations,
@@ -212,12 +204,13 @@ model by Willy Decarpentrie,
 License](https://creativecommons.org/licenses/by/4.0/).](images/mecanim-animation-components-figure.png){#fig:mecanim-animation-components width="100%"}
 
 Every `Animator` component depends on a state machine called an
-`AnimatorController`, in order to determine which animation clip to
+`AnimatorController`, that determines which animation clip to
 play at any given time (@fig:animator-controller). In most cases, there is a
 one-to-one correspondence between `AnimatorController` states and
 animation clips. In order to start playing a particular clip at runtime, we
-simply need to activate the correct state and start the state machine.
-Both of these tasks are done with the `Animator.Play` method.
+just need to activate the correct state in the `AnimatorController`
+and start the `Animator` playing. Both of these tasks are accomplished
+by calling the `Animator.Play` method.
 
 ![An example `AnimatorController` used for playing
 Editor-imported animation clips at runtime. An `AnimatorController` is
@@ -227,18 +220,24 @@ animation clip to play at any given time.  Piglet creates a default
 subdirectory (C). This controller contains one state per animation
 clip (D) and two special states that are present in every
 `AnimatorController`: "Any State" (A) and "Entry" (B). For regular
-controller states, the link between a state and its corresponding
+controller states, the link between the state and its corresponding
 animation clip is set by the `Motion` field (E).](images/animator-controller-figure.png){#fig:animator-controller width="100%"}
 
-@lst:play-mecanim-clip shows an example script that plays a Mecanim animation clip
-as soon as Unity enters Play Mode. We start the animation by calling
-the `Animator.Play` method, passing in the initial `AnimatorController`
-state and layer as arguments. We get the controller state name from
-the `.name` field of the target animation clip, from the
-`AnimationList` component. We pass in 0 for the layer argument, since
-the default controller generated by Piglet only uses one layer
-(i.e. the default layer). (In general, controller layers are used for
-blending animations.)
+@lst:play-mecanim-clip shows an example script that plays a Mecanim
+animation clip as soon as Unity enters Play Mode. We start the
+animation by calling the `Animator.Play` method, passing in the
+initial `AnimatorController` state and layer[^controller-layers] as
+arguments. By convention, Piglet uses the `.name` field of an
+`AnimationClip` for the corresponding state name in the
+`AnimatorController`, and thus we can get the state name by accessing
+the target clip by index in the `AnimationList` component. Note that
+@lst:play-mecanim-clip accesses the clip at index 1 in the
+`AnimationList`, rather than index 0, because index 0 is reserved for
+the special "Static Pose" clip that resets the model to its default
+pose[^static-pose]. As such, the animations imported from the
+glTF file always start at index 1. For the layer argument to
+`Animator.Play`, we simply pass in 0, because the controller
+generated by Piglet only uses the default layer.
 
 ```{#lst:play-mecanim-clip .cs}
 using UnityEngine;
@@ -250,15 +249,27 @@ public class AnimationBehaviour : MonoBehaviour
     {
         var anim = GetComponent<Animator>();
         var animList = GetComponent<AnimationList>();
+
+        // Note: Imported animation clips always start
+        // at index 1, because index "0" is reserved for
+        // the "Static Pose" clip.
+
         var stateName = animList.Clips[1].name;
+
+        // Note: We use 0 for the layer index argument
+        // because the AnimatorController generated by
+        // Piglet only uses the default layer.
+
         anim.Play(stateName, 0);
     }
 }
 ```
-: A minimal script for playing an Editor-imported (Mecanim)
-animation clip at runtime. When this script is attached to the root `GameObject`
-of the glTF model, it plays the animation clip at index 1
-in the `AnimationList`, immediately after Unity enters Play Mode.
+: A minimal script for playing an Editor-imported (Mecanim) animation
+clip at runtime. When this script is attached to the root `GameObject`
+of the model, it plays the first animation from the glTF file,
+immediately after Unity enters Play Mode. Note that the imported
+animations always begin at index 1 in the `AnimationList`, because
+index 0 is reserved for the "Static Pose" clip.
 
 ## Piglet Options Window
 
@@ -539,25 +550,25 @@ and the call to `_model.transform.Rotate` in `Update`.
 ### Runtime Animation Tutorial
 
 This section demonstrates how to import and play animations from a
-glTF file/URL at runtime. Runtime glTF imports always use Legacy
-animation clips, because Unity does not yet provide an API for
-creating Mecanim animation clips at runtime[^4] (as of December 2020)
-. For basic playback of glTF animations, the Legacy system
-is just as good as Mecanim.
+glTF file at runtime. Runtime glTF imports always use the Legacy
+animation system, because Mecanim cannot create animation clips at
+runtime[^mecanim-limitation] (as of December 2020). In practice,
+I have not found this to be an issue -- for simple playback of glTF
+animations, the Legacy system works very well.
 
 When Piglet imports a glTF model with one or more animations at
 runtime, it attaches two additional components to the root
 `GameObject` of the model: (1) an `Animation` component for
-controlling playback of the imported (Legacy) animation clips, and (2)
-and `AnimationList` component containing an ordered list of the
-imported animation clips (@fig:legacy-animation-components).  The `AnimationList` component
-allows users to access the imported animation clips by their index in
-the glTF file. More importantly, it provides access to the `.name`
-field of each animation clip, which is needed for playing the clip
-with the `Animation` component.
+controlling playback of the animation clips, and (2) and
+`AnimationList` component containing an ordered list of the animation
+clips (@fig:legacy-animation-components).  The `AnimationList`
+component allows users to access the imported animation clips by their
+original index in the glTF file. More importantly, it provides access
+to the `.name` field of each animation clip, which is needed for
+playing the clip with the `Animation` component.
 
 ![Animation-related components on the root `GameObject` (A)
-of an runtime-imported model. When a glTF model has one or more animations,
+of a runtime-imported model. When a glTF model has one or more animations,
 Piglet will attach: an `Animation` component for playing the
 animation clips (B), and an `AnimationList` component for
 accessing the animation clips by their original index in the glTF
@@ -567,26 +578,26 @@ model by Willy Decarpentrie,
 [skudgee@sketchfab](https://sketchfab.com/skudgee), [CC Attribution
 License](https://creativecommons.org/licenses/by/4.0/).](images/legacy-animation-components-figure.png){#fig:legacy-animation-components width="100%"}
 
-@lst:runtime-animation shows an example script that imports a glTF model with an
-animation, and then immediately plays the animation. The steps
-for importing the model with animations are the same as those for
-importing a static model (see the [Runtime Import
-Tutorial](#runtime-import-tutorial) for further examples): (1)
-create a `GltfImportTask` in the `Start` method, and (2) advance
-execution of the task by calling `GltfImportTask.MoveNext` in `Update`.
+@lst:runtime-animation shows an example script that imports a glTF
+model with an animation at runtime, and then immediately plays the
+animation. The basic steps for importing a glTF model are always the
+same, regardless of whether the model has animations: (1) create a
+`GltfImportTask` in the `Start` method, and (2) advance execution of
+the task by calling `GltfImportTask.MoveNext` in `Update`.
 
-The `OnComplete` method of @lst:runtime-animation handles playing the animation
-once the model has finished loading. By assigning `OnComplete` to
-`_task.OnCompleted` in `Start`, the `OnComplete` method is automatically invoked 
-by Piglet after the glTF import completes. Piglet passes the
-root `GameObject` of the imported model as an argument to
-`OnComplete`, which can then be used to access the `Animation` component
-for playing the animation(s). The `Animation` component may hold any
-number of animation clips, where each clip is identified by a unique,
-string-based key. By convention, Piglet uses the `.name` field of each
-animation clip as its key in the `Animation` component, and the value
-of the `.name` field for each imported clip may be obtained by index
-from the `AnimationList` component.
+To play the animation after the model has finished loading, we assign
+the `OnComplete` method to `_task.OnCompleted` in `Start`. Piglet
+passes the root `GameObject` of the imported model as an argument to
+`OnComplete`, which we then use to obtain a reference to the
+`Animation` component for playing the animation. Since an `Animation`
+component can hold any number of animation clips, we need to provide a
+string-based key to `Animation.Play` that identifies the clip to
+play. By convention, Piglet uses the `.name` field of each animation
+clip as its key, and so we can obtain the desired key by accessing the
+animation clip (by index) from the `AnimationList` component. Note
+that the animation clips imported from glTF file always begin at index
+1 of the `AnimationList`, because index 0 is reserved for the "Static
+Pose" clip.
 
 ```{#lst:runtime-animation .cs}
 using Piglet;
@@ -639,6 +650,10 @@ public class RuntimeAnimationBehaviour : MonoBehaviour
     {
         var anim = importedModel.GetComponent<Animation>();
         var animList = importedModel.GetComponent<AnimationList>();
+
+        // Note: Imported animation clips always start
+        // at index 1, because index "0" is reserved for
+        // the "Static Pose" clip.
         var clipKey = animList.Clips[1].name;
         anim.Play(clipKey);
 
@@ -856,13 +871,13 @@ First release!
 
 # Footnotes
 
-[^1]: As of June 2020, Google Poly only provides glTF download links for
+[^poly]: As of June 2020, Google Poly only provides glTF download links for
       models made with [Google Blocks](https://arvr.google.com/blocks/) (as
       opposed to [Tilt Brush](https://www.tiltbrush.com/)). To see only
       Blocks-generated models on Google Poly, visit
       <https://poly.google.com/blocks>.
 
-[^2]: I have tested the [Piglet Web
+[^web-demo]: I have tested the [Piglet Web
       Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/) with
       Firefox and Google Chrome on Windows 10 64-bit. If you are using Google
       Chrome, you can improve performance of the demo by [turning on hardware
@@ -870,19 +885,49 @@ First release!
       (i.e. GPU acceleration) in the browser settings. Currently this option
       is disabled in Chrome by default.
 
-[^3]: As of December 2020, Unity has two animation systems: Mecanim
+[^mecanim-vs-legacy]: As of December 2020, Unity has two animation systems: Mecanim
       and Legacy.  While Unity recommends that new projects use
       Mecanim, each system has its own advantages and
-      drawbacks. Briefly, Mecanim is a newer system that has many more
+      drawbacks. Briefly, Mecanim is a newer system that has more
       features than Legacy (e.g. blending, retargeting), but has a
       steeper learning curve and does not (yet) provide an API for
       creating animations at runtime. On the other hand, the Legacy
-      animation system is simpler, easier to learn, and fully supports
-      creation of animations at runtime. In spite of its name, Unity
-      has continued to support and maintain the Legacy system since
-      the introduction of Mecanim in Unity 4, and is likely to
-      continue supporting Legacy until Mecanim can fully replace it.
+      animation system is simpler, easier to learn, and supports
+      creating animations at runtime. You should not let the name
+      "Legacy" discourage you from using the Legacy animation system
+      if it is a good fit for your project. Unity has continued to
+      support and maintain the Legacy system since the introduction of
+      Mecanim in Unity 4 (November 2012), and it is unlikely that the
+      Legacy system will be removed until Mecanim supports runtime
+      creation of animation clips.
 
-[^4]: The main limitation is that
+[^mecanim-tutorial]: If you are new to the Mecanim animation system, I highly
+      recommend watching a series of videos called [Controlling
+      Animation](https://learn.unity.com/tutorial/controlling-animation)
+      on Unity Learn. These videos provide a very concise introduction
+      to the capabilities and use of Mecanim.
+
+[^why-legacy]: Runtime glTF imports use the Legacy animation system because
+      Mecanim is not capable of creating animation clips at runtime.
+
+[^controller-layers]: `AnimatorController` layers have not been
+      mentioned up to this point, because the controllers generated by
+      Piglet use the default layer (i.e. layer 0). An
+      `AnimatorController` can (optionally) be split into multiple
+      layers, where each layer has its own state machine, for the
+      purpose of blending multiple animations for the same
+      mode (e.g. a running and shooting animation for a humanoid
+      character). For further information, see the "Animator Controllers
+      Layers" video from the [Controlling Animation](https://learn.unity.com/tutorial/controlling-animation#5c7f8528edbc2a002053b4e2)
+      video series on Unity Learn.
+
+[^static-pose]: The "Static Pose" clip (a.k.a "Bind Pose" or "T-Pose")
+      is useful because playing an animation clip permanently changes
+      the transforms (translation/rotation/scale) of the game objects
+      in the model. Users can play the "Static Pose" clip to return
+      the transforms to their original state when the model was first
+      imported.
+      
+[^mecanim-limitation]: The main limitation is that
       [AnimationClip.SetCurve](https://docs.unity3d.com/ScriptReference/AnimationClip.SetCurve.html)
       only works at runtime for Legacy animation clips.

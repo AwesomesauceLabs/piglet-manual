@@ -823,7 +823,7 @@ This release adds animation support:
 * Import and play glTF animations, in the Editor or at runtime
 * Animation of skins and blendshapes is fully supported
 * Editor imports create Mecanim (default) or Legacy clips, runtime imports create Legacy clips
-* A special "Static Pose" clip is automatically generated to reset the model to its default pose
+* A "Static Pose" clip is automatically generated to reset the model to its default pose
 * Full details provided in new manual sections and tutorial videos
 
 Minor features:
@@ -836,8 +836,15 @@ Minor features:
 
 Bugfixes:
 
-* Fix URP shader compile error in Unity 2020.2.0b14+
-* Split URP shaders into URP-Shaders-2019.3.unitypackage and URP-Shaders-2020.2.unitypackage, based on Unity version
+* Fix URPZWrite shader compile error in Unity 2020.2.0b14+ ("invalid conditional expression")
+* URP projects now need to install either URP-Shaders-2019.3.unitypackage and URP-Shaders-2020.2.unitypackage, based on Unity version
+
+Documentation:
+
+* New manual sections for animation
+* Manual is now included with Piglet in HTML format, rather than PDF (automated HTML -> PDF conversion was very error-prone)
+* Moved Changelog into manual, so prospective Piglet customers can read it
+* Nicer manual formatting with `pandoc` and `classless.css`
 
 ## Release 1.0.4 (2020-09-28)
 

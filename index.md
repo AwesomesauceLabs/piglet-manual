@@ -813,6 +813,13 @@ introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.1.1 (2021-01-05)
+
+Bugfix release:
+
+* Fix handling of duplicate names in glTF files (e.g. two meshes named "mesh"). Since Piglet 1.1.0, duplicate names would cause asset files to overwrite each other during Editor imports, resulting in missing model components (textures, materials, meshes, animations).
+* Fix random number generation bug that was causing duplicate temp file names. This was causing runtime glTF import tasks to clobber each other's temp files and/or generate Windows "sharing violation" errors, if the import tasks were run in parallel or in quick succession.
+
 ## Release 1.1.0 (2020-12-11)
 
 Major release!

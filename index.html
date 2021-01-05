@@ -713,6 +713,12 @@
 </figure>
 <p>PigletViewer is a sample application which uses Piglet to view 3D models from glTF files (`.gltf`, `.glb`, or `.zip`), and which is used for the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet Web Demo</a>. For the benefit of Piglet customers, I have published the source code and documentation for PigletViewer online at <a href="https://github.com/AwesomesauceLabs/piglet-viewer" class="uri">https://github.com/AwesomesauceLabs/piglet-viewer</a>, under an MIT license. PigletViewer currently supports builds for Android, WebGL, and Windows, and thus it may be a useful reference for Piglet users developing for those platforms. In general, I recommend looking at the <a href="#runtime-import-tutorial">Runtime Import Tutorial</a> before exploring the PigletViewer code, as the tutorial provides a much more succinct introduction to the Piglet API.</p>
 <h1 id="changelog">Changelog</h1>
+<h2 id="release-1.1.1-2021-01-05">Release 1.1.1 (2021-01-05)</h2>
+<p>Bugfix release:</p>
+<ul>
+<li>Fix handling of duplicate names in glTF files (e.g. two meshes named “mesh”). Since Piglet 1.1.0, duplicate names would cause asset files to overwrite each other during Editor imports, resulting in missing model components (textures, materials, meshes, animations).</li>
+<li>Fix random number generation bug that was causing duplicate temp file names. This was causing runtime glTF import tasks to clobber each other’s temp files and/or generate Windows “sharing violation” errors, if the import tasks were run in parallel or in quick succession.</li>
+</ul>
 <h2 id="release-1.1.0-2020-12-11">Release 1.1.0 (2020-12-11)</h2>
 <p>Major release!</p>
 <p>This release adds animation support:</p>

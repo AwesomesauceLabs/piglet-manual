@@ -625,8 +625,8 @@ public class RuntimeAnimationBehaviour : MonoBehaviour
 
     /// <summary>
     /// Unity callback that is invoked before the first frame.
-    /// Create the glTF import task and set up callbacks for
-    /// progress messages and successful completion.
+    /// Create the glTF import task and set up callback for
+    /// successful completion.
     /// </summary>
     void Start()
     {
@@ -672,8 +672,7 @@ public class RuntimeAnimationBehaviour : MonoBehaviour
     /// <summary>
     /// Unity callback that is invoked after every frame.
     /// Here we call MoveNext() to advance execution
-    /// of the glTF import task. Once the model has been successfully
-    /// imported, we auto-spin the model about the y-axis.
+    /// of the glTF import task.
     /// </summary>
     void Update()
     {

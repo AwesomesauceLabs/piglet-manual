@@ -827,6 +827,7 @@ This release adds animation support:
 
 Minor features:
 
+* Editor glTF imports now use asset filenames that correspond to the original names from the glTF file. For example, if the glTF file contains textures named "grass" and "wood", the output texture files are now "grass.png" and "wood.png", instead of "texture_0.png" and "texture_1.png".
 * `RuntimeGltfImporter.GetGltfImportTask` methods now accepts an optional `GltfImportOptions` argument
 * New option to automatically unhide model after import (enabled by default)
 * New option to scale imported models to a standard size (disabled by default)

@@ -725,6 +725,7 @@
 </ul>
 <p>Minor features:</p>
 <ul>
+<li>Editor glTF imports now use asset filenames that correspond to the original names from the glTF file. For example, if the glTF file contains textures named “grass” and “wood”, the output texture files are now “grass.png” and “wood.png”, instead of “texture_0.png” and “texture_1.png”.</li>
 <li><code>RuntimeGltfImporter.GetGltfImportTask</code> methods now accepts an optional <code>GltfImportOptions</code> argument</li>
 <li>New option to automatically unhide model after import (enabled by default)</li>
 <li>New option to scale imported models to a standard size (disabled by default)</li>

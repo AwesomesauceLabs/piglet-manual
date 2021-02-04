@@ -18,13 +18,13 @@ lstPrefix: Listing
 * [Introduction](#introduction)
 * [Features](#features)
 * [Caveats](#caveats)
-* [Setup](#setup)
+* [Installation](#installation)
 * [Editor Imports](#editor-imports)
-    * [Importing glTF Files by Drag-and-Drop](#importing-gltf-files-by-drag-and-drop)
+    * [Editor Imports by Drag-and-Drop](#editor-imports-by-drag-and-drop)
     * [Editor Animation Tutorial](#editor-animation-tutorial)
         * [Previewing Animations in the Editor](#previewing-animations-in-the-editor)
         * [Playing (Mecanim) Animations at Runtime](#playing-mecanim-animations-at-runtime)
-    * [Piglet Options Window](#piglet-options-window)
+    * [Editor Import Options (Piglet Options Window)](#editor-import-options-piglet-options-window)
 * [Runtime Imports](#runtime-imports)
     * [Runtime Import Tutorial](#runtime-import-tutorial)
     * [Runtime Animation Tutorial](#runtime-animation-tutorial)
@@ -73,7 +73,7 @@ to try Piglet before you buy it.
     mesh creation) to be performed on the main Unity thread, so it is possible for
     runtime imports to cause "hiccups" during game execution.
 
-# Setup
+# Installation
 
 To set up Piglet in your project, purchase and install Piglet from the
 [Asset Store
@@ -99,7 +99,7 @@ issue.
 
 # Editor Imports
 
-## Importing glTF Files by Drag-and-Drop
+## Editor Imports by Drag-and-Drop
 
 This section demonstrates how to import glTF models in the Editor.  For
 a video version of this section, see the [Editor Import Demo
@@ -276,7 +276,7 @@ immediately after Unity enters Play Mode. Note that the imported
 animations always begin at index 1 in the `AnimationList`, because
 index 0 is reserved for the "Static Pose" clip.
 
-## Piglet Options Window
+## Editor Import Options (Piglet Options Window)
 
 A number of options controlling Editor glTF imports can be set in the Piglet
 Options window, located under `Window => Piglet Options` in the Unity

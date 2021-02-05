@@ -92,16 +92,16 @@
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#features">Features</a></li>
 <li><a href="#caveats">Caveats</a></li>
-<li><a href="#setup">Setup</a></li>
+<li><a href="#installation">Installation</a></li>
 <li><a href="#editor-imports">Editor Imports</a>
 <ul>
-<li><a href="#importing-gltf-files-by-drag-and-drop">Importing glTF Files by Drag-and-Drop</a></li>
+<li><a href="#editor-imports-by-drag-and-drop">Editor Imports by Drag-and-Drop</a></li>
 <li><a href="#editor-animation-tutorial">Editor Animation Tutorial</a>
 <ul>
 <li><a href="#previewing-animations-in-the-editor">Previewing Animations in the Editor</a></li>
 <li><a href="#playing-mecanim-animations-at-runtime">Playing (Mecanim) Animations at Runtime</a></li>
 </ul></li>
-<li><a href="#piglet-options-window">Piglet Options Window</a></li>
+<li><a href="#editor-import-options-piglet-options-window">Editor Import Options (Piglet Options Window)</a></li>
 </ul></li>
 <li><a href="#runtime-imports">Runtime Imports</a>
 <ul>
@@ -109,10 +109,19 @@
 <li><a href="#runtime-animation-tutorial">Runtime Animation Tutorial</a></li>
 <li><a href="#runtime-import-api">Runtime Import API</a>
 <ul>
-<li><a href="#overview">Overview</a></li>
+<li><a href="#runtime-import-api-overview">Overview</a></li>
 <li><a href="#creating-a-gltfimporttask">Creating a GltfImportTask</a></li>
 <li><a href="#configuring-callbacks-on-a-gltfimporttask">Configuring Callbacks on a GltfImportTask</a></li>
 <li><a href="#executing-a-gltfimporttask">Executing a GltfImportTask</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#optimizing-gltf-files">Optimizing glTF Files</a>
+<ul>
+<li><a href="#using-supercompressed-textures">Using Supercompressed Textures (Unity 2019.3+)</a>
+<ul>
+<li><a href="#supercompressed-textures-overview">Overview</a></li>
+<li><a href="#installing-ktxunity">Installing KtxUnity</a></li>
+<li><a href="#preprocessing-gltf-files">Preprocessing glTF Files</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#urp-support">URP Support (Unity 2019.3+)</a></li>
@@ -138,7 +147,7 @@
 <ul>
 <li><strong>Runtime imports may stall the main Unity thread</strong>. I have done my best to minimize interruptions to the main Unity thread during runtime imports, but I cannot provide any hard guarantees about this yet. Unity requires certain operations (e.g. texture uploads to the GPU, mesh creation) to be performed on the main Unity thread, so it is possible for runtime imports to cause “hiccups” during game execution.</li>
 </ul>
-<h1 id="setup">Setup</h1>
+<h1 id="installation">Installation</h1>
 <p>To set up Piglet in your project, purchase and install Piglet from the <a href="https://assetstore.unity.com/packages/slug/173425">Asset Store page</a>. Piglet works with Unity 2018.4 or later, and does not require installation of any third-party dependencies. If you wish to try your own glTF models with Piglet prior to purchasing the asset, please see the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet WebGL Demo</a>.</p>
 <p>Piglet bundles the following libraries:</p>
 <table>
@@ -173,7 +182,7 @@
 </table>
 <p><em>Note</em>: If your Unity project already includes one of these libraries (e.g. Json.NET), you may get errors in the Unity Console due to duplicate function/class definitions. In most cases, removing Piglet’s copy of the library under <code>Assets/Piglet/Dependencies</code> should solve the issue.</p>
 <h1 id="editor-imports">Editor Imports</h1>
-<h2 id="importing-gltf-files-by-drag-and-drop">Importing glTF Files by Drag-and-Drop</h2>
+<h2 id="editor-imports-by-drag-and-drop">Editor Imports by Drag-and-Drop</h2>
 <p>This section demonstrates how to import glTF models in the Editor. For a video version of this section, see the <a href="https://youtu.be/wf26w0gcVcA">Editor Import Demo video</a>.</p>
 <p>Once you have installed Piglet from the Unity Asset Store, you can import glTF models into your Unity project by dragging-and-dropping <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> files from a file browser window (e.g. Windows File Explorer) to a folder inside the Unity Project Browser (Figure 1). Any folder under <code>Assets</code> can be used as the drop target, including the <code>Assets</code> directory itself.</p>
 <p>Importing a glTF file in the Editor produces a Unity prefab for the model, which can then be dragged into your Unity scenes as desired. Piglet places the generated prefab and any dependent asset files (e.g. textures, materials, meshes) under a newly-created subfolder named after the input <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> file.</p>
@@ -231,7 +240,7 @@
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Listing 1: A minimal script for playing an Editor-imported (Mecanim) animation clip at runtime. When this script is attached to the root <code>GameObject</code> of the model, it plays the first animation from the glTF file, immediately after Unity enters Play Mode. Note that the imported animations always begin at index 1 in the <code>AnimationList</code>, because index 0 is reserved for the “Static Pose” clip.</p>
 </div>
-<h2 id="piglet-options-window">Piglet Options Window</h2>
+<h2 id="editor-import-options-piglet-options-window">Editor Import Options (Piglet Options Window)</h2>
 <p>A number of options controlling Editor glTF imports can be set in the Piglet Options window, located under <code>Window =&gt; Piglet Options</code> in the Unity menu.</p>
 <p><img src="images/piglet-options-window.png" /></p>
 <table>
@@ -579,7 +588,7 @@
 <p>Listing 5: An example script that performs runtime import of a glTF model with an animation, then immediately plays that animation. <strong>Attribution</strong>: This script uses the <a href="https://sketchfab.com/3d-models/morpher-animated-face-military-cartoon-hartman-538a674c39e24c15965231ab2bdb656a">“Cartoon Hartman”</a> model by Willy Decarpentrie, <a href="https://sketchfab.com/skudgee">skudgee@sketchfab</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC Attribution License</a>.</p>
 </div>
 <h2 id="runtime-import-api">Runtime Import API</h2>
-<h3 id="overview">Overview</h3>
+<h3 id="runtime-import-api-overview">Overview</h3>
 <p>In Piglet, a runtime glTF import is accomplished by the following steps:</p>
 <ol type="1">
 <li>Create a <code>GltfImportTask</code> by calling <code>RuntimeGltfImporter.GetImportTask</code>, passing in the file path, URL, or raw byte content of the input <code>.gltf</code>/<code>.glb</code>/<code>.zip</code> file as a parameter. See <a href="#creating-a-gltfimporttask">Creating a GltfImportTask</a> for details.</li>
@@ -704,6 +713,35 @@
 </tr>
 </tbody>
 </table>
+<h1 id="optimizing-gltf-files">Optimizing glTF Files</h1>
+<h2 id="using-supercompressed-textures-unity-2019.3">Using Supercompressed Textures (Unity 2019.3+)</h2>
+<h3 id="supercompressed-textures-overview">Overview</h3>
+<p>Piglet can load glTF files that contain <em>supercompressed textures</em><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> in KTX2/ETC1S or KTX2/UASTC format<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> (i.e. <a href="https://github.com/BinomialLLC/basis_universal">Basis Universal texture formats</a> in a <a href="http://github.khronos.org/KTX-Specification/">KTX 2.0 container</a>). The main advantages of supercompressed textures are that: (1) textures load faster, and (2) glTF files are smaller. The main disadvantage is loss of image quality, which can give textures a “blocky” appearance. Depending on your application, the loss of image quality may not be noticeable, whereas the performance benefits are usually significant.</p>
+<p>For a practical demonstration of the trade-offs, compare the ordinary and KTX2/ETC1S versions of the sample models at the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet Web Demo</a>. Note the differences in appearance, loading times, and file sizes.</p>
+<p>Before Piglet can load glTF files with supercompressed textures, you will need to install a third-party package called <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> into your Unity project (see <a href="#installing-ktxunity">Installing KtxUnity</a>). If you attempt to load a glTF file that contains supercompressed textures without installing KtxUnity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.</p>
+<p>Finally, if you plan to use supercompressed textures, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from <a href="https://sketchfab.com">Sketchfab</a>. For converting glTF files, I recommend using the <code>gltf-transform</code> command line tool, as described in <a href="#preprocessing-gltf-files">Preprocessing glTF Files</a>.</p>
+<h3 id="installing-ktxunity">Installing KtxUnity</h3>
+<p>To install KtxUnity, follow the instructions on the <a href="https://github.com/atteneder/KtxUnity">KtxUnity GitHub page</a>.</p>
+<p>In addition, please note the following “gotchas”:</p>
+<ul>
+<li>KtxUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors relating to the format of the <code>.meta</code> files.</li>
+<li>KtxUnity may not appear in the list of installed/available packages until you refresh the Unity Package Manager window, by clicking the circular arrow icon in the bottom left corner. (I noticed this issue in Unity 2020.2.1f1.)</li>
+<li>When building for the PC/Standalone platform, remember to change <code>Architecture</code> from <code>x86</code> to <code>x86_64</code>. Otherwise, the native DLL for KtxUnity (<code>ktx_unity.dll</code>) will not be included in the build, and you may get a <code>DllNotFoundException</code> when you run your application.</li>
+</ul>
+<h3 id="preprocessing-gltf-files">Preprocessing glTF Files</h3>
+<p>Most glTF files store their textures in PNG or JPEG format. To convert the textures in your glTF files to KTX2/ETC1S or KTX2/UASTC, I recommend using <a href="https://gltf-transform.donmccurdy.com/cli.html">gltf-transform</a>.</p>
+<p>In order to install <code>gltf-transform</code>, you will first need to install:</p>
+<ul>
+<li><a href="https://www.npmjs.com/get-npm">NodeJS and NPM</a></li>
+<li><a href="https://github.com/KhronosGroup/KTX-Software">KTX-Software</a>. This project provides the <code>toktx</code> program that is invoked by <code>gltf-transform</code>. To install the software, go to the <a href="https://github.com/KhronosGroup/KTX-Software/releases">GitHub releases page</a>, click/expand “Assets” at the bottom of the release notes, and choose the appropriate package/installer for your O/S. Note that if you are using Windows, you will also need to add <code>C:\Program Files\KTX-Software\bin</code> to your <code>Path</code>, so that <code>gltf-transform</code> can find the <code>toktx</code> binary.</li>
+</ul>
+<p>Once you have installed the above prerequisites, you will be able to install <code>gltf-transform</code> by running:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install --global @gltf-transform/cli</span></code></pre></div>
+<p>Once <code>gltf-transform</code> is installed, you will be able to convert the textures in a glTF file to KTX2/ETC1S by running:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gltf-transform</span> etc1s input.glb output.glb</span></code></pre></div>
+<p>or to KTX2/UASTC by running:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gltf-transform</span> uastc input.glb output.glb</span></code></pre></div>
+<p>The <code>gltf-transform</code> program provides options for restricting the conversion to specific textures (“slots”), adjusting quality settings, and more. See <code>gltf-transform etc1s --help</code> or <code>gltf-transform uastc --help</code> for further details.</p>
 <h1 id="urp-support">URP Support (Unity 2019.3+)</h1>
 <p>Piglet supports the Universal Render Pipeline (URP) in Unity 2019.3 or newer. To use Piglet with a URP-based project, unpack the shaders from the appropriate <code>.unitypackage</code> file in <code>Assets/Piglet/Extras</code>. For Unity versions 2019.3.0f6 through 2020.1.x, use <code>URP-Shaders-2019.3.unitypackage</code>. For Unity 2020.2.0b14 or newer, use <code>URP-Shaders-2020.2.unitypackage</code>.</p>
 <p>The shader files will be unpacked into <code>Assets/Piglet/Resources/Shaders/URP</code>. If you to forget unpack the shaders before performing an Editor or runtime glTF import, Piglet will fail with an error reminding you to install the shaders.</p>
@@ -806,6 +844,8 @@
 <li id="fn6" role="doc-endnote"><p><code>AnimatorController</code> layers have not been mentioned up to this point, because the controllers generated by Piglet only use the default layer (i.e. layer 0, “Base Layer”). An <code>AnimatorController</code> can (optionally) be split into multiple layers, where each layer has its own state machine, for the purpose of blending multiple animations for the same mode (e.g. a running and shooting animation for a humanoid character). For further information, see the “Animator Controllers Layers” video from the <a href="https://learn.unity.com/tutorial/controlling-animation#5c7f8528edbc2a002053b4e2">Controlling Animation</a> video series on Unity Learn.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7" role="doc-endnote"><p>The “Static Pose” clip (a.k.a “Bind Pose” or “T-Pose”) is useful because playing an animation clip permanently changes the transforms (translation/rotation/scale) of the game objects in the model. Users can play the “Static Pose” clip to return the transforms to their original state.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn8" role="doc-endnote"><p>The main limitation is that <a href="https://docs.unity3d.com/ScriptReference/AnimationClip.SetCurve.html">AnimationClip.SetCurve</a> only works at runtime for Legacy animation clips.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9" role="doc-endnote"><p>For the motivation behind supercompressed textures, see <a href="https://pixel.engineer/posts/basis-universal-texture-format-introduction/">Basis Universal texture format introduction</a> (Atteneder, 2019). For a more detailed technical explanation, see <a href="http://gamma.cs.unc.edu/GST/gst.pdf">GST: GPU-decodable Supercompressed Textures</a> (Krajcevski et al., 2016).<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10" role="doc-endnote"><p>KTX2/ETC1S is more commonly used than KTX2/UASTC because it provides a higher data compression rate (at the cost of image quality).<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>

@@ -29,10 +29,15 @@ lstPrefix: Listing
     * [Runtime Import Tutorial](#runtime-import-tutorial)
     * [Runtime Animation Tutorial](#runtime-animation-tutorial)
     * [Runtime Import API](#runtime-import-api)
-        * [Overview](#overview)
+        * [Overview](#runtime-import-api-overview)
         * [Creating a GltfImportTask](#creating-a-gltfimporttask)
         * [Configuring Callbacks on a GltfImportTask](#configuring-callbacks-on-a-gltfimporttask)
         * [Executing a GltfImportTask](#executing-a-gltfimporttask)
+* [Optimizing glTF Files](#optimizing-gltf-files)
+    * [Using Supercompressed Textures (Unity 2019.3+)](#using-supercompressed-textures)
+        * [Overview](#supercompressed-textures-overview)
+        * [Installing KtxUnity](#installing-ktxunity)
+        * [Preprocessing glTF Files](#preprocessing-gltf-files)
 * [URP Support (Unity 2019.3+)](#urp-support)
 * [Sample Application: PigletViewer](#piglet-viewer)
 * [Changelog](#changelog)
@@ -691,7 +696,7 @@ License](https://creativecommons.org/licenses/by/4.0/).
 
 ## Runtime Import API
 
-### Overview
+### Overview {#runtime-import-api-overview}
 
 In Piglet, a runtime glTF import is accomplished by the following steps:
 
@@ -777,6 +782,59 @@ execution:
   `Abort()`      Abort the import task. This method should typically be called in response to a user action, such as pressing a "Cancel" button.
 
   : GltfImportTask Methods
+
+# Optimizing glTF Files
+
+## Using Supercompressed Textures (Unity 2019.3+)
+
+### Overview {#supercompressed-textures-overview}
+
+Piglet can load glTF files that contain *supercompressed textures*[^supercompressed-textures] in KTX2/ETC1S or KTX2/UASTC format[^etc1s-vs-uastc] (i.e. [Basis Universal texture formats](https://github.com/BinomialLLC/basis_universal) in a [KTX 2.0 container](http://github.khronos.org/KTX-Specification/)). The main advantages of supercompressed textures are that: (1) textures load faster, and (2) glTF files are smaller. The main disadvantage is loss of image quality, which can give textures a "blocky" appearance. Depending on your application, the loss of image quality may not be noticeable, whereas the performance benefits are usually significant.
+
+For a practical demonstration of the trade-offs, compare the ordinary and KTX2/ETC1S versions of the sample models at the [Piglet Web Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/). Note the differences in appearance, loading times, and file sizes. 
+
+Before Piglet can load glTF files with supercompressed textures, you will need to install a third-party package called [KtxUnity](https://github.com/atteneder/KtxUnity) into your Unity project (see [Installing KtxUnity](#installing-ktxunity)). If you attempt to load a glTF file that contains supercompressed textures without installing KtxUnity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.
+
+Finally, if you plan to use supercompressed textures, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from [Sketchfab](https://sketchfab.com). For converting glTF files, I recommend using the `gltf-transform` command line tool, as described in [Preprocessing glTF Files](#preprocessing-gltf-files).
+
+### Installing KtxUnity
+
+To install KtxUnity, follow the instructions on the [KtxUnity GitHub page](https://github.com/atteneder/KtxUnity).
+
+In addition, please note the following "gotchas":
+
+* KtxUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors relating to the format of the `.meta` files.
+* KtxUnity may not appear in the list of installed/available packages until you refresh the Unity Package Manager window, by clicking the circular arrow icon in the bottom left corner. (I noticed this issue in Unity 2020.2.1f1.)
+* When building for the PC/Standalone platform, remember to change `Architecture` from `x86` to `x86_64`. Otherwise, the native DLL for KtxUnity (`ktx_unity.dll`) will not be included in the build, and you may get a `DllNotFoundException` when you run your application.
+
+### Preprocessing glTF Files
+
+Most glTF files store their textures in PNG or JPEG format. To convert the textures in your glTF files to KTX2/ETC1S or KTX2/UASTC, I recommend using [gltf-transform](https://gltf-transform.donmccurdy.com/cli.html).
+
+In order to install `gltf-transform`, you will first need to install:
+
+* [NodeJS and NPM](https://www.npmjs.com/get-npm)
+* [KTX-Software](https://github.com/KhronosGroup/KTX-Software). This project provides the `toktx` program that is invoked by `gltf-transform`. To install the software, go to the [GitHub releases page](https://github.com/KhronosGroup/KTX-Software/releases), click/expand "Assets" at the bottom of the release notes, and choose the appropriate package/installer for your O/S. Note that if you are using Windows, you will also need to add `C:\Program Files\KTX-Software\bin` to your `Path`, so that `gltf-transform` can find the `toktx` binary. 
+
+Once you have installed the above prerequisites, you will be able to install `gltf-transform` by running:
+
+```sh
+npm install --global @gltf-transform/cli
+```
+
+Once `gltf-transform` is installed, you will be able to convert the textures in a glTF file to KTX2/ETC1S by running:
+
+```sh
+gltf-transform etc1s input.glb output.glb
+```
+
+or to KTX2/UASTC by running:
+
+```sh
+gltf-transform uastc input.glb output.glb
+```
+
+The `gltf-transform` program provides options for restricting the conversion to specific textures ("slots"), adjusting quality settings, and more. See `gltf-transform etc1s --help` or `gltf-transform uastc --help` for further details.
 
 # URP Support (Unity 2019.3+) {#urp-support}
 
@@ -978,3 +1036,7 @@ First release!
 [^mecanim-limitation]: The main limitation is that
       [AnimationClip.SetCurve](https://docs.unity3d.com/ScriptReference/AnimationClip.SetCurve.html)
       only works at runtime for Legacy animation clips.
+
+[^supercompressed-textures]: For the motivation behind supercompressed textures, see [Basis Universal texture format introduction](https://pixel.engineer/posts/basis-universal-texture-format-introduction/) (Atteneder, 2019). For a more detailed technical explanation, see [GST: GPU-decodable Supercompressed Textures](http://gamma.cs.unc.edu/GST/gst.pdf) (Krajcevski et al., 2016).
+
+[^etc1s-vs-uastc]: KTX2/ETC1S is more commonly used than KTX2/UASTC because it provides a higher data compression rate (at the cost of image quality).

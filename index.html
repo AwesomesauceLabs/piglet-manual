@@ -714,7 +714,7 @@
 </tbody>
 </table>
 <h1 id="optimizing-gltf-files">Optimizing glTF Files</h1>
-<h2 id="using-supercompressed-textures-unity-2019.3">Using Supercompressed Textures (Unity 2019.3+)</h2>
+<h2 id="using-supercompressed-textures">Using Supercompressed Textures (Unity 2019.3+)</h2>
 <h3 id="supercompressed-textures-overview">Overview</h3>
 <p>Piglet can load glTF files that contain <em>supercompressed textures</em><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> in KTX2/ETC1S or KTX2/UASTC format<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> (i.e. <a href="https://github.com/BinomialLLC/basis_universal">Basis Universal texture formats</a> in a <a href="http://github.khronos.org/KTX-Specification/">KTX 2.0 container</a>). The main advantages of supercompressed textures are that: (1) textures load faster, and (2) glTF files are smaller. The main disadvantage is loss of image quality, which can give textures a “blocky” appearance. Depending on your application, the loss of image quality may not be noticeable, whereas the performance benefits are usually significant.</p>
 <p>For a practical demonstration of the trade-offs, compare the ordinary and KTX2/ETC1S versions of the sample models at the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet Web Demo</a>. Note the differences in appearance, loading times, and file sizes.</p>
@@ -751,6 +751,21 @@
 </figure>
 <p>PigletViewer is a sample application which uses Piglet to view 3D models from glTF files (`.gltf`, `.glb`, or `.zip`), and which is used for the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet Web Demo</a>. For the benefit of Piglet customers, I have published the source code and documentation for PigletViewer online at <a href="https://github.com/AwesomesauceLabs/piglet-viewer" class="uri">https://github.com/AwesomesauceLabs/piglet-viewer</a>, under an MIT license. PigletViewer currently supports builds for Android, WebGL, and Windows, and thus it may be a useful reference for Piglet users developing for those platforms. In general, I recommend looking at the <a href="#runtime-import-tutorial">Runtime Import Tutorial</a> before exploring the PigletViewer code, as the tutorial provides a much more succinct introduction to the Piglet API.</p>
 <h1 id="changelog">Changelog</h1>
+<h2 id="release-1.2.0-2021-02-09">Release 1.2.0 (2021-02-09)</h2>
+<p>This release adds support for “supercompressed” textures in KTX2/ETC1S and KTX2/UASTC formats:</p>
+<ul>
+<li>Speeds up texture loading and reduces glTF file sizes</li>
+<li>Requires Unity 2019.3+ and installation of <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> package</li>
+<li>Requires preprocessing your glTF files</li>
+<li>See <a href="#using-supercompressed-textures">Using Supercompressed Textures</a> in manual for details</li>
+</ul>
+<p>Bugfixes:</p>
+<ul>
+<li>Reduce memory usage during runtime glTF imports by marking textures as “non-readable” (this was a silly error on my part)</li>
+<li>When loading glTF files from HTTP URLs, proceed even if the initial HEAD request to determine file size fails. (Some cloud hosts don’t support HEAD requests.)</li>
+<li>Fix odd opaque appearance of models that are both transparent and reflective. (Change <code>alpha:auto</code> -&gt; <code>alpha:fade</code> in <code>MetallicRoughnessBlend</code> and <code>SpecularGlossinessBlend</code> shaders.)</li>
+<li>Fix warnings about .meta files for non-existing folders, whenever an Editor glTF import overwrites an existing folder.</li>
+</ul>
 <h2 id="release-1.1.1-2021-01-05">Release 1.1.1 (2021-01-05)</h2>
 <p>Bugfix release:</p>
 <ul>

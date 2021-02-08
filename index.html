@@ -724,9 +724,10 @@
 <p>To install KtxUnity, follow the instructions on the <a href="https://github.com/atteneder/KtxUnity">KtxUnity GitHub page</a>.</p>
 <p>In addition, please note the following “gotchas”:</p>
 <ul>
-<li>KtxUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors relating to the format of the <code>.meta</code> files.</li>
-<li>KtxUnity may not appear in the list of installed/available packages until you refresh the Unity Package Manager window, by clicking the circular arrow icon in the bottom left corner. (I noticed this issue in Unity 2020.2.1f1.)</li>
+<li>KtxUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors about invalid <code>.meta</code> file format.</li>
 <li>When building for the PC/Standalone platform, remember to change <code>Architecture</code> from <code>x86</code> to <code>x86_64</code>. Otherwise, the native DLL for KtxUnity (<code>ktx_unity.dll</code>) will not be included in the build, and you may get a <code>DllNotFoundException</code> when you run your application.</li>
+<li>Starting in Unity 2020.2.1f1, dialogs will pop up after installing KtxUnity, informing you that a new “Scoped Registry” has been added to the Package Manager. This is normal and you can just close the dialog(s) without changing any settings.</li>
+<li>KtxUnity may not appear in the list of installed/available packages until you refresh the Unity Package Manager window, by clicking the circular arrow icon in the bottom left corner. (I’ve noticed this issue in Unity 2020.2.1f1.)</li>
 </ul>
 <h3 id="preprocessing-gltf-files">Preprocessing glTF Files</h3>
 <p>Most glTF files store their textures in PNG or JPEG format. To convert the textures in your glTF files to KTX2/ETC1S or KTX2/UASTC, I recommend using <a href="https://gltf-transform.donmccurdy.com/cli.html">gltf-transform</a>.</p>
@@ -761,10 +762,10 @@
 </ul>
 <p>Bugfixes:</p>
 <ul>
-<li>Reduce memory usage during runtime glTF imports by marking textures as “non-readable” (this was a silly error on my part)</li>
+<li>Reduce memory usage during runtime glTF imports by marking textures as “non-readable”. (This was a silly mistake on my part.)</li>
 <li>When loading glTF files from HTTP URLs, proceed even if the initial HEAD request to determine file size fails. (Some cloud hosts don’t support HEAD requests.)</li>
-<li>Fix odd opaque appearance of models that are both transparent and reflective. (Change <code>alpha:auto</code> -&gt; <code>alpha:fade</code> in <code>MetallicRoughnessBlend</code> and <code>SpecularGlossinessBlend</code> shaders.)</li>
-<li>Fix warnings about .meta files for non-existing folders, whenever an Editor glTF import overwrites an existing folder.</li>
+<li>Fix odd opaque appearance of models that are both transparent and metallic. (Change <code>alpha:auto</code> -&gt; <code>alpha:fade</code> in <code>MetallicRoughnessBlend</code> and <code>SpecularGlossinessBlend</code> shaders.)</li>
+<li>Fix warnings about <code>.meta</code> files for non-existing folders, whenever an Editor glTF import overwrites an existing folder.</li>
 </ul>
 <h2 id="release-1.1.1-2021-01-05">Release 1.1.1 (2021-01-05)</h2>
 <p>Bugfix release:</p>

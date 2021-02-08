@@ -882,10 +882,10 @@ This release adds support for "supercompressed" textures in KTX2/ETC1S and KTX2/
 
 Bugfixes:
 
-* Reduce memory usage during runtime glTF imports by marking textures as "non-readable" (this was a silly error on my part)
+* Reduce memory usage during runtime glTF imports by marking textures as "non-readable". (This was a silly mistake on my part.)
 * When loading glTF files from HTTP URLs, proceed even if the initial HEAD request to determine file size fails. (Some cloud hosts don't support HEAD requests.)
-* Fix odd opaque appearance of models that are both transparent and reflective. (Change `alpha:auto` -> `alpha:fade` in `MetallicRoughnessBlend` and `SpecularGlossinessBlend` shaders.)
-* Fix warnings about .meta files for non-existing folders, whenever an Editor glTF import overwrites an existing folder.
+* Fix odd opaque appearance of models that are both transparent and metallic. (Change `alpha:auto` -> `alpha:fade` in `MetallicRoughnessBlend` and `SpecularGlossinessBlend` shaders.)
+* Fix warnings about `.meta` files for non-existing folders, whenever an Editor glTF import overwrites an existing folder.
 
 ## Release 1.1.1 (2021-01-05)
 

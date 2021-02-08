@@ -60,8 +60,9 @@ to try Piglet before you buy it.
 * import glTF models in the Editor or at runtime
 * import glTF models from `.gltf`, `.glb`, or `.zip` files, using file
   paths or HTTP URLs
-* supports animations, including skins and blendshapes
-* extract textures and materials from glTF files to use with your own models
+* import and play glTF animations (including skins and blendshapes)
+* import glTF textures and materials, for use with your own models
+* supports supercompressed textures via [KtxUnity](https://github.com/atteneder/KtxUnity) (Unity 2019.3+)
 * tested with glTF models from [Sketchfab](https://sketchfab.com/),
   [Google Poly](https://poly.google.com), and
   [Blender](https://www.blender.org/)

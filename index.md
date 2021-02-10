@@ -806,7 +806,7 @@ In addition, please note the following "gotchas":
 
 * KtxUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors about invalid `.meta` file format.
 * When building for the PC/Standalone platform, remember to change `Architecture` from `x86` to `x86_64`. Otherwise, the native DLL for KtxUnity (`ktx_unity.dll`) will not be included in the build, and you may get a `DllNotFoundException` when you run your application.
-* Starting in Unity 2020.2.1f1, dialogs will pop up after installing KtxUnity, informing you that a new "Scoped Registry" has been added to the Package Manager. This is normal and you can just close the dialog(s) without changing any settings.
+* Starting in Unity 2020.1, dialogs will pop up after installing KtxUnity, informing you that a new "Scoped Registry" has been added to the Package Manager. This is normal and you should just close the dialog(s) without changing any settings.
 * KtxUnity may not appear in the list of installed/available packages until you refresh the Unity Package Manager window, by clicking the circular arrow icon in the bottom left corner. (I've noticed this issue in Unity 2020.2.1f1.)
 
 ### Preprocessing glTF Files

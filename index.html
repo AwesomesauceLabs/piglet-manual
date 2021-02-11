@@ -722,7 +722,7 @@
 <p>Before Piglet can load glTF files with supercompressed textures, you will need to install a third-party package called <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> into your Unity project (see <a href="#installing-ktxunity">Installing KtxUnity</a>). If you attempt to load a glTF file that contains supercompressed textures without installing KtxUnity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.</p>
 <p>Finally, if you plan to use supercompressed textures, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from <a href="https://sketchfab.com">Sketchfab</a>. For converting glTF files, I recommend using the <code>gltf-transform</code> command line tool, as described in <a href="#preprocessing-gltf-files">Preprocessing glTF Files</a>.</p>
 <h3 id="installing-ktxunity">Installing KtxUnity</h3>
-<p>To install KtxUnity, follow the instructions on the <a href="https://github.com/atteneder/KtxUnity">KtxUnity GitHub page</a>.</p>
+<p>To load glTF files with supercompressed textures, Piglet requires KtxUnity 0.9.1 or newer. To install KtxUnity, follow the instructions on the <a href="https://github.com/atteneder/KtxUnity">KtxUnity GitHub page</a>.</p>
 <p>In addition, please note the following “gotchas”:</p>
 <ul>
 <li>KtxUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors about invalid <code>.meta</code> file format.</li>

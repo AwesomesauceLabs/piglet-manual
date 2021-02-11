@@ -800,7 +800,7 @@ Finally, if you plan to use supercompressed textures, you will probably need to 
 
 ### Installing KtxUnity
 
-To install KtxUnity, follow the instructions on the [KtxUnity GitHub page](https://github.com/atteneder/KtxUnity).
+To load glTF files with supercompressed textures, Piglet requires KtxUnity 0.9.1 or newer. To install KtxUnity, follow the instructions on the [KtxUnity GitHub page](https://github.com/atteneder/KtxUnity).
 
 In addition, please note the following "gotchas":
 

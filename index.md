@@ -34,10 +34,14 @@ lstPrefix: Listing
         * [Configuring Callbacks on a GltfImportTask](#configuring-callbacks-on-a-gltfimporttask)
         * [Executing a GltfImportTask](#executing-a-gltfimporttask)
 * [Optimizing glTF Files](#optimizing-gltf-files)
-    * [Using Supercompressed Textures (Unity 2019.3+)](#using-supercompressed-textures)
+    * [Supercompressed Textures (Unity 2019.3+)](#supercompressed-textures)
         * [Overview](#supercompressed-textures-overview)
         * [Installing KtxUnity](#installing-ktxunity)
-        * [Preprocessing glTF Files](#preprocessing-gltf-files)
+        * [Preprocessing glTF Files](#supercompressed-textures-preprocessing-gltf-files)
+    * [Draco Mesh Compression (Unity 2019.3+)](#draco-mesh-compression)
+        * [Overview](#draco-overview)
+        * [Installing DracoUnity](#installing-dracounity)
+        * [Preprocessing glTF Files](#draco-preprocessing-gltf-files)
 * [URP Support (Unity 2019.3+)](#urp-support)
 * [Sample Application: PigletViewer](#piglet-viewer)
 * [Changelog](#changelog)
@@ -793,7 +797,7 @@ execution:
 
 # Optimizing glTF Files
 
-## Using Supercompressed Textures (Unity 2019.3+) {#using-supercompressed-textures}
+## Supercompressed Textures (Unity 2019.3+) {#supercompressed-textures}
 
 ### Overview {#supercompressed-textures-overview}
 
@@ -803,7 +807,7 @@ For a practical demonstration of the trade-offs, compare the ordinary and KTX2/E
 
 Before Piglet can load glTF files with supercompressed textures, you will need to install a third-party package called [KtxUnity](https://github.com/atteneder/KtxUnity) into your Unity project (see [Installing KtxUnity](#installing-ktxunity)). If you attempt to load a glTF file that contains supercompressed textures without installing KtxUnity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.
 
-Finally, if you plan to use supercompressed textures, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from [Sketchfab](https://sketchfab.com). For converting glTF files, I recommend using the `gltf-transform` command line tool, as described in [Preprocessing glTF Files](#preprocessing-gltf-files).
+Finally, if you plan to use supercompressed textures, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from [Sketchfab](https://sketchfab.com). For converting glTF files, I recommend using the `gltf-transform` command line tool, as described in [Preprocessing glTF Files](#supercompressed-textures-preprocessing-gltf-files).
 
 ### Installing KtxUnity
 
@@ -816,9 +820,9 @@ In addition, please note the following "gotchas":
 * Starting in Unity 2020.1, dialogs will pop up after installing KtxUnity, informing you that a new "Scoped Registry" has been added to the Package Manager. This is normal and you should just close the dialog(s) without changing any settings.
 * KtxUnity may not appear in the list of installed/available packages until you refresh the Unity Package Manager window, by clicking the circular arrow icon in the bottom left corner. (I've noticed this issue in Unity 2020.2.1f1.)
 
-### Preprocessing glTF Files
+### Preprocessing glTF Files {#supercompressed-textures-preprocessing-gltf-files}
 
-Most glTF files store their textures in PNG or JPEG format. To convert the textures in your glTF files to KTX2/ETC1S or KTX2/UASTC, I recommend using [gltf-transform](https://gltf-transform.donmccurdy.com/cli.html).
+Most glTF files store their textures in PNG or JPEG format. To convert the textures in your glTF files to KTX2/ETC1S or KTX2/UASTC, I recommend using the [gltf-transform](https://gltf-transform.donmccurdy.com/cli.html) command line tool.
 
 In order to install `gltf-transform`, you will first need to install:
 
@@ -844,6 +848,149 @@ gltf-transform uastc input.glb output.glb
 ```
 
 The `gltf-transform` program provides options for restricting the conversion to specific textures ("slots"), adjusting quality settings, and more. See `gltf-transform etc1s --help` or `gltf-transform uastc --help` for further details.
+
+## Draco Mesh Compression (Unity 2019.3+) {#draco-mesh-compression}
+
+### Overview {#draco-overview}
+
+Piglet can load glTF files that use Draco mesh
+compression[^draco-mesh-compression]. The main benefit of using Draco
+compression is that it can substantially reduce the size of your glTF
+files (e.g. 20% of original size), with the most benefit for models
+that contain complex geometry.  While using Draco compression does
+introduce some computational overhead, in practice the impact on model
+loading times is neglible.
+
+For a practical demonstration of the benefits, compare the ordinary
+and Draco-compressed versions of the models at the [Piglet Web
+Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/). Note the
+large differences in file sizes and the small differences
+in loading times. For further examples of Draco compression results,
+see [Draco Compressed Meshes with glTF and 3D Tiles](https://cesium.com/blog/2018/04/09/draco-compression/).
+
+Before Piglet can load Draco-compressed glTF files, you will need to
+install a third-party package called
+[DracoUnity](https://github.com/atteneder/DracoUnity) into your Unity
+project (see [Installing DracoUnity](#installing-dracounity)). If
+you attempt to load a Draco-compressed glTF file without installing
+DracoUnity, the glTF import will fail with an error in the Unity console.
+
+Finally, if you plan to use Draco compression for your game assets,
+you will probably need to preprocess the glTF files yourself.
+At the time of writing (May 2021), most glTF files on the web
+use uncompressed meshes, including the glTF files downloaded from
+[Sketchfab](https://sketchfab.com).  For Draco-compressing glTF
+files, I recommend using the `gltf-transform` command line tool,
+as described in [Preprocessing glTF Files](#draco-preprocessing-gltf-files).
+
+### Installing DracoUnity
+
+To load glTF files that use Draco mesh compression, Piglet requires
+[DracoUnity](https://github.com/atteneder/DracoUnityhttps://github.com/atteneder/DracoUnity) 1.4.0 or newer. Although it is already possible to use DracoUnity
+2.0.0-preview with Piglet (the latest version as of May 2021), I
+recommend sticking with DracoUnity 1.4.0 for now. The DracoUnity
+author (\@atteneder) has advised that there are still important issues to
+be fixed before the official 2.0.0 release.
+
+Since DracoUnity is hosted by a third-party package registry
+([OpenUPM](https://openupm.com/)), you will need to tell Unity where
+to download the package by adding a [Scoped
+Registry](https://docs.unity3d.com/Manual/upm-scoped.html) to your
+`Packages/manifest.json` file. You can do this by adding the
+highlighted lines in @lst:manifest-json-draco and restarting Unity. If
+you want to perform the same edits to `Packages/manifest.json` in an
+automated fashion, you can accomplish that by installing the [OpenUPM
+CLI tool](https://github.com/openupm/openupm-cli) and running `openupm
+add com.atteneder.draco@1.4.0`.
+
+_Note!:_ I no longer recommend using the "Installer Package" link from the
+DracoUnity README.md on GitHub, since this is merely a more
+convoluted method for performing the aforementioned edits to
+`Packages/manifest.json`. In addition, the provided Installer Package link
+always install the latest tagged version of DracoUnity
+(i.e. 2.0.0-preview), while in this case I recommend installing the
+latest official release (DracoUnity 1.4.0).
+
+```{#lst:manifest-json-draco .json}
+{
+  "dependencies" : {
+    "com.unity.collab-proxy" : "1.2.16",
+    "com.unity.ide.rider" : "1.1.4",
+    "com.unity.ide.vscode" : "1.2.0",
+    "com.unity.test-framework" : "1.1.13",
+    "com.unity.textmeshpro" : "2.0.1",
+    "com.unity.timeline" : "1.2.14",
+    "com.unity.ugui" : "1.0.0",
+    "com.unity.modules.ai" : "1.0.0",
+    "com.unity.modules.androidjni" : "1.0.0",
+    "com.unity.modules.animation" : "1.0.0",
+    "com.unity.modules.assetbundle" : "1.0.0",
+    "com.unity.modules.audio" : "1.0.0",
+    "com.unity.modules.cloth" : "1.0.0",
+    "com.unity.modules.director" : "1.0.0",
+    "com.unity.modules.imageconversion" : "1.0.0",
+    "com.unity.modules.imgui" : "1.0.0",
+    "com.unity.modules.jsonserialize" : "1.0.0",
+    "com.unity.modules.particlesystem" : "1.0.0",
+    "com.unity.modules.physics" : "1.0.0",
+    "com.unity.modules.physics2d" : "1.0.0",
+    "com.unity.modules.screencapture" : "1.0.0",
+    "com.unity.modules.terrain" : "1.0.0",
+    "com.unity.modules.terrainphysics" : "1.0.0",
+    "com.unity.modules.tilemap" : "1.0.0",
+    "com.unity.modules.ui" : "1.0.0",
+    "com.unity.modules.uielements" : "1.0.0",
+    "com.unity.modules.umbra" : "1.0.0",
+    "com.unity.modules.unityanalytics" : "1.0.0",
+    "com.unity.modules.unitywebrequest" : "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle" : "1.0.0",
+    "com.unity.modules.unitywebrequestaudio" : "1.0.0",
+    "com.unity.modules.unitywebrequesttexture" : "1.0.0",
+    "com.unity.modules.unitywebrequestwww" : "1.0.0",
+    "com.unity.modules.vehicles" : "1.0.0",
+    "com.unity.modules.video" : "1.0.0",
+    "com.unity.modules.vr" : "1.0.0",
+    "com.unity.modules.wind" : "1.0.0",
+    "com.unity.modules.xr" : "1.0.0",
+    "com.atteneder.draco" : "1.4.0"
+  },
+  "scopedRegistries" : [
+    {
+      "name" : "OpenUPM",
+      "url" : "https://package.openupm.com",
+      "scopes" : [
+        "com.atteneder"
+      ]
+    }
+  ]
+}
+```
+: Example edits to a `Packages/manifest.json` file, in order to add
+the DracoUnity 1.4.0 package. After adding the highlighted text,
+close and reopen Unity in order to install the DracoUnity package into
+your project.
+
+### Preprocessing glTF Files {#draco-preprocessing-gltf-files}
+
+Most glTF files store their meshes in standard uncompressed form. To Draco-compress
+your glTF files, I recommend using the  [gltf-transform](https://gltf-transform.donmccurdy.com/cli.html) command line tool.
+
+In order to install `gltf-transform`, you will first need to install [NodeJS and NPM](https://www.npmjs.com/get-npm). Then you will be able to install `gltf-transform` by running:
+
+```sh
+npm install --global @gltf-transform/cli
+```
+
+Once `gltf-transform` is installed, you will be able to Draco-compress your glTF
+files by running:
+
+```sh
+gltf-transform draco input.glb output.glb
+```
+
+The `gltf-transform draco` command provides various options for controlling
+compression and quantization. See `gltf-transform draco --help` for further
+details.
 
 # URP Support (Unity 2019.3+) {#urp-support}
 
@@ -1087,3 +1234,5 @@ First release!
 [^supercompressed-textures]: For the motivation behind supercompressed textures, see [Basis Universal texture format introduction](https://pixel.engineer/posts/basis-universal-texture-format-introduction/) (Atteneder, 2019). For a more detailed technical explanation, see [GST: GPU-decodable Supercompressed Textures](http://gamma.cs.unc.edu/GST/gst.pdf) (Krajcevski et al., 2016).
 
 [^etc1s-vs-uastc]: KTX2/ETC1S is more commonly used than KTX2/UASTC because it provides a higher data compression rate (at the cost of image quality).
+
+[^draco-mesh-compression]: For an introduction to the ideas behind Draco mesh compression, see [Edgebreaker, the Heart of Google Draco](https://observablehq.com/@mourner/edgebreaker-the-heart-of-google-draco). For a detailed description of the algorithm, see [Edgebreaker: Connectivity compression for triangle meshes](https://www.cc.gatech.edu/~jarek/papers/EdgeBreaker.pdf) (Rossignac, 1999) and the follow-up paper [3D Compression Made Simple: Edgebreaker on a Corner-Table](https://www.cs.cmu.edu/~alla/edgebreaker_simple.pdf) (Rossignac et al., 2001).

@@ -117,11 +117,17 @@
 </ul></li>
 <li><a href="#optimizing-gltf-files">Optimizing glTF Files</a>
 <ul>
-<li><a href="#using-supercompressed-textures">Using Supercompressed Textures (Unity 2019.3+)</a>
+<li><a href="#supercompressed-textures">Supercompressed Textures (Unity 2019.3+)</a>
 <ul>
 <li><a href="#supercompressed-textures-overview">Overview</a></li>
 <li><a href="#installing-ktxunity">Installing KtxUnity</a></li>
-<li><a href="#preprocessing-gltf-files">Preprocessing glTF Files</a></li>
+<li><a href="#supercompressed-textures-preprocessing-gltf-files">Preprocessing glTF Files</a></li>
+</ul></li>
+<li><a href="#draco-mesh-compression">Draco Mesh Compression (Unity 2019.3+)</a>
+<ul>
+<li><a href="#draco-overview">Overview</a></li>
+<li><a href="#installing-dracounity">Installing DracoUnity</a></li>
+<li><a href="#draco-preprocessing-gltf-files">Preprocessing glTF Files</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#urp-support">URP Support (Unity 2019.3+)</a></li>
@@ -716,12 +722,12 @@
 </tbody>
 </table>
 <h1 id="optimizing-gltf-files">Optimizing glTF Files</h1>
-<h2 id="using-supercompressed-textures">Using Supercompressed Textures (Unity 2019.3+)</h2>
+<h2 id="supercompressed-textures">Supercompressed Textures (Unity 2019.3+)</h2>
 <h3 id="supercompressed-textures-overview">Overview</h3>
 <p>Piglet can load glTF files that contain <em>supercompressed textures</em><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> in KTX2/ETC1S or KTX2/UASTC format<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> (i.e. <a href="https://github.com/BinomialLLC/basis_universal">Basis Universal texture formats</a> in a <a href="http://github.khronos.org/KTX-Specification/">KTX 2.0 container</a>). The main advantages of supercompressed textures are that: (1) textures load faster, and (2) glTF files are smaller. The main disadvantage is loss of image quality, which can give textures a “blocky” appearance. Depending on your application, the loss of image quality may not be noticeable, whereas the performance benefits are usually significant.</p>
 <p>For a practical demonstration of the trade-offs, compare the ordinary and KTX2/ETC1S versions of the sample models at the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet Web Demo</a>. Note the differences in appearance, loading times, and file sizes.</p>
 <p>Before Piglet can load glTF files with supercompressed textures, you will need to install a third-party package called <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> into your Unity project (see <a href="#installing-ktxunity">Installing KtxUnity</a>). If you attempt to load a glTF file that contains supercompressed textures without installing KtxUnity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.</p>
-<p>Finally, if you plan to use supercompressed textures, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from <a href="https://sketchfab.com">Sketchfab</a>. For converting glTF files, I recommend using the <code>gltf-transform</code> command line tool, as described in <a href="#preprocessing-gltf-files">Preprocessing glTF Files</a>.</p>
+<p>Finally, if you plan to use supercompressed textures, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from <a href="https://sketchfab.com">Sketchfab</a>. For converting glTF files, I recommend using the <code>gltf-transform</code> command line tool, as described in <a href="#supercompressed-textures-preprocessing-gltf-files">Preprocessing glTF Files</a>.</p>
 <h3 id="installing-ktxunity">Installing KtxUnity</h3>
 <p>To load glTF files with supercompressed textures, Piglet requires KtxUnity 0.9.1 or newer. To install KtxUnity, follow the instructions on the <a href="https://github.com/atteneder/KtxUnity">KtxUnity GitHub page</a>.</p>
 <p>In addition, please note the following “gotchas”:</p>
@@ -731,8 +737,8 @@
 <li>Starting in Unity 2020.1, dialogs will pop up after installing KtxUnity, informing you that a new “Scoped Registry” has been added to the Package Manager. This is normal and you should just close the dialog(s) without changing any settings.</li>
 <li>KtxUnity may not appear in the list of installed/available packages until you refresh the Unity Package Manager window, by clicking the circular arrow icon in the bottom left corner. (I’ve noticed this issue in Unity 2020.2.1f1.)</li>
 </ul>
-<h3 id="preprocessing-gltf-files">Preprocessing glTF Files</h3>
-<p>Most glTF files store their textures in PNG or JPEG format. To convert the textures in your glTF files to KTX2/ETC1S or KTX2/UASTC, I recommend using <a href="https://gltf-transform.donmccurdy.com/cli.html">gltf-transform</a>.</p>
+<h3 id="supercompressed-textures-preprocessing-gltf-files">Preprocessing glTF Files</h3>
+<p>Most glTF files store their textures in PNG or JPEG format. To convert the textures in your glTF files to KTX2/ETC1S or KTX2/UASTC, I recommend using the <a href="https://gltf-transform.donmccurdy.com/cli.html">gltf-transform</a> command line tool.</p>
 <p>In order to install <code>gltf-transform</code>, you will first need to install:</p>
 <ul>
 <li><a href="https://www.npmjs.com/get-npm">NodeJS and NPM</a></li>
@@ -745,6 +751,78 @@
 <p>or to KTX2/UASTC by running:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gltf-transform</span> uastc input.glb output.glb</span></code></pre></div>
 <p>The <code>gltf-transform</code> program provides options for restricting the conversion to specific textures (“slots”), adjusting quality settings, and more. See <code>gltf-transform etc1s --help</code> or <code>gltf-transform uastc --help</code> for further details.</p>
+<h2 id="draco-mesh-compression">Draco Mesh Compression (Unity 2019.3+)</h2>
+<h3 id="draco-overview">Overview</h3>
+<p>Piglet can load glTF files that use Draco mesh compression<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>. The main benefit of using Draco compression is that it can substantially reduce the size of your glTF files (e.g. 20% of original size), with the most benefit for models that contain complex geometry. While using Draco compression does introduce some computational overhead, in practice the impact on model loading times is neglible.</p>
+<p>For a practical demonstration of the benefits, compare the ordinary and Draco-compressed versions of the models at the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet Web Demo</a>. Note the large differences in file sizes and the small differences in loading times. For further examples of Draco compression results, see <a href="https://cesium.com/blog/2018/04/09/draco-compression/">Draco Compressed Meshes with glTF and 3D Tiles</a>.</p>
+<p>Before Piglet can load Draco-compressed glTF files, you will need to install a third-party package called <a href="https://github.com/atteneder/DracoUnity">DracoUnity</a> into your Unity project (see <a href="#installing-dracounity">Installing DracoUnity</a>). If you attempt to load a Draco-compressed glTF file without installing DracoUnity, the glTF import will fail with an error in the Unity console.</p>
+<p>Finally, if you plan to use Draco compression for your game assets, you will probably need to preprocess the glTF files yourself. At the time of writing (May 2021), most glTF files on the web use uncompressed meshes, including the glTF files downloaded from <a href="https://sketchfab.com">Sketchfab</a>. For Draco-compressing glTF files, I recommend using the <code>gltf-transform</code> command line tool, as described in <a href="#draco-preprocessing-gltf-files">Preprocessing glTF Files</a>.</p>
+<h3 id="installing-dracounity">Installing DracoUnity</h3>
+<p>To load glTF files that use Draco mesh compression, Piglet requires <a href="https://github.com/atteneder/DracoUnityhttps://github.com/atteneder/DracoUnity">DracoUnity</a> 1.4.0 or newer. Although it is already possible to use DracoUnity 2.0.0-preview with Piglet (the latest version as of May 2021), I recommend sticking with DracoUnity 1.4.0 for now. The DracoUnity author (@atteneder) has advised that there are still important issues to be fixed before the official 2.0.0 release.</p>
+<p>Since DracoUnity is hosted by a third-party package registry (<a href="https://openupm.com/">OpenUPM</a>), you will need to tell Unity where to download the package by adding a <a href="https://docs.unity3d.com/Manual/upm-scoped.html">Scoped Registry</a> to your <code>Packages/manifest.json</code> file. You can do this by adding the highlighted lines in Listing 6 and restarting Unity. If you want to perform the same edits to <code>Packages/manifest.json</code> in an automated fashion, you can accomplish that by installing the <a href="https://github.com/openupm/openupm-cli">OpenUPM CLI tool</a> and running <code>openupm add com.atteneder.draco@1.4.0</code>.</p>
+<p><em>Note!:</em> I no longer recommend using the “Installer Package” link from the DracoUnity README.md on GitHub, since this is merely a more convoluted method for performing the aforementioned edits to <code>Packages/manifest.json</code>. In addition, the provided Installer Package link always install the latest tagged version of DracoUnity (i.e. 2.0.0-preview), while in this case I recommend installing the latest official release (DracoUnity 1.4.0).</p>
+<div id="lst:manifest-json-draco" class="listing json">
+<div class="sourceCode" id="cb9"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;dependencies&quot;</span> <span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.collab-proxy&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.2.16&quot;</span><span class="fu">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.ide.rider&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.1.4&quot;</span><span class="fu">,</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.ide.vscode&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.2.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.test-framework&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.1.13&quot;</span><span class="fu">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.textmeshpro&quot;</span> <span class="fu">:</span> <span class="st">&quot;2.0.1&quot;</span><span class="fu">,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.timeline&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.2.14&quot;</span><span class="fu">,</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.ugui&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.ai&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.androidjni&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.animation&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.assetbundle&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.audio&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.cloth&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.director&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.imageconversion&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.imgui&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.jsonserialize&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.particlesystem&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.physics&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.physics2d&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.screencapture&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.terrain&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.terrainphysics&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.tilemap&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.ui&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.uielements&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.umbra&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.unityanalytics&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.unitywebrequest&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.unitywebrequestassetbundle&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.unitywebrequestaudio&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.unitywebrequesttexture&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.unitywebrequestwww&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.vehicles&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.video&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.vr&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.wind&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.xr&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.atteneder.draco&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.4.0&quot;</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;scopedRegistries&quot;</span> <span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span> <span class="fu">:</span> <span class="st">&quot;OpenUPM&quot;</span><span class="fu">,</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span> <span class="fu">:</span> <span class="st">&quot;https://package.openupm.com&quot;</span><span class="fu">,</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;scopes&quot;</span> <span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;com.atteneder&quot;</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Listing 6: Example edits to a <code>Packages/manifest.json</code> file, in order to add the DracoUnity 1.4.0 package. After adding the highlighted text, close and reopen Unity in order to install the DracoUnity package into your project.</p>
+</div>
+<h3 id="draco-preprocessing-gltf-files">Preprocessing glTF Files</h3>
+<p>Most glTF files store their meshes in standard uncompressed form. To Draco-compress your glTF files, I recommend using the <a href="https://gltf-transform.donmccurdy.com/cli.html">gltf-transform</a> command line tool.</p>
+<p>In order to install <code>gltf-transform</code>, you will first need to install <a href="https://www.npmjs.com/get-npm">NodeJS and NPM</a>. Then you will be able to install <code>gltf-transform</code> by running:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install --global @gltf-transform/cli</span></code></pre></div>
+<p>Once <code>gltf-transform</code> is installed, you will be able to Draco-compress your glTF files by running:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gltf-transform</span> draco input.glb output.glb</span></code></pre></div>
+<p>The <code>gltf-transform draco</code> command provides various options for controlling compression and quantization. See <code>gltf-transform draco --help</code> for further details.</p>
 <h1 id="urp-support">URP Support (Unity 2019.3+)</h1>
 <p>Piglet supports the Universal Render Pipeline (URP) in Unity 2019.3 or newer. To use Piglet with a URP-based project, unpack the shaders from the appropriate <code>.unitypackage</code> file in <code>Assets/Piglet/Extras</code>. For Unity versions 2019.3.0f6 through 2020.1.x, use <code>URP-Shaders-2019.3.unitypackage</code>. For Unity 2020.2.0b14 or newer, use <code>URP-Shaders-2020.2.unitypackage</code>.</p>
 <p>The shader files will be unpacked into <code>Assets/Piglet/Resources/Shaders/URP</code>. If you to forget unpack the shaders before performing an Editor or runtime glTF import, Piglet will fail with an error reminding you to install the shaders.</p>
@@ -875,6 +953,7 @@
 <li id="fn8" role="doc-endnote"><p>The main limitation is that <a href="https://docs.unity3d.com/ScriptReference/AnimationClip.SetCurve.html">AnimationClip.SetCurve</a> only works at runtime for Legacy animation clips.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9" role="doc-endnote"><p>For the motivation behind supercompressed textures, see <a href="https://pixel.engineer/posts/basis-universal-texture-format-introduction/">Basis Universal texture format introduction</a> (Atteneder, 2019). For a more detailed technical explanation, see <a href="http://gamma.cs.unc.edu/GST/gst.pdf">GST: GPU-decodable Supercompressed Textures</a> (Krajcevski et al., 2016).<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10" role="doc-endnote"><p>KTX2/ETC1S is more commonly used than KTX2/UASTC because it provides a higher data compression rate (at the cost of image quality).<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11" role="doc-endnote"><p>For an introduction to the ideas behind Draco mesh compression, see <a href="https://observablehq.com/@mourner/edgebreaker-the-heart-of-google-draco">Edgebreaker, the Heart of Google Draco</a>. For a detailed description of the algorithm, see <a href="https://www.cc.gatech.edu/~jarek/papers/EdgeBreaker.pdf">Edgebreaker: Connectivity compression for triangle meshes</a> (Rossignac, 1999) and the follow-up paper <a href="https://www.cs.cmu.edu/~alla/edgebreaker_simple.pdf">3D Compression Made Simple: Edgebreaker on a Corner-Table</a> (Rossignac et al., 2001).<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>

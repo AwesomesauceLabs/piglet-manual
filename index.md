@@ -873,6 +873,12 @@ introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.2.1 (2021-04-08)
+
+Compatibility fix for Unity 2021.1.1f1:
+
+* Fix NullReferenceException during texture loading, due to change in behaviour of UnityWebRequestTexture.
+
 ## Release 1.2.0 (2021-02-09)
 
 This release adds support for "supercompressed" textures in KTX2/ETC1S and KTX2/UASTC formats:

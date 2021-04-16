@@ -78,6 +78,13 @@ to try Piglet before you buy it.
     yet. Unity requires certain operations (e.g. texture uploads to the GPU,
     mesh creation) to be performed on the main Unity thread, so it is possible for
     runtime imports to cause "hiccups" during game execution.
+-   **"Linear" color space mode is not yet supported**. Currently,
+    Piglet does not import linear textures correctly (e.g. normal maps)
+    when the color space mode is set to `Linear` under
+    `Edit -> Project Settings... -> Player -> PC, Mac & Linux Standalone -> Other Settings -> Color Space`.
+    The textures will appear too dark/shiny. Until this issue is
+    fixed, you will get better results by setting the color space
+    mode to `Gamma` instead.
 
 # Installation
 
@@ -851,6 +858,13 @@ The shader files will be unpacked into
 `Assets/Piglet/Resources/Shaders/URP`. If you to forget unpack the
 shaders before performing an Editor or runtime glTF import, Piglet
 will fail with an error reminding you to install the shaders.
+
+_Note!:_ The default color space mode for new URP projects is
+`Linear`, but Piglet does not correctly support this mode yet. The
+textures on your imported models will appear too dark/shiny. Until
+this issue is fixed, I advise that you set the color space mode to
+`Gamma` instead, under `Edit -> Project Settings...  -> Player -> PC, Mac &
+Linux (tab) -> Other Settings -> Color Space`.
 
 # Sample Application: PigletViewer {#piglet-viewer}
 

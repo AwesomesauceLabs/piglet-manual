@@ -887,6 +887,15 @@ introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.2.2 (2021-04-16)
+
+Bugfix release.
+
+* Fix KTX2 texture loading in Unity 2021.1.1f1. Loading KTX2 images
+from a URI (local file or HTTP URL) was previously failing and
+generating a red-and-white "?" placeholder texture. (I attempted to
+fix this issue in Piglet 1.2.1, but my fix was not correct.)
+
 ## Release 1.2.1 (2021-04-08)
 
 Compatibility fix for Unity 2021.1.1f1:

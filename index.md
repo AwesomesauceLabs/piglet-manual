@@ -894,24 +894,29 @@ be fixed before the official 2.0.0 release.
 
 Since DracoUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where
-to download the package by adding a [Scoped
-Registry](https://docs.unity3d.com/Manual/upm-scoped.html) to your
-`Packages/manifest.json` file. You can do this by adding the
-highlighted lines in @lst:manifest-json-draco and restarting Unity. If
-you want to perform the same edits to `Packages/manifest.json` in an
-automated fashion, you can accomplish that by installing the [OpenUPM
-CLI tool](https://github.com/openupm/openupm-cli) and running `openupm
-add com.atteneder.draco@1.4.0`.
+to download the package by adding a [scoped
+registry](https://docs.unity3d.com/Manual/upm-scoped.html) to your
+`Packages/manifest.json` file. You can do that by making the edits
+shown in @lst:manifest-json-dracounity and then restarting Unity. If you
+want to perform the same edits in an automated fashion, you can
+install the [OpenUPM CLI tool](https://github.com/openupm/openupm-cli)
+and run `openupm add com.atteneder.draco@1.4.0`.
 
-_Note!:_ I no longer recommend using the "Installer Package" link from the
-DracoUnity README.md on GitHub, since this is merely a more
-convoluted method for performing the aforementioned edits to
-`Packages/manifest.json`. In addition, the provided Installer Package link
-always install the latest tagged version of DracoUnity
-(i.e. 2.0.0-preview), while in this case I recommend installing the
-latest official release (DracoUnity 1.4.0).
+_Note!:_ I don't recommend using the "Installer Package" link from the
+README.md on the DracoUnity GitHub page, since that is just a more
+convoluted and fragile method for performing the edits shown in
+@lst:manifest-json-dracounity. While the installer link is more
+automatic, it prevents the user from understanding what is going on
+under the hood.  In addition, the installer link will always install
+the latest tagged version of DracoUnity (i.e. 2.0.0-preview), whereas
+in this case we want to install DracoUnity 1.4.0.
 
-```{#lst:manifest-json-draco .json}
+In addition, please note the following "gotchas":
+
+* DracoUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors about invalid `.meta` file format.
+* When building for the PC/Standalone platform, remember to change `Architecture` from `x86` to `x86_64`. Otherwise, the native DLL for DracoUnity (`ktx_unity.dll`) will not be included in the build, and you may get a `DllNotFoundException` when you run your application.
+
+```{#lst:manifest-json-dracounity .json}
 {
   "dependencies" : {
     "com.unity.collab-proxy" : "1.2.16",

@@ -811,14 +811,90 @@ Finally, if you plan to use supercompressed textures, you will probably need to 
 
 ### Installing KtxUnity
 
-To load glTF files with supercompressed textures, Piglet requires KtxUnity 0.9.1 or newer. To install KtxUnity, follow the instructions on the [KtxUnity GitHub page](https://github.com/atteneder/KtxUnity).
+To load glTF files with supercompressed textures, Piglet requires [KtxUnity](https://github.com/atteneder/KtxUnity) 0.9.1 or newer.
+I recommend using KtxUnity 1.0.0, which is the latest official release
+at the time of writing (May 2021).
+
+Since KtxUnity is hosted by a third-party package registry
+([OpenUPM](https://openupm.com/)), you will need to tell Unity where
+to download the package by adding a [scoped
+registry](https://docs.unity3d.com/Manual/upm-scoped.html) to your
+`Packages/manifest.json` file. You can do that by making the edits
+shown in @lst:manifest-json-ktxunity and then restarting Unity. If you
+want to perform the same edits in an automated fashion, you can
+install the [OpenUPM CLI tool](https://github.com/openupm/openupm-cli)
+and run `openupm add com.atteneder.ktx@1.0.0`.
+
+_Note!:_ I don't recommend using the "Installer Package" link from the
+README.md on the KtxUnity GitHub page, since that is just a more
+convoluted and fragile method for performing the edits shown in
+@lst:manifest-json-ktxunity. While the installer link is more
+automatic, it prevents the user from understanding what is going
+on under the hood.
 
 In addition, please note the following "gotchas":
 
 * KtxUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors about invalid `.meta` file format.
 * When building for the PC/Standalone platform, remember to change `Architecture` from `x86` to `x86_64`. Otherwise, the native DLL for KtxUnity (`ktx_unity.dll`) will not be included in the build, and you may get a `DllNotFoundException` when you run your application.
-* Starting in Unity 2020.1, dialogs will pop up after installing KtxUnity, informing you that a new "Scoped Registry" has been added to the Package Manager. This is normal and you should just close the dialog(s) without changing any settings.
-* KtxUnity may not appear in the list of installed/available packages until you refresh the Unity Package Manager window, by clicking the circular arrow icon in the bottom left corner. (I've noticed this issue in Unity 2020.2.1f1.)
+
+```{#lst:manifest-json-ktxunity .json}
+{
+  "dependencies" : {
+    "com.unity.collab-proxy" : "1.2.16",
+    "com.unity.ide.rider" : "1.1.4",
+    "com.unity.ide.vscode" : "1.2.0",
+    "com.unity.test-framework" : "1.1.13",
+    "com.unity.textmeshpro" : "2.0.1",
+    "com.unity.timeline" : "1.2.14",
+    "com.unity.ugui" : "1.0.0",
+    "com.unity.modules.ai" : "1.0.0",
+    "com.unity.modules.androidjni" : "1.0.0",
+    "com.unity.modules.animation" : "1.0.0",
+    "com.unity.modules.assetbundle" : "1.0.0",
+    "com.unity.modules.audio" : "1.0.0",
+    "com.unity.modules.cloth" : "1.0.0",
+    "com.unity.modules.director" : "1.0.0",
+    "com.unity.modules.imageconversion" : "1.0.0",
+    "com.unity.modules.imgui" : "1.0.0",
+    "com.unity.modules.jsonserialize" : "1.0.0",
+    "com.unity.modules.particlesystem" : "1.0.0",
+    "com.unity.modules.physics" : "1.0.0",
+    "com.unity.modules.physics2d" : "1.0.0",
+    "com.unity.modules.screencapture" : "1.0.0",
+    "com.unity.modules.terrain" : "1.0.0",
+    "com.unity.modules.terrainphysics" : "1.0.0",
+    "com.unity.modules.tilemap" : "1.0.0",
+    "com.unity.modules.ui" : "1.0.0",
+    "com.unity.modules.uielements" : "1.0.0",
+    "com.unity.modules.umbra" : "1.0.0",
+    "com.unity.modules.unityanalytics" : "1.0.0",
+    "com.unity.modules.unitywebrequest" : "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle" : "1.0.0",
+    "com.unity.modules.unitywebrequestaudio" : "1.0.0",
+    "com.unity.modules.unitywebrequesttexture" : "1.0.0",
+    "com.unity.modules.unitywebrequestwww" : "1.0.0",
+    "com.unity.modules.vehicles" : "1.0.0",
+    "com.unity.modules.video" : "1.0.0",
+    "com.unity.modules.vr" : "1.0.0",
+    "com.unity.modules.wind" : "1.0.0",
+    "com.unity.modules.xr" : "1.0.0",
+    "com.atteneder.ktx" : "1.0.0"
+  },
+  "scopedRegistries" : [
+    {
+      "name" : "OpenUPM",
+      "url" : "https://package.openupm.com",
+      "scopes" : [
+        "com.atteneder"
+      ]
+    }
+  ]
+}
+```
+: Example edits to a `Packages/manifest.json` file, in order to add
+the KtxUnity 1.0.0 package. After adding the highlighted text,
+close and reopen Unity in order to install the KtxUnity package into
+your project.
 
 ### Preprocessing glTF Files {#supercompressed-textures-preprocessing-gltf-files}
 

@@ -41,7 +41,7 @@ lstPrefix: Listing
     * [Draco Mesh Compression (Unity 2019.3+)](#draco-mesh-compression)
         * [Overview](#draco-overview)
         * [Installing DracoUnity](#installing-dracounity)
-        * [Draco-compressing Your glTF Files](#draco-compressing-your-gltf-files)
+        * [Draco-compressing Your glTF Meshes](#draco-compressing-your-gltf-meshes)
 * [URP Support (Unity 2019.3+)](#urp-support)
 * [Sample Application: PigletViewer](#piglet-viewer)
 * [Changelog](#changelog)
@@ -808,7 +808,15 @@ For a practical demonstration of the trade-offs, compare the ordinary and KTX2/E
 
 Before Piglet can load glTF files with supercompressed textures, you will need to install a third-party package called [KtxUnity](https://github.com/atteneder/KtxUnity) into your Unity project (see [Installing KtxUnity](#installing-ktxunity)). If you attempt to load a glTF file that contains supercompressed textures without installing KtxUnity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.
 
-Finally, if you plan to use supercompressed textures, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from [Sketchfab](https://sketchfab.com). For converting glTF files, I recommend using the [gltf-transform](https://gltf-transform.donmccurdy.com/cli.html) command line tool, as described in [Supercompressing Your glTF Textures](#supercompressing-your-gltf-textures).
+Finally, if you plan to use supercompressed textures with your models,
+you will probably need to preprocess the glTF files yourself. At the
+time of writing (Feb 2021), most glTF files on the web use PNG or JPEG
+textures, including the glTF files downloaded from
+[Sketchfab](https://sketchfab.com). I recommend using the
+[gltf-transform](https://gltf-transform.donmccurdy.com/cli.html)
+command line tool to compress the textures in your glTF files, as
+described in [Supercompressing Your glTF
+Textures](#supercompressing-your-gltf-textures).
 
 ### Installing KtxUnity
 
@@ -953,15 +961,15 @@ project (see [Installing DracoUnity](#installing-dracounity)). If
 you attempt to load a Draco-compressed glTF file without installing
 DracoUnity, the glTF import will fail with an error in the Unity console.
 
-Finally, if you plan to use Draco compression for your game assets,
+Finally, if you plan to use Draco-compressed meshes for your models,
 you will probably need to preprocess the glTF files yourself.  At the
 time of writing (May 2021), most glTF files available on the web use
 uncompressed meshes, including the glTF files downloaded from
-[Sketchfab](https://sketchfab.com).  For Draco-compressing glTF files,
-I recommend using the
+[Sketchfab](https://sketchfab.com). I recommend using the
 [gltf-transform](https://gltf-transform.donmccurdy.com/cli.html)
-command line tool, as detailed in [Draco-compressing Your glTF
-Files](#draco-compressing-your-gltf-files).
+command line tool to compress the meshes in your glTF files, as
+detailed in [Draco-compressing Your glTF
+Meshes](#draco-compressing-your-gltf-meshes).
 
 ### Installing DracoUnity
 
@@ -1056,10 +1064,10 @@ In addition, please note the following "gotchas" when installing DracoUnity:
 DracoUnity 1.4.0. After adding the highlighted text, restart Unity to
 install the package.
 
-### Draco-compressing Your glTF Files
+### Draco-compressing Your glTF Meshes
 
 Most glTF files store their meshes in standard uncompressed form. To Draco-compress
-your glTF files, I recommend using the  [gltf-transform](https://gltf-transform.donmccurdy.com/cli.html) command line tool.
+the meshes in your glTF files, I recommend using the  [gltf-transform](https://gltf-transform.donmccurdy.com/cli.html) command line tool.
 
 In order to install `gltf-transform`, you will first need to install [NodeJS and NPM](https://www.npmjs.com/get-npm). Then you will be able to install `gltf-transform` by running:
 

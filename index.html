@@ -734,7 +734,7 @@
 <p><em>Note!:</em> I don’t recommend using the “Installer Package” link from the README.md on the KtxUnity GitHub page, since that is just a more convoluted and fragile method for performing the edits shown in Listing 6. While the installer link is more automatic, it prevents the user from understanding what is going on under the hood.</p>
 <p>In addition, please note the following “gotchas” when installing KtxUnity:</p>
 <ul>
-<li>KtxUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors about invalid <code>.meta</code> file format.</li>
+<li>KtxUnity requires Unity 2019.3+. If you attempt to use a Unity version older than 2019.3, you will get errors about invalid <code>.meta</code> file format.</li>
 <li>When building for the PC/Standalone platform, remember to change <code>Architecture</code> from <code>x86</code> to <code>x86_64</code>. Otherwise, the native DLL for KtxUnity (<code>ktx_unity.dll</code>) will not be included in the build, and you may get a <code>DllNotFoundException</code> when you run your application.</li>
 </ul>
 <div id="lst:manifest-json-ktxunity" class="listing json">
@@ -818,7 +818,7 @@
 <p><em>Note!:</em> I don’t recommend using the “Installer Package” link from the README.md on the DracoUnity GitHub page, since that is just a more convoluted and fragile method for performing the edits shown in Listing 7. While the installer link is more automatic, it prevents the user from understanding what is going on under the hood. In addition, the installer link will always install the latest tagged version of DracoUnity (i.e. 2.0.0-preview), whereas in this case we want to install DracoUnity 1.4.0.</p>
 <p>In addition, please note the following “gotchas” when installing DracoUnity:</p>
 <ul>
-<li>DracoUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors about invalid <code>.meta</code> file format.</li>
+<li>DracoUnity requires Unity 2019.3+. If you attempt to use a Unity version older than 2019.3, you will get errors about invalid <code>.meta</code> file format.</li>
 <li>When building for the PC/Standalone platform, remember to change <code>Architecture</code> from <code>x86</code> to <code>x86_64</code>. Otherwise, the native DLL for DracoUnity (<code>draco_unity.dll</code>) will not be included in the build, and you may get a <code>DllNotFoundException</code> when you run your application.</li>
 </ul>
 <div id="lst:manifest-json-dracounity" class="listing json">

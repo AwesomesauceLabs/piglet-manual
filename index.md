@@ -834,7 +834,7 @@ on under the hood.
 
 In addition, please note the following "gotchas" when installing KtxUnity:
 
-* KtxUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors about invalid `.meta` file format.
+* KtxUnity requires Unity 2019.3+. If you attempt to use a Unity version older than 2019.3, you will get errors about invalid `.meta` file format.
 * When building for the PC/Standalone platform, remember to change `Architecture` from `x86` to `x86_64`. Otherwise, the native DLL for KtxUnity (`ktx_unity.dll`) will not be included in the build, and you may get a `DllNotFoundException` when you run your application.
 
 ```{#lst:manifest-json-ktxunity .json}
@@ -988,7 +988,7 @@ in this case we want to install DracoUnity 1.4.0.
 
 In addition, please note the following "gotchas" when installing DracoUnity:
 
-* DracoUnity requires Unity 2019.3+. The provided installer link does not enforce this, but if you attempt to use a Unity version older than 2019.3, you will get errors about invalid `.meta` file format.
+* DracoUnity requires Unity 2019.3+. If you attempt to use a Unity version older than 2019.3, you will get errors about invalid `.meta` file format.
 * When building for the PC/Standalone platform, remember to change `Architecture` from `x86` to `x86_64`. Otherwise, the native DLL for DracoUnity (`draco_unity.dll`) will not be included in the build, and you may get a `DllNotFoundException` when you run your application.
 
 ```{#lst:manifest-json-dracounity .json}

@@ -67,6 +67,7 @@ to try Piglet before you buy it.
 * import and play glTF animations (including skins and blendshapes)
 * import glTF textures and materials, for use with your own models
 * supports supercompressed textures via [KtxUnity](https://github.com/atteneder/KtxUnity) (Unity 2019.3+)
+* supports Draco mesh compression via [DracoUnity](https://github.com/atteneder/DracoUnity) (Unity 2019.3+)
 * tested with glTF models from [Sketchfab](https://sketchfab.com/),
   [Google Poly](https://poly.google.com), and
   [Blender](https://www.blender.org/)

@@ -807,7 +807,7 @@ For a practical demonstration of the trade-offs, compare the ordinary and KTX2/E
 
 Before Piglet can load glTF files with supercompressed textures, you will need to install a third-party package called [KtxUnity](https://github.com/atteneder/KtxUnity) into your Unity project (see [Installing KtxUnity](#installing-ktxunity)). If you attempt to load a glTF file that contains supercompressed textures without installing KtxUnity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.
 
-Finally, if you plan to use supercompressed textures, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from [Sketchfab](https://sketchfab.com). For converting glTF files, I recommend using the `gltf-transform` command line tool, as described in [Supercompressing Your glTF Textures](#supercompressing-your-gltf-textures).
+Finally, if you plan to use supercompressed textures, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from [Sketchfab](https://sketchfab.com). For converting glTF files, I recommend using the [gltf-transform](https://gltf-transform.donmccurdy.com/cli.html) command line tool, as described in [Supercompressing Your glTF Textures](#supercompressing-your-gltf-textures).
 
 ### Installing KtxUnity
 
@@ -825,12 +825,13 @@ want to perform the same edits in an automated fashion, you can
 install the [OpenUPM CLI tool](https://github.com/openupm/openupm-cli)
 and run `openupm add com.atteneder.ktx@1.0.0`.
 
-_Note!:_ I don't recommend using the "Installer Package" link from the
-README.md on the KtxUnity GitHub page, since that is just a more
-convoluted and fragile method for performing the edits shown in
-@lst:manifest-json-ktxunity. While the installer link is more
-automatic, it prevents the user from understanding what is going
-on under the hood.
+_Note!:_ I no longer recommend using the "Installer Package" link from
+the [KtxUnity
+README.md](https://github.com/atteneder/KtxUnity#installing), since it
+is just a more convoluted and fragile method for performing the text
+edits shown in @lst:manifest-json-ktxunity. While the installer link
+is more automatic, it prevents the user from understanding what is
+really going on under the hood.
 
 In addition, please note the following "gotchas" when installing KtxUnity:
 
@@ -899,7 +900,7 @@ install the package.
 
 Most glTF files store their textures in PNG or JPEG format. To convert the textures in your glTF files to KTX2/ETC1S or KTX2/UASTC, I recommend using the [gltf-transform](https://gltf-transform.donmccurdy.com/cli.html) command line tool.
 
-In order to install `gltf-transform`, you will first need to install:
+In order to supercompress your textures with `gltf-transform`, you will first need to install:
 
 * [NodeJS and NPM](https://www.npmjs.com/get-npm)
 * [KTX-Software](https://github.com/KhronosGroup/KTX-Software). This project provides the `toktx` program that is invoked by `gltf-transform`. To install the software, go to the [GitHub releases page](https://github.com/KhronosGroup/KTX-Software/releases), click/expand "Assets" at the bottom of the release notes, and choose the appropriate package/installer for your O/S. Note that if you are using Windows, you will also need to add `C:\Program Files\KTX-Software\bin` to your `Path`, so that `gltf-transform` can find the `toktx` binary. 
@@ -910,7 +911,7 @@ Once you have installed the above prerequisites, you will be able to install `gl
 npm install --global @gltf-transform/cli
 ```
 
-Once `gltf-transform` is installed, you will be able to convert the textures in a glTF file to KTX2/ETC1S by running:
+You will then be able to convert the textures in a glTF file to KTX2/ETC1S by running:
 
 ```sh
 gltf-transform etc1s input.glb output.glb
@@ -928,20 +929,21 @@ The `gltf-transform` program provides options for restricting the conversion to 
 
 ### Overview {#draco-overview}
 
-Piglet can load glTF files that use Draco mesh
-compression[^draco-mesh-compression]. The main benefit of using Draco
+Piglet can load glTF files that use _Draco mesh
+compression_[^draco-mesh-compression]. The main benefit of using Draco
 compression is that it can substantially reduce the size of your glTF
-files (e.g. 20% of original size), with the most benefit for models
-that contain complex geometry.  While using Draco compression does
-introduce some computational overhead, in practice the impact on model
-loading times is neglible.
+files (e.g. 20% of original size), especially if your model contains
+large/complex meshes.  While using Draco compression does introduce
+some computational overhead, the impact on model loading times is
+usually neglible.
 
 For a practical demonstration of the benefits, compare the ordinary
 and Draco-compressed versions of the models at the [Piglet Web
 Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/). Note the
-large differences in file sizes and the small differences
-in loading times. For further examples of Draco compression results,
-see [Draco Compressed Meshes with glTF and 3D Tiles](https://cesium.com/blog/2018/04/09/draco-compression/).
+large differences in file sizes and the small differences in loading
+times. For further examples of real-world Draco compression results,
+see [Draco Compressed Meshes with glTF and 3D
+Tiles](https://cesium.com/blog/2018/04/09/draco-compression/).
 
 Before Piglet can load Draco-compressed glTF files, you will need to
 install a third-party package called
@@ -951,12 +953,14 @@ you attempt to load a Draco-compressed glTF file without installing
 DracoUnity, the glTF import will fail with an error in the Unity console.
 
 Finally, if you plan to use Draco compression for your game assets,
-you will probably need to preprocess the glTF files yourself.
-At the time of writing (May 2021), most glTF files on the web
-use uncompressed meshes, including the glTF files downloaded from
-[Sketchfab](https://sketchfab.com).  For Draco-compressing glTF
-files, I recommend using the `gltf-transform` command line tool,
-as described in [Draco-compressing Your glTF Files](#draco-compressing-your-gltf-files).
+you will probably need to preprocess the glTF files yourself.  At the
+time of writing (May 2021), most glTF files available on the web use
+uncompressed meshes, including the glTF files downloaded from
+[Sketchfab](https://sketchfab.com).  For Draco-compressing glTF files,
+I recommend using the
+[gltf-transform](https://gltf-transform.donmccurdy.com/cli.html)
+command line tool, as detailed in [Draco-compressing Your glTF
+Files](#draco-compressing-your-gltf-files).
 
 ### Installing DracoUnity
 
@@ -978,13 +982,15 @@ install the [OpenUPM CLI tool](https://github.com/openupm/openupm-cli)
 and run `openupm add com.atteneder.draco@1.4.0`.
 
 _Note!:_ I don't recommend using the "Installer Package" link from the
-README.md on the DracoUnity GitHub page, since that is just a more
-convoluted and fragile method for performing the edits shown in
-@lst:manifest-json-dracounity. While the installer link is more
-automatic, it prevents the user from understanding what is going on
-under the hood.  In addition, the installer link will always install
-the latest tagged version of DracoUnity (i.e. 2.0.0-preview), whereas
-in this case we want to install DracoUnity 1.4.0.
+[DracoUnity
+README.md](https://github.com/atteneder/DracoUnity#installing), since
+that is just a more convoluted and fragile method for performing the
+text edits shown in @lst:manifest-json-dracounity. While the installer
+link is more automatic, it prevents the user from understanding what
+is really going on under the hood.  In addition, the installer package
+will always install the latest tagged version of DracoUnity
+(2.0.0-preview as of May 2021), whereas I recommend installing the
+latest stable release instead (i.e. DracoUnity 1.4.0).
 
 In addition, please note the following "gotchas" when installing DracoUnity:
 

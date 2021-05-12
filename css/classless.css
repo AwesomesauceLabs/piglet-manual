@@ -198,7 +198,6 @@ q:before { content: "\201C"; } q q:before { content: "\2018"; }
 q:after  { content: "\201D"; } q q:after  { content: "\2019"; }
 summary { font-weight: bold; cursor: pointer; margin: 0.5rem 0;}
 time{ color: var(--cdark); }
-mark{ background-color: transparent; color: var(--cemph); text-decoration: underline solid var(--cemph) }
 
 
 

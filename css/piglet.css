@@ -8,3 +8,7 @@ div.listing > p {
     text-align: center;
     color: #888;
 }
+
+mark {
+    background-color: #cceecc;
+}

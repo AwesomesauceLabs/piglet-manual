@@ -1,7 +1,7 @@
 ---
 author-meta: Awesomesauce Labs
 description: 'Manual: Piglet glTF Importer for Unity'
-title: 'Manual: Piglet glTF Importer 1.2.2'
+title: 'Manual: Piglet glTF Importer 1.3.0'
 codeBlockCaptions: true
 figPrefix: Figure
 lstPrefix: Listing

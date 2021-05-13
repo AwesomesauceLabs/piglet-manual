@@ -1128,6 +1128,21 @@ introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.3.0 (2021-05-13)
+
+This release finally adds support for Draco mesh compression!
+
+* Reduces glTF files sizes (e.g. 20% of original size) without affecting performance
+* Requires Unity 2019.3+ and installation of [DracoUnity](https://github.com/atteneder/DracoUnity) package
+* Requires preprocessing your glTF files
+* See [Draco Mesh Compression](#draco-mesh-compression) section of the Piglet manual for further details
+
+Bugfixes also included in this release:
+
+* Print a warning and skip over meshes of type POINTS/LINES (previously Piglet would crash unless all meshes had type TRIANGLES)
+* Fix escaping of illegal characters in filenames on MacOS
+* Do not create upside-down PNG/JPEG texture assets during Editor glTF imports (to compensate for Unity's upside-down PNG/JPEG loading, set TextureScale = (1, -1) on the materials instead)
+
 ## Release 1.2.2 (2021-04-16)
 
 Bugfix release.

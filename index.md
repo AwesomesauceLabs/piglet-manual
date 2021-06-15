@@ -827,20 +827,23 @@ at the time of writing (May 2021).
 Since KtxUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where
 to download the package by adding a [scoped
-registry](https://docs.unity3d.com/Manual/upm-scoped.html) to your
-`Packages/manifest.json` file. You can do that by making the edits
-shown in @lst:manifest-json-ktxunity and then restarting Unity. If you
-want to perform the same edits in an automated fashion, you can
-install the [OpenUPM CLI tool](https://github.com/openupm/openupm-cli)
-and run `openupm add com.atteneder.ktx@1.0.0`.
+registry](https://docs.unity3d.com/Manual/upm-scoped.html) to the
+`Packages/manifest.json` file under your Unity project directory. You can
+do that by making the edits shown in @lst:manifest-json-ktxunity and
+then restarting Unity. If you want to perform the same edits in an
+automated fashion, you can instead install the [OpenUPM CLI
+tool](https://github.com/openupm/openupm-cli) and run `openupm add
+com.atteneder.ktx@1.0.0`.
 
-_Note!:_ I no longer recommend using the "Installer Package" link from
-the [KtxUnity
+_Note!:_ I don't recommend using the "Installer Package" link from the
+[KtxUnity
 README.md](https://github.com/atteneder/KtxUnity#installing), since it
 is just a more convoluted and fragile method for performing the text
 edits shown in @lst:manifest-json-ktxunity. While the installer link
 is more automatic, it prevents the user from understanding what is
-really going on under the hood.
+really going on under the hood. Another advantage of manually editing
+`manifest.json` is that you can pin KtxUnity to a specific version (if
+desired).
 
 In addition, please note the following "gotchas" when installing KtxUnity:
 

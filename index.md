@@ -977,21 +977,19 @@ Meshes](#draco-compressing-your-gltf-meshes).
 ### Installing DracoUnity
 
 To load glTF files that use Draco mesh compression, Piglet requires
-[DracoUnity](https://github.com/atteneder/DracoUnityhttps://github.com/atteneder/DracoUnity) 1.4.0 or newer. Although it is already possible to use DracoUnity
-2.0.0-preview with Piglet (the latest version as of May 2021), I
-recommend sticking with DracoUnity 1.4.0 for now. The DracoUnity
-author (\@atteneder) has advised that there are still important issues to
-be fixed before the official 2.0.0 release.
+[DracoUnity](https://github.com/atteneder/DracoUnityhttps://github.com/atteneder/DracoUnity) 1.4.0 or newer. I recommend using DracoUnity 3.0.3, which is the
+latest release at the time of writing (June 2021).
 
 Since DracoUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where
 to download the package by adding a [scoped
-registry](https://docs.unity3d.com/Manual/upm-scoped.html) to your
-`Packages/manifest.json` file. You can do that by making the edits
-shown in @lst:manifest-json-dracounity and then restarting Unity. If you
-want to perform the same edits in an automated fashion, you can
-install the [OpenUPM CLI tool](https://github.com/openupm/openupm-cli)
-and run `openupm add com.atteneder.draco@1.4.0`.
+registry](https://docs.unity3d.com/Manual/upm-scoped.html) to the
+`Packages/manifest.json` under your Unity project directory. You can
+do that by making the edits shown in @lst:manifest-json-dracounity and
+then restarting Unity. If you want to perform the same edits in an
+automated fashion, you can instead install the [OpenUPM CLI
+tool](https://github.com/openupm/openupm-cli) and run `openupm add
+com.atteneder.draco@3.0.3`.
 
 _Note!:_ I don't recommend using the "Installer Package" link from the
 [DracoUnity
@@ -999,10 +997,9 @@ README.md](https://github.com/atteneder/DracoUnity#installing), since
 that is just a more convoluted and fragile method for performing the
 text edits shown in @lst:manifest-json-dracounity. While the installer
 link is more automatic, it prevents the user from understanding what
-is really going on under the hood.  In addition, the installer package
-will always install the latest tagged version of DracoUnity
-(2.0.0-preview as of May 2021), whereas I recommend installing the
-latest stable release instead (i.e. DracoUnity 1.4.0).
+is really going on under the hood. Another advantage of manually
+editing `manifest.json` is that you can pin DracoUnity to a
+specific version (if desired).
 
 In addition, please note the following "gotchas" when installing DracoUnity:
 
@@ -1050,7 +1047,7 @@ In addition, please note the following "gotchas" when installing DracoUnity:
     "com.unity.modules.vr" : "1.0.0",
     "com.unity.modules.wind" : "1.0.0",
     "com.unity.modules.xr" : "1.0.0",
-    "com.atteneder.draco" : "1.4.0"
+    "com.atteneder.draco" : "3.0.3"
   },
   "scopedRegistries" : [
     {
@@ -1064,7 +1061,7 @@ In addition, please note the following "gotchas" when installing DracoUnity:
 }
 ```
 : Example edits to `Packages/manifest.json` in order to install
-DracoUnity 1.4.0. After adding the highlighted text, restart Unity to
+DracoUnity 3.0.3. After adding the highlighted text, restart Unity to
 install the package.
 
 ### Draco-compressing Your glTF Meshes

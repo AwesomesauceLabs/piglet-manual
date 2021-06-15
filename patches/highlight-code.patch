@@ -31,11 +31,11 @@ index 83cedbd..e16020e 100644
  <span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.vr&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
  <span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.wind&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
 -<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.xr&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
--<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.atteneder.draco&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.4.0&quot;</span></span>
+-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.atteneder.draco&quot;</span> <span class="fu">:</span> <span class="st">&quot;3.0.3&quot;</span></span>
 -<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
 -<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;scopedRegistries&quot;</span> <span class="fu">:</span> <span class="ot">[</span></span>
 +<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.xr&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu"><mark class="inline">,</mark></span></span>
-+<mark class="block"><span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.atteneder.draco&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.4.0&quot;</span></span></mark>
++<mark class="block"><span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.atteneder.draco&quot;</span> <span class="fu">:</span> <span class="st">&quot;3.0.3&quot;</span></span></mark>
 +<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}<mark class="inline">,</mark></span></span>
 +<mark class="block"><span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;scopedRegistries&quot;</span> <span class="fu">:</span> <span class="ot">[</span></span>
  <span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>

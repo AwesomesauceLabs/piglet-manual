@@ -1128,6 +1128,13 @@ introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.3.1 (2021-06-15)
+
+Bugfix release.
+
+* Compatibility fixes for the recently released DracoUnity 2.x/3.x. Previously, these DracoUnity versions caused "unfreed collection" errors and produced GameObjects with incorrect orientations, but these problems are now fixed. Users are now recommended to use the latest DracoUnity version (currently DracoUnity 3.0.3).
+* Fixed removal of non-Latin characters (e.g. Chinese characters) from GameObject names
+
 ## Release 1.3.0 (2021-05-13)
 
 This release finally adds support for Draco mesh compression!

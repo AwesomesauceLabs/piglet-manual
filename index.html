@@ -874,6 +874,13 @@
 </figure>
 <p>PigletViewer is a sample application which uses Piglet to view 3D models from glTF files (`.gltf`, `.glb`, or `.zip`), and which is used for the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet Web Demo</a>. For the benefit of Piglet customers, I have published the source code and documentation for PigletViewer online at <a href="https://github.com/AwesomesauceLabs/piglet-viewer" class="uri">https://github.com/AwesomesauceLabs/piglet-viewer</a>, under an MIT license. PigletViewer currently supports builds for Android, WebGL, and Windows, and thus it may be a useful reference for Piglet users developing for those platforms. In general, I recommend looking at the <a href="#runtime-import-tutorial">Runtime Import Tutorial</a> before exploring the PigletViewer code, as the tutorial provides a much more succinct introduction to the Piglet API.</p>
 <h1 id="changelog">Changelog</h1>
+<h2 id="release-1.3.2-2021-06-21">Release 1.3.2 (2021-06-21)</h2>
+<p>Bugfix release.</p>
+<ul>
+<li>Don’t include <code>Assets/Piglet/Dependencies/Json.NET</code> when Piglet is installed with Unity 2020.3.10+ or Unity 2021.1.9+</li>
+<li>Unity 2020.3.10+ and Unity 2021.1.9+ now install the “Newtonsoft Json” package (i.e. <code>com.unity.nuget.newtonsoft-json</code>) by default when creating a new project. Including <code>Assets/Piglet/Dependencies/Json.NET</code> was causing a second copy of <code>Newtonsoft.Json.dll</code> to be added to the project, resulting in compile errors.</li>
+<li>See “Fixing Newtonsoft.Json.dll Errors (Json.NET)” in the Piglet manual for further details.</li>
+</ul>
 <h2 id="release-1.3.1-2021-06-15">Release 1.3.1 (2021-06-15)</h2>
 <p>Bugfix release.</p>
 <ul>

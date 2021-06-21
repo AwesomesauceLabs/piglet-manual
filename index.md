@@ -1154,6 +1154,14 @@ introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.3.2 (2021-06-21)
+
+Bugfix release.
+
+* Don't include `Assets/Piglet/Dependencies/Json.NET` when Piglet is installed with Unity 2020.3.10+ or Unity 2021.1.9+
+* Unity 2020.3.10+ and Unity 2021.1.9+ now install the "Newtonsoft Json" package (i.e. `com.unity.nuget.newtonsoft-json`) by default when creating a new project. Including `Assets/Piglet/Dependencies/Json.NET` was causing a second copy of `Newtonsoft.Json.dll` to be added to the project, resulting in compile errors.
+* See "Fixing Newtonsoft.Json.dll Errors (Json.NET)" in the Piglet manual for further details.
+
 ## Release 1.3.1 (2021-06-15)
 
 Bugfix release.

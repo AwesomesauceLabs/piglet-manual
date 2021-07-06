@@ -407,7 +407,7 @@
 <span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">/// The total number of glTF entities (e.g. textures, materials) that will</span></span>
 <span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="co">/// be imported for the current import step.</span></span>
 <span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="co">/// </span><span class="kw">&lt;/param&gt;</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">OnProgress</span>(ImportStep step, <span class="dt">int</span> completed, <span class="dt">int</span> total)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">OnProgress</span>(GltfImportStep step, <span class="dt">int</span> completed, <span class="dt">int</span> total)</span>
 <span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>        Debug.<span class="fu">LogFormat</span>(<span class="st">&quot;{0}: {1}/{2}&quot;</span>, step, completed, total);</span>
 <span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    }</span>

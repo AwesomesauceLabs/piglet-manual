@@ -491,7 +491,7 @@ public class RuntimeImportBehaviour : MonoBehaviour
     /// The total number of glTF entities (e.g. textures, materials) that will
     /// be imported for the current import step.
     /// </param>
-    private void OnProgress(ImportStep step, int completed, int total)
+    private void OnProgress(GltfImportStep step, int completed, int total)
     {
         Debug.LogFormat("{0}: {1}/{2}", step, completed, total);
     }

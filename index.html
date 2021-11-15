@@ -242,8 +242,12 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><code>Enable drag-and-drop glTF import</code></td>
-<td style="text-align: left;">Enable/disable automatic glTF imports when dragging .gltf/.glb/.zip files onto the Project Browser window</td>
+<td style="text-align: left;"><code>Enable glTF imports in Editor</code></td>
+<td style="text-align: left;">Enable/disable automatic glTF imports when adding new .gltf/.glb/.zip files to the project</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Log import progress in Console</code></td>
+<td style="text-align: left;">Log progress messages to Unity Console window during glTF imports (useful for debugging)</td>
 </tr>
 </tbody>
 </table>
@@ -275,7 +279,7 @@
 </tbody>
 </table>
 <table>
-<caption>Editor Options</caption>
+<caption>Drag-and-Drop Options</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Option</th>
@@ -288,24 +292,27 @@
 <td style="text-align: left;">Show confirmation prompt if glTF import directory already exists</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>Print progress messages in Console</code></td>
-<td style="text-align: left;">Log progress messages to Unity Console window during glTF imports (useful for debugging)</td>
+<td style="text-align: left;"><code>Copy source glTF files into project</code></td>
+<td style="text-align: left;">Copy dragged-and-dropped glTF file/folder into project before performing glTF import. By default, only the Piglet-generated import directory is added to the project.</td>
 </tr>
+</tbody>
+</table>
+<table>
+<caption>Post-import Options</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
 <td style="text-align: left;"><code>Select prefab in Project Browser</code></td>
 <td style="text-align: left;">After a glTF import has completed, select/highlight the generated prefab in the Project Browser window</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>Add prefab instance to scene</code></td>
-<td style="text-align: left;">After a glTF import has completed, add the generated prefab to the current Unity scene, as a child of the currently selected game object. If no game object is selected in the scene, add the prefab at the root of the scene instead.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>Select prefab instance in scene</code></td>
-<td style="text-align: left;">Select/highlight the prefab in the scene hierarchy after adding it to the scene</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>Open prefab in Prefab View</code></td>
-<td style="text-align: left;">After a glTF import has completed, open the generated prefab in the Prefab View. (This is equivalent to double-clicking the prefab in the Project Browser.)</td>
+<td style="text-align: left;"><code>Open prefab in Scene View</code></td>
+<td style="text-align: left;">After a glTF import has completed, open the generated prefab in the Scene View tab. (This is equivalent to double-clicking the prefab in the Project Browser.)</td>
 </tr>
 </tbody>
 </table>

@@ -328,9 +328,10 @@ menu.
 
 ![](images/piglet-options-window.png)
 
-  Option                                 Description
-  -------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  `Enable drag-and-drop glTF import`     Enable/disable automatic glTF imports when dragging .gltf/.glb/.zip files onto the Project Browser window
+  Option                           Description
+  -------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  `Enable glTF imports in Editor`  Enable/disable automatic glTF imports when adding new .gltf/.glb/.zip files to the project
+  `Log import progress in Console` Log progress messages to Unity Console window during glTF imports (useful for debugging)
   
   : Global Options
 
@@ -346,13 +347,16 @@ menu.
   Option                                 Description
   -------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   `Prompt before overwriting files`      Show confirmation prompt if glTF import directory already exists
-  `Print progress messages in Console`   Log progress messages to Unity Console window during glTF imports (useful for debugging)
-  `Select prefab in Project Browser`     After a glTF import has completed, select/highlight the generated prefab in the Project Browser window
-  `Add prefab instance to scene`         After a glTF import has completed, add the generated prefab to the current Unity scene, as a child of the currently selected game object. If no game object is selected in the scene, add the prefab at the root of the scene instead.
-  `Select prefab instance in scene`      Select/highlight the prefab in the scene hierarchy after adding it to the scene
-  `Open prefab in Prefab View`           After a glTF import has completed, open the generated prefab in the Prefab View. (This is equivalent to double-clicking the prefab in the Project Browser.)
+  `Copy source glTF files into project`  Copy dragged-and-dropped glTF file/folder into project before performing glTF import. By default, only the Piglet-generated import directory is added to the project.
   
-  : Editor Options
+  : Drag-and-Drop Options
+
+  Option                                 Description
+  -------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  `Select prefab in Project Browser`     After a glTF import has completed, select/highlight the generated prefab in the Project Browser window
+  `Open prefab in Scene View`            After a glTF import has completed, open the generated prefab in the Scene View tab. (This is equivalent to double-clicking the prefab in the Project Browser.)
+
+  : Post-import Options
 
 # Runtime Imports
 

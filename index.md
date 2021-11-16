@@ -21,7 +21,7 @@ lstPrefix: Listing
 * [Installation](#installation)
     * [Fixing `Newtonsoft.Json.dll` Errors](#json.net-errors)
 * [Editor Imports](#editor-imports)
-    * [Editor Imports by Drag-and-Drop](#editor-imports-by-drag-and-drop)
+    * [Importing glTF Models into your Unity Project](#importing-gltf-models-into-your-unity-project)
     * [Editor Animation Tutorial](#editor-animation-tutorial)
         * [Previewing Animations in the Editor](#previewing-animations-in-the-editor)
         * [Playing (Mecanim) Animations at Runtime](#playing-mecanim-animations-at-runtime)
@@ -143,42 +143,49 @@ with `Newtonsoft.Json.dll` to your project.
 
 # Editor Imports
 
-## Editor Imports by Drag-and-Drop
+## Importing glTF Models into your Unity Project
 
-This section demonstrates how to import glTF models in the Editor.  For
-a video version of this section, see the [Editor Import Demo
-video](https://youtu.be/wf26w0gcVcA).
+Once you have installed Piglet from the Unity Asset Store, you 
+can import glTF models into your Unity project by either:
 
-Once you have installed Piglet from the Unity Asset Store, you can
-import glTF models into your Unity project by dragging-and-dropping
-`.gltf`/`.glb`/`.zip` files from a file browser window (e.g. Windows
-File Explorer) to a folder inside the Unity Project Browser (@fig:editor-import).
-Any folder under `Assets` can be used as the drop target, including the
-`Assets` directory itself.
+1. Dragging-and-dropping a `.gltf`/`.glb`/`.zip` file from
+a file browser application (e.g. Windows File Explorer) into
+the Unity Project Browser (@fig:editor-import), **OR**
+2. Saving a `.gltf`/`.glb`/`.zip` file directly into your Assets
+folder from an external program (e.g. Blender).
 
-Importing a glTF file in the Editor produces a Unity prefab for the
-model, which can then be dragged into your Unity scenes as desired.
-Piglet places the generated prefab and any dependent asset files (e.g.
-textures, materials, meshes) under a newly-created subfolder named after
-the input `.gltf`/`.glb`/`.zip` file.
+For a video demonstration of the drag-and-drop method, see the [Editor
+Import Demo video](https://youtu.be/wf26w0gcVcA).
 
-![Importing a glTF model in the Editor. (A) The user
+In general, saving glTF files directly into your Assets folder
+is a more efficient workflow, especially if you are working on a model
+in Blender and frequently re-exporting it to glTF. However, one important
+caveat is that the updated glTF file will not be reimported until you
+switch focus back to Unity (e.g. Alt-Tab). Unfortunately, Unity does
+not respond to project file changes while it is in the background.
+
+After an Editor glTF import completes, an output folder is created in
+your project with the same name as the input `.gltf`/`.glb`/`.zip`
+file, minus the file extension. This folder contains a Unity prefab
+for the imported model, as well as Unity assets for the individual
+textures, materials, meshes, and animation clips
+(@fig:editor-import). To use the imported model in your game, you can
+simply drag-and-drop the prefab into your Unity scene(s).
+
+![Importing a glTF file via drag-and-drop. (A) The user
 drags-and-drops a .gltf/.glb/.zip file from Windows File Explorer to the
 Unity Project Browser window. (B) Piglet creates a Unity prefab for the
-model and opens it in the Prefab View.](images/editor-import-figure.png){#fig:editor-import width="100%"}
+model and opens it in the Scene View.](images/editor-import-figure.png){#fig:editor-import width="100%"}
 
 There may be circumstances where you want copy a `.gltf`/`.glb`/`.zip`
 file into your project without automatically converting it to a Unity
-prefab. You can bypass/disable Piglet's default drag-and-drop behaviour
-by any of the following methods:
+prefab. You can bypass/disable Piglet's automatic glTF imports
+by either:
 
--   Hold down the `Control` or `Command` key while dragging-and-dropping
-    the `.gltf`/`.glb`/`.zip` into the Unity Project Browser.
--   Uncheck `Enable drag-and-drop glTF import` in the Piglet Options
+-   Holding down the `Control` or `Command` key while dragging-and-dropping
+    the `.gltf`/`.glb`/`.zip` into the Unity Project Browser, **OR**
+-   Unchecking `Enable glTF imports in Editor` in the Piglet Options
     window, located under `Window => Piglet Options` in the Unity menu.
--   Copy the `.gltf`/`.glb`/`.zip` file into the Unity project directory
-    from a file browser window or on the command line. (In other words,
-    copy the file "behind Unity's back".)
 
 ## Editor Animation Tutorial
 

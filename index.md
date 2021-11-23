@@ -1023,9 +1023,19 @@ Meshes](#draco-compressing-your-gltf-meshes).
 
 ### Installing DracoUnity
 
-To load glTF files that use Draco mesh compression, Piglet requires
-[DracoUnity](https://github.com/atteneder/DracoUnityhttps://github.com/atteneder/DracoUnity) 1.4.0 or newer. I recommend using DracoUnity 3.0.3, which is the
-latest release at the time of writing (June 2021).
+To load glTF files that use Draco mesh compression, you will need to
+install
+[DracoUnity](https://github.com/atteneder/DracoUnityhttps://github.com/atteneder/DracoUnity)
+via the Unity Package Manager, as detailed below. Since each
+DracoUnity version has its own range of compatible Unity versions,
+please refer to the table below for the exact DracoUnity version to
+install. (Note: This table was last updated in November 2021.)
+
+Unity Version          DracoUnity Version
+-------------          ----------------
+2019.2 or older        *not supported*
+2019.3 through 2021.1  3.3.2
+2021.2 or newer        4.0.1
 
 Since DracoUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where
@@ -1033,10 +1043,12 @@ to download the package by adding a [scoped
 registry](https://docs.unity3d.com/Manual/upm-scoped.html) to the
 `Packages/manifest.json` under your Unity project directory. You can
 do that by making the edits shown in @lst:manifest-json-dracounity and
-then restarting Unity. If you want to perform the same edits in an
+then restarting Unity. In addition, remember to change the DracoUnity
+version in @lst:manifest-json-dracounity to your required DracoUnity
+version. If you want to perform the same edits in an
 automated fashion, you can instead install the [OpenUPM CLI
 tool](https://github.com/openupm/openupm-cli) and run `openupm add
-com.atteneder.draco@3.0.3`.
+com.atteneder.draco@3.3.2` (or similar).
 
 _Note!:_ I don't recommend using the "Installer Package" link from the
 [DracoUnity
@@ -1048,9 +1060,8 @@ is really going on under the hood. Another advantage of manually
 editing `manifest.json` is that you can pin DracoUnity to a
 specific version (if desired).
 
-In addition, please note the following "gotchas" when installing DracoUnity:
+In addition, please note the following "gotcha" when installing DracoUnity:
 
-* DracoUnity requires Unity 2019.3+. If you attempt to use a Unity version older than 2019.3, you will get errors about invalid `.meta` file format.
 * When building for the PC/Standalone platform, remember to change `Architecture` from `x86` to `x86_64`. Otherwise, the native DLL for DracoUnity (`draco_unity.dll`) will not be included in the build, and you may get a `DllNotFoundException` when you run your application.
 
 ```{#lst:manifest-json-dracounity .json}
@@ -1094,7 +1105,7 @@ In addition, please note the following "gotchas" when installing DracoUnity:
     "com.unity.modules.vr" : "1.0.0",
     "com.unity.modules.wind" : "1.0.0",
     "com.unity.modules.xr" : "1.0.0",
-    "com.atteneder.draco" : "3.0.3"
+    "com.atteneder.draco" : "3.3.2"
   },
   "scopedRegistries" : [
     {

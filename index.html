@@ -721,12 +721,33 @@
 <p>Before Piglet can load glTF files with supercompressed textures, you will need to install a third-party package called <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> into your Unity project (see <a href="#installing-ktxunity">Installing KtxUnity</a>). If you attempt to load a glTF file that contains supercompressed textures without installing KtxUnity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.</p>
 <p>Finally, if you plan to use supercompressed textures with your models, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from <a href="https://sketchfab.com">Sketchfab</a>. I recommend using the <a href="https://gltf-transform.donmccurdy.com/cli.html">gltf-transform</a> command line tool to compress the textures in your glTF files, as described in <a href="#supercompressing-your-gltf-textures">Supercompressing Your glTF Textures</a>.</p>
 <h3 id="installing-ktxunity">Installing KtxUnity</h3>
-<p>To load glTF files with supercompressed textures, Piglet requires <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> 0.9.1 or newer. I recommend using KtxUnity 1.0.0, which is the latest official release at the time of writing (May 2021).</p>
-<p>Since KtxUnity is hosted by a third-party package registry (<a href="https://openupm.com/">OpenUPM</a>), you will need to tell Unity where to download the package by adding a <a href="https://docs.unity3d.com/Manual/upm-scoped.html">scoped registry</a> to the <code>Packages/manifest.json</code> file under your Unity project directory. You can do that by making the edits shown in Listing 6 and then restarting Unity. If you want to perform the same edits in an automated fashion, you can instead install the <a href="https://github.com/openupm/openupm-cli">OpenUPM CLI tool</a> and run <code>openupm add com.atteneder.ktx@1.0.0</code>.</p>
+<p>To load glTF files with supercompressed textures, you will need to install <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> via the Unity Package Manager, as detailed below. Since each KtxUnity version has its own range of compatible Unity versions, please refer to the table below for the exact KtxUnity version to install. (Note: This table was last updated in November 2021.)</p>
+<table>
+<thead>
+<tr class="header">
+<th>Unity Version</th>
+<th>KtxUnity Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2019.2 or older</td>
+<td><em>not supported</em></td>
+</tr>
+<tr class="even">
+<td>2019.3 through 2021.1</td>
+<td>1.1.2</td>
+</tr>
+<tr class="odd">
+<td>2021.2 or newer</td>
+<td>2.0.1</td>
+</tr>
+</tbody>
+</table>
+<p>Since KtxUnity is hosted by a third-party package registry (<a href="https://openupm.com/">OpenUPM</a>), you will need to tell Unity where to download the package by adding a <a href="https://docs.unity3d.com/Manual/upm-scoped.html">scoped registry</a> to the <code>Packages/manifest.json</code> file under your Unity project directory. You can do that by making the edits shown in Listing 6 and then restarting Unity. In addition, remember to change KtxUnity version in Listing 6 to your required KtxUnity version. If you want to perform the same edits in an automated fashion, you can instead install the <a href="https://github.com/openupm/openupm-cli">OpenUPM CLI tool</a> and run <code>openupm add com.atteneder.ktx@1.1.2</code> (or similar).</p>
 <p><em>Note!:</em> I don’t recommend using the “Installer Package” link from the <a href="https://github.com/atteneder/KtxUnity#installing">KtxUnity README.md</a>, since it is just a more convoluted and fragile method for performing the text edits shown in Listing 6. While the installer link is more automatic, it prevents the user from understanding what is really going on under the hood. Another advantage of manually editing <code>manifest.json</code> is that you can pin KtxUnity to a specific version (if desired).</p>
 <p>In addition, please note the following “gotchas” when installing KtxUnity:</p>
 <ul>
-<li>KtxUnity requires Unity 2019.3+. If you attempt to use a Unity version older than 2019.3, you will get errors about invalid <code>.meta</code> file format.</li>
 <li>When building for the PC/Standalone platform, remember to change <code>Architecture</code> from <code>x86</code> to <code>x86_64</code>. Otherwise, the native DLL for KtxUnity (<code>ktx_unity.dll</code>) will not be included in the build, and you may get a <code>DllNotFoundException</code> when you run your application.</li>
 </ul>
 <div id="lst:manifest-json-ktxunity" class="listing json">
@@ -769,10 +790,10 @@
 <span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.video&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
 <span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.vr&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
 <span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.wind&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.xr&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu"><mark class="inline">,</mark></span></span>
-<mark class="block"><span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.atteneder.ktx&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span></span></mark>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}<mark class="inline">,</mark></span></span>
-<mark class="block"><span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;scopedRegistries&quot;</span> <span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.unity.modules.xr&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.0.0&quot;</span><span class="fu">,</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;com.atteneder.ktx&quot;</span> <span class="fu">:</span> <span class="st">&quot;1.1.2&quot;</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;scopedRegistries&quot;</span> <span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span> <span class="fu">:</span> <span class="st">&quot;OpenUPM&quot;</span><span class="fu">,</span></span>
 <span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span> <span class="fu">:</span> <span class="st">&quot;https://package.openupm.com&quot;</span><span class="fu">,</span></span>

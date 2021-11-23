@@ -857,20 +857,31 @@ Textures](#supercompressing-your-gltf-textures).
 
 ### Installing KtxUnity
 
-To load glTF files with supercompressed textures, Piglet requires [KtxUnity](https://github.com/atteneder/KtxUnity) 0.9.1 or newer.
-I recommend using KtxUnity 1.0.0, which is the latest official release
-at the time of writing (May 2021).
+To load glTF files with supercompressed textures, you will need to
+install [KtxUnity](https://github.com/atteneder/KtxUnity) via the
+Unity Package Manager, as detailed below. Since each KtxUnity version
+has its own range of compatible Unity versions, please refer
+to the table below for the exact KtxUnity version to
+install. (Note: This table was last updated in November 2021.)
+
+Unity Version          KtxUnity Version
+-------------          ----------------
+2019.2 or older        *not supported*
+2019.3 through 2021.1  1.1.2
+2021.2 or newer        2.0.1 
 
 Since KtxUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where
 to download the package by adding a [scoped
 registry](https://docs.unity3d.com/Manual/upm-scoped.html) to the
-`Packages/manifest.json` file under your Unity project directory. You can
-do that by making the edits shown in @lst:manifest-json-ktxunity and
-then restarting Unity. If you want to perform the same edits in an
-automated fashion, you can instead install the [OpenUPM CLI
+`Packages/manifest.json` file under your Unity project directory. You
+can do that by making the edits shown in @lst:manifest-json-ktxunity
+and then restarting Unity. In addition, remember to change the KtxUnity
+version in @lst:manifest-json-ktxunity to your required KtxUnity
+version. If you want to perform the same edits in an automated
+fashion, you can instead install the [OpenUPM CLI
 tool](https://github.com/openupm/openupm-cli) and run `openupm add
-com.atteneder.ktx@1.0.0`.
+com.atteneder.ktx@1.1.2` (or similar).
 
 _Note!:_ I don't recommend using the "Installer Package" link from the
 [KtxUnity
@@ -882,9 +893,8 @@ really going on under the hood. Another advantage of manually editing
 `manifest.json` is that you can pin KtxUnity to a specific version (if
 desired).
 
-In addition, please note the following "gotchas" when installing KtxUnity:
+In addition, please note the following "gotcha" when installing KtxUnity:
 
-* KtxUnity requires Unity 2019.3+. If you attempt to use a Unity version older than 2019.3, you will get errors about invalid `.meta` file format.
 * When building for the PC/Standalone platform, remember to change `Architecture` from `x86` to `x86_64`. Otherwise, the native DLL for KtxUnity (`ktx_unity.dll`) will not be included in the build, and you may get a `DllNotFoundException` when you run your application.
 
 ```{#lst:manifest-json-ktxunity .json}
@@ -928,7 +938,7 @@ In addition, please note the following "gotchas" when installing KtxUnity:
     "com.unity.modules.vr" : "1.0.0",
     "com.unity.modules.wind" : "1.0.0",
     "com.unity.modules.xr" : "1.0.0",
-    "com.atteneder.ktx" : "1.0.0"
+    "com.atteneder.ktx" : "1.1.2"
   },
   "scopedRegistries" : [
     {

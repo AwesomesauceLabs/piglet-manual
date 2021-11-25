@@ -952,7 +952,7 @@ In addition, please note the following "gotcha" when installing KtxUnity:
 }
 ```
 : Example edits to `Packages/manifest.json` in order to install
-KtxUnity 1.0.0. After adding the highlighted text, restart Unity to
+KtxUnity. After adding the highlighted text, restart Unity to
 install the package.
 
 ### Supercompressing Your glTF Textures
@@ -1120,7 +1120,7 @@ In addition, please note the following "gotcha" when installing DracoUnity:
 }
 ```
 : Example edits to `Packages/manifest.json` in order to install
-DracoUnity 3.0.3. After adding the highlighted text, restart Unity to
+DracoUnity. After adding the highlighted text, restart Unity to
 install the package.
 
 ### Draco-compressing Your glTF Meshes

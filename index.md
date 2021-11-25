@@ -859,16 +859,16 @@ Textures](#supercompressing-your-gltf-textures).
 
 To load glTF files with supercompressed textures, you will need to
 install [KtxUnity](https://github.com/atteneder/KtxUnity) via the
-Unity Package Manager, as detailed below. Since each KtxUnity version
-has its own range of compatible Unity versions, please refer
-to the table below for the exact KtxUnity version to
-install. (Note: This table was last updated in November 2021.)
+Unity Package Manager. Please use the following table to determine the
+KtxUnity versions that are compatible/recommended for your version of
+Unity, before proceeding with the installation instructions
+below. (Note: This table was last updated in November 2021.)
 
-Unity Version          KtxUnity Version
--------------          ----------------
-2019.2 or older        *not supported*
-2019.3 through 2021.1  1.1.2
-2021.2 or newer        2.0.1 
+Unity Version          Compatible KtxUnity Versions  Recommended KtxUnity Version
+-------------          ----------------------------  ----------------------------
+2019.2 or older        *not supported*               *not supported*
+2019.3 through 2021.1  0.9.1 through 1.1.2           1.1.2
+2021.2 or newer        2.0.0 or newer                2.0.1 
 
 Since KtxUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where
@@ -1026,16 +1026,17 @@ Meshes](#draco-compressing-your-gltf-meshes).
 To load glTF files that use Draco mesh compression, you will need to
 install
 [DracoUnity](https://github.com/atteneder/DracoUnityhttps://github.com/atteneder/DracoUnity)
-via the Unity Package Manager, as detailed below. Since each
-DracoUnity version has its own range of compatible Unity versions,
-please refer to the table below for the exact DracoUnity version to
-install. (Note: This table was last updated in November 2021.)
+via the Unity Package Manager. Please use the following table to
+determine the DracoUnity versions that are compatible/recommended for
+your version of Unity, before proceeding with the installation
+instructions below. (Note: This table was last updated in November
+2021.)
 
-Unity Version          DracoUnity Version
--------------          ----------------
-2019.2 or older        *not supported*
-2019.3 through 2021.1  3.3.2
-2021.2 or newer        4.0.1
+Unity Version          Compatible DracoUnity Versions  Recommended DracoUnity Version
+-------------          ------------------------------  ------------------------------
+2019.2 or older        *not supported*                 *not supported*
+2019.3 through 2021.1  1.1.0 through 3.3.2             3.3.2
+2021.2 or newer        4.0.0 or newer                  4.0.1
 
 Since DracoUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where

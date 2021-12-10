@@ -1187,6 +1187,16 @@ introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.3.4 (2021-12-10)
+
+Hotfix release for Piglet 1.3.3.
+
+Fixed:
+
+* Scrambled meshes in multi-mesh models during Editor glTF imports. I introduced a silly indexing error in Piglet 1.3.3 that was sometimes causing meshes to be assigned to the wrong GameObjects. Two models affected by this bug were the "2CylinderEngine" and "Buggy" models from https://github.com/KhronosGroup/glTF-Sample-Models/tree/master/2.0
+* Incorrect resolution of relative paths by the --import option in the new PigletViewer command line interface. (See https://github.com/AwesomesauceLabs/piglet-viewer#command-line-options for general info
+about the new command line interface.)
+
 ## Release 1.3.3 (2021-11-26)
 
 Added:

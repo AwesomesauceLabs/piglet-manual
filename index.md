@@ -1025,7 +1025,7 @@ Meshes](#draco-compressing-your-gltf-meshes).
 
 To load glTF files that use Draco mesh compression, you will need to
 install
-[DracoUnity](https://github.com/atteneder/DracoUnityhttps://github.com/atteneder/DracoUnity)
+[DracoUnity](https://github.com/atteneder/DracoUnity)
 via the Unity Package Manager. Please use the following table to
 determine the DracoUnity versions that are compatible/recommended for
 your version of Unity, before proceeding with the installation

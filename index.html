@@ -157,7 +157,6 @@
 <h1 id="caveats">Caveats</h1>
 <ul>
 <li><strong>Runtime imports may stall the main Unity thread</strong>. I have done my best to minimize interruptions to the main Unity thread during runtime imports, but I cannot provide any hard guarantees about this yet. Unity requires certain operations (e.g. texture uploads to the GPU, mesh creation) to be performed on the main Unity thread, so it is possible for runtime imports to cause “hiccups” during game execution.</li>
-<li><strong>“Linear” color space mode is not yet supported</strong>. Currently, Piglet does not import linear textures correctly (e.g. normal maps) when the color space mode is set to <code>Linear</code> under <code>Edit -&gt; Project Settings... -&gt; Player -&gt; PC, Mac &amp; Linux Standalone -&gt; Other Settings -&gt; Color Space</code>. The textures will appear too dark/shiny. Until this issue is fixed, you will get better results by setting the color space mode to <code>Gamma</code> instead.</li>
 </ul>
 <h1 id="installation">Installation</h1>
 <p>To set up Piglet in your project, purchase and install Piglet from the <a href="https://assetstore.unity.com/packages/slug/173425">Asset Store page</a>. Piglet works with Unity 2018.4 or later, and does not require installation of any third-party assets/dependencies.</p>
@@ -928,7 +927,6 @@
 <h1 id="urp-support">URP Support (Unity 2019.3+)</h1>
 <p>Piglet supports the Universal Render Pipeline (URP) in Unity 2019.3 or newer. To use Piglet with a URP-based project, unpack the shaders from the appropriate <code>.unitypackage</code> file in <code>Assets/Piglet/Extras</code>. For Unity versions 2019.3.0f6 through 2020.1.x, use <code>URP-Shaders-2019.3.unitypackage</code>. For Unity 2020.2.0b14 or newer, use <code>URP-Shaders-2020.2.unitypackage</code>.</p>
 <p>The shader files will be unpacked into <code>Assets/Piglet/Resources/Shaders/URP</code>. If you to forget unpack the shaders before performing an Editor or runtime glTF import, Piglet will fail with an error reminding you to install the shaders.</p>
-<p><em>Note!:</em> The default color space mode for new URP projects is <code>Linear</code>, but Piglet does not correctly support this mode yet. The textures on your imported models will appear too dark/shiny. Until this issue is fixed, I advise that you set the color space mode to <code>Gamma</code> instead, under <code>Edit -&gt; Project Settings...  -&gt; Player -&gt; PC, Mac &amp; Linux (tab) -&gt; Other Settings -&gt; Color Space</code>.</p>
 <h1 id="piglet-viewer">Sample Application: PigletViewer</h1>
 <figure>
 <img src="images/piglet-webgl-demo.png" id="fig:webgl-demo" width="800" alt="Figure 6: A screenshot of PigletViewer, a sample application which uses Piglet to view 3D models from glTF files." /><figcaption aria-hidden="true">Figure 6: A screenshot of PigletViewer, a sample application which uses Piglet to view 3D models from glTF files.</figcaption>

@@ -1173,6 +1173,13 @@ introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.3.5 (2022-01-06)
+
+Fixed:
+
+* Piglet now imports models correctly in linear rendering mode, in all possible scenarios: Editor imports or runtime imports, built-in rendering pipeline or URP. Hurray! (Previously, normal maps were too shiny and texture colors were too dark.)
+* Fixed transparent materials in URP, which were previously showing as pink due to a missing "zwrite.mat" asset. (This bug was introduced in Piglet 1.3.3.)
+
 ## Release 1.3.4 (2021-12-10)
 
 Hotfix release for Piglet 1.3.3.

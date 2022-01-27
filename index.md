@@ -1139,6 +1139,17 @@ introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.3.6 (2022-01-29)
+
+Fixed:
+
+* A permanent fix to avoid conflicts with Unity's "Newtonsoft Json" package. Hurray! To address this issue, I forked the `Newtonsoft.Json-for-Unity` project, moved all of the C# classes from namespace `Newtonsoft.Json` -> `Piglet.Newtonsoft.Json`, and renamed the output DLL file from `Newtonsoft.Json.dll` -> `Piglet.Newtonsoft.Json.dll`. You can see the exact changes I made at: https://github.com/AwesomesauceLabs/Newtonsoft.Json-for-Unity/commits/piglet
+* IL2CPP builds now work out-of-the-box. Previously, IL2CPP builds of PigletViewer would throw exceptions on startup and fail to load the default Piggleston model, due to Json.NET's use of C# reflection. Switching from the stock Json.NET DLL to the Newtonsoft.Json-for-Unity "AOT" DLL solved this issue. For detailed info about using Json.NET with IL2CPP, see the `Newtonsoft.Json-for-Unity` wiki: https://github.com/jilleJr/Newtonsoft.Json-for-Unity/wiki/What-even-is-AOT
+* Fixed animation of multi-material meshes. Previously, only one part of the mesh corresponding to the first material would be animated, while the other parts would remain stationary.
+* Fixed morph targets on multi-material meshes. Previously, morph targets on multi-material meshes would cause an IndexOutOfRangeException.
+* Fixed "missing URP shader" error when loading models that use the default material. (This bug was introduced in Piglet 1.3.5.)
+* Fixed missing (pink) material when importing models in the Editor that use the default material. (This bug was probably introduced in Piglet 1.3.3.)
+
 ## Release 1.3.5 (2022-01-06)
 
 Fixed:

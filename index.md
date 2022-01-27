@@ -19,7 +19,6 @@ lstPrefix: Listing
 * [Features](#features)
 * [Caveats](#caveats)
 * [Installation](#installation)
-    * [Fixing `Newtonsoft.Json.dll` Errors](#json.net-errors)
 * [Editor Imports](#editor-imports)
     * [Importing glTF Models into your Unity Project](#importing-gltf-models-into-your-unity-project)
     * [Editor Animation Tutorial](#editor-animation-tutorial)
@@ -93,46 +92,13 @@ page](https://assetstore.unity.com/packages/slug/173425). Piglet works
 with Unity 2018.4 or later, and does not require installation of any
 third-party assets/dependencies.
 
-If you see compile errors related to `Newtonsoft.Json.dll` ([Json.NET
-library](https://www.newtonsoft.com/json)) after installing Piglet,
-please follow the instructions in [Fixing `Newtonsoft.Json.dll`
-Errors](#json.net-errors) to resolve these errors.
+Piglet bundles the following libraries:
 
-## Fixing `Newtonsoft.Json.dll` Errors (Json.NET) {#json.net-errors}
-
-The most common issue that users experience when installing Piglet are
-compile errors related to `Newtonsoft.Json.dll` (the [Json.NET
-library](https://www.newtonsoft.com/json)).
-
-Depending on your version of Unity[^unity-json.net], Piglet may (or
-may not) install an `Assets/Piglet/Dependencies/Json.NET` folder
-containing `Newtonsoft.Json.dll`. In the case that Piglet and
-another Unity asset/package both include a copy of `Newtonsoft.Json.dll`,
-you will see errors in the Unity console like the following:
-
-```
-Multiple precompiled assemblies with the same name Newtonsoft.Json.dll included or the current platform. Only one assembly with the same name is allowed per platform. (D:/tmp/unity/piglet-1.3.2-test-unity-2020.3.12f1/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll)
-```
-
-This type of error can be fixed by deleting the entire
-`Assets/Piglet/Dependencies/Json.NET` folder. (You may have to
-click the "Clear" button in the top left corner of the Unity
-console before all of the errors and warnings go away.) Since Piglet works well
-with almost any version of `Newtonsoft.Json.dll`, it is better to
-delete Piglet's copy of `Newtonsoft.Json.dll` rather than the
-`Newtonsoft.Json.dll` provided by another Unity asset/package.
-
-In the case that `Newtonsoft.Json.dll` is entirely missing from your Unity project,
-you will see many errors in the Unity console like the following:
-
-```
-Assets\Piglet\Dependencies\UnityGLTF\GLTFSerialization\Extensions\ExtTextureTransformExtension.cs(4,7): error CS0246: The type or namespace name 'Newtonsoft' could not be found (are you missing a using directive or an assembly reference?)
-```
-
-These errors can be fixed by unpacking (double-clicking)
-the provided `Assets/Piglet/Extras/Json.NET-10.0.3.unitypackage` file.
-This will add the missing `Assets/Piglet/Dependencies/Json.NET` folder
-with `Newtonsoft.Json.dll` to your project.
+  Library                                                                                                 Author                                                                                                          License       Path
+  -----------------------------------------------------------                                             ------------------------------------------------------------------------                                        ------------- ------------------------------------------
+  [Newtonsoft.Json-for-Unity](https://github.com/AwesomesauceLabs/Newtonsoft.Json-for-Unity/tree/piglet)  [Newtonsoft](https://www.newtonsoft.com)/[jilleJr@github](https://github.com/jilleJr/Newtonsoft.Json-for-Unity) MIT License   `Assets/Piglet/Dependencies/Json.NET`[^json.net]
+  [SharpZipLib](https://github.com/icsharpcode/SharpZipLib)                                               [icsharpcode@github](https://github.com/icsharpcode)                                                            MIT License   `Assets/Piglet/Dependencies/SharpZipLib`
+  [UnityGLTF](https://github.com/sketchfab/UnityGLTF)                                                     [Khronos](https://www.khronos.org/)/[Sketchfab](https://sketchfab.com)                                          MIT License   `Assets/Piglet/Dependencies/UnityGLTF`[^unity-gltf]
 
 # Editor Imports
 
@@ -1392,14 +1358,36 @@ First release!
       (i.e. GPU acceleration) in the browser settings. Currently this option
       is disabled in Chrome by default.
 
-[^unity-json.net]: In recent versions of Unity (2020.3.10+ and
-      2021.1.9+), the "Newtonsoft Json" package
-      (i.e. `com.unity.nuget.newtonsoft-json`) is automatically
-      installed when creating new Unity project. (This package gets
-      pulled in as a dependency of Unity's "Version Control" package,
-      i.e.  `com.unity.collab-proxy`.) For this reason, Piglet does
-      not include the `Assets/Piglet/Dependencies/Json.NET` folder if
-      it is installed in Unity 2020.3.10+ or Unity 2021.1.9+.
+[^json.net]: To prevent DLL conflicts with Unity's "Newtonsoft Json"
+      package, which is automatically installed in new Unity projects
+      since Unity 2020.3.10f1, I have
+      [forked](https://github.com/AwesomesauceLabs/Newtonsoft.Json-for-Unity)
+      the
+      [Newtonsoft.Json-for-Unity](https://github.com/jilleJr/Newtonsoft.Json-for-Unity)
+      project and compiled my own DLL
+      (`Assets/Piglet/Dependencies/Json.NET/Piglet.Newtonsoft.Json.dll`). In
+      addition to renaming the DLL from `Newtonsoft.Json.dll` ->
+      `Piglet.Newtonsoft.Json.dll`, I changed the namespace of all C#
+      classes from `Newtonsoft.Json` -> `Piglet.Newtonsoft.Json` and
+      disabled some optional Json.NET features to reduce the file size
+      of the DLL. You can see the changes I've made by looking at the
+      [commits on the `piglet`
+      branch](https://github.com/AwesomesauceLabs/Newtonsoft.Json-for-Unity/commits/piglet)
+      of [my Newtonsoft.Json-for-Unity
+      fork](https://github.com/AwesomesauceLabs/Newtonsoft.Json-for-Unity).
+
+[^unity-gltf]: The `Assets/Piglet/Dependencies/UnityGLTF` folder does
+      not include the full set of source files from the
+      [Sketchfab/UnityGLTF](https://github.com/sketchfab/UnityGLTF)
+      project. Piglet is actually a (heavily modified) fork of
+      [Sketchfab/UnityGLTF](https://github.com/sketchfab/UnityGLTF)
+      starting at commit c54fd45, and the
+      `Assets/Piglet/Dependencies/UnityGLTF` folder only contains the
+      subset of the source files that have remained (mostly) unchanged
+      since the fork. I've changed the namespace of all C# classes
+      from `GLTF` -> `Piglet.GLTF` to prevent code conflicts in Unity
+      projects that want to use both Piglet and UnityGLTF at the same
+      time.
 
 [^mecanim-vs-legacy]: As of December 2020, Unity has two animation systems: Mecanim
       and Legacy.  While Unity recommends that new projects use

@@ -995,7 +995,7 @@ Unity Version          Compatible DracoUnity Versions  Recommended DracoUnity Ve
 -------------          ------------------------------  ------------------------------
 2019.2 or older        *not supported*                 *not supported*
 2019.3 through 2021.1  1.1.0 through 3.3.2             3.3.2
-2021.2 or newer        4.0.0 or newer                  4.0.1
+2021.2 or newer        4.0.0 or newer                  4.0.2
 
 Since DracoUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where

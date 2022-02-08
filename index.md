@@ -49,11 +49,12 @@ lstPrefix: Listing
 
 # Introduction
 
-Piglet is a Unity asset that allows you to import 3D models from glTF
-files, both in the Editor and at runtime. This provides Unity developers
-with access to a large collection of free textures, materials, and models
-from sites like [Sketchfab](https://sketchfab.com/) and [Google
-Poly](https://poly.google.com)[^poly].
+Piglet is a Unity asset that allows you to load 3D models from [glTF
+](https://www.threekit.com/blog/gltf-everything-you-need-to-know)
+files, both in the Editor and at runtime. This gives you the ability
+to import 3D models while your game is running, and also gives you
+access to a huge collection of free/paid glTF models from
+[Sketchfab](https://sketchfab.com/).
 
 Visit the [Web
 Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/)[^web-demo]
@@ -68,9 +69,8 @@ to try Piglet before you buy it.
 * import glTF textures and materials, for use with your own models
 * supports supercompressed textures via [KtxUnity](https://github.com/atteneder/KtxUnity) (Unity 2019.3+)
 * supports Draco mesh compression via [DracoUnity](https://github.com/atteneder/DracoUnity) (Unity 2019.3+)
-* tested with glTF models from [Sketchfab](https://sketchfab.com/),
-  [Google Poly](https://poly.google.com), and
-  [Blender](https://www.blender.org/)
+* tested with glTF models from [Sketchfab](https://sketchfab.com/)
+  and [Blender](https://www.blender.org/)
 * supported render pipelines: built-in (Unity 2018.4+), URP (Unity 2019.3+)
 * supported platforms: Windows, Android, WebGL
 * full source code provided
@@ -1354,12 +1354,6 @@ after "Piglet" folder was moved/renamed
 First release!
 
 # Footnotes
-
-[^poly]: As of June 2020, Google Poly only provides glTF download links for
-      models made with [Google Blocks](https://arvr.google.com/blocks/) (as
-      opposed to [Tilt Brush](https://www.tiltbrush.com/)). To see only
-      Blocks-generated models on Google Poly, visit
-      <https://poly.google.com/blocks>.
 
 [^web-demo]: I have tested the [Piglet Web
       Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/) with

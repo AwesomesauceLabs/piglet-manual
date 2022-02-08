@@ -84,6 +84,14 @@ to try Piglet before you buy it.
     mesh creation) to be performed on the main Unity thread, so it is possible for
     runtime imports to cause "hiccups" during game execution.
 
+-   **Animation imports in Unity 2021.x produce (harmless) warnings**.
+    Currently, Editor imports of animated glTF files in Unity 2021.x
+    produce the following warning: `warning: [Worker0] The Animator Controller (controller) you have used is not valid. Animations will not play`. This warning
+    is harmless and the imported animations will play 100% correctly,
+    in spite of what the message indicates. Nonetheless, these warnings
+    are very disconcerting and I will try to get rid of them in a future
+    release.
+
 # Installation
 
 To set up Piglet in your project, purchase and install Piglet from the

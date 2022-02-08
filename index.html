@@ -153,7 +153,8 @@
 </ul>
 <h1 id="caveats">Caveats</h1>
 <ul>
-<li><strong>Runtime imports may stall the main Unity thread</strong>. I have done my best to minimize interruptions to the main Unity thread during runtime imports, but I cannot provide any hard guarantees about this yet. Unity requires certain operations (e.g. texture uploads to the GPU, mesh creation) to be performed on the main Unity thread, so it is possible for runtime imports to cause “hiccups” during game execution.</li>
+<li><p><strong>Runtime imports may stall the main Unity thread</strong>. I have done my best to minimize interruptions to the main Unity thread during runtime imports, but I cannot provide any hard guarantees about this yet. Unity requires certain operations (e.g. texture uploads to the GPU, mesh creation) to be performed on the main Unity thread, so it is possible for runtime imports to cause “hiccups” during game execution.</p></li>
+<li><p><strong>Animation imports in Unity 2021.x produce (harmless) warnings</strong>. Currently, Editor imports of animated glTF files in Unity 2021.x produce the following warning: <code>warning: [Worker0] The Animator Controller (controller) you have used is not valid. Animations will not play</code>. This warning is harmless and the imported animations will play 100% correctly, in spite of what the message indicates. Nonetheless, these warnings are very disconcerting and I will try to get rid of them in a future release.</p></li>
 </ul>
 <h1 id="installation">Installation</h1>
 <p>To set up Piglet in your project, purchase and install Piglet from the <a href="https://assetstore.unity.com/packages/slug/173425">Asset Store page</a>. Piglet works with Unity 2018.4 or later, and does not require installation of any third-party assets/dependencies.</p>

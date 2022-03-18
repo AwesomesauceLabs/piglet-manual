@@ -73,7 +73,7 @@ to try Piglet before you buy it.
 * tested with glTF models from [Sketchfab](https://sketchfab.com/)
   and [Blender](https://www.blender.org/)
 * supported render pipelines: built-in (Unity 2018.4+), URP (Unity 2019.3+)
-* supported platforms: Windows, Android, WebGL
+* supported platforms: Windows, Mac, Android, iOS, WebGL
 * full source code provided
 
 # Caveats
@@ -1132,19 +1132,19 @@ will fail with an error reminding you to install the shaders.
 ![A screenshot of PigletViewer, a sample application which uses
 Piglet to view 3D models from glTF files.](images/piglet-webgl-demo.png){#fig:webgl-demo width="800"}
 
-PigletViewer is a sample application which uses Piglet to view 3D models
-from glTF files (\`.gltf\`, \`.glb\`, or \`.zip\`), and which is used
-for the [Piglet Web
+PigletViewer is a sample application which uses Piglet to view 3D
+models from glTF files (\`.gltf\`, \`.glb\`, or \`.zip\`), and which
+is used for the [Piglet Web
 Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/). For the
 benefit of Piglet customers, I have published the source code and
 documentation for PigletViewer online at
 <https://github.com/AwesomesauceLabs/piglet-viewer>, under an MIT
-license. PigletViewer currently supports builds for Android, WebGL, and
-Windows, and thus it may be a useful reference for Piglet users
-developing for those platforms. In general, I recommend looking at the
-[Runtime Import Tutorial](#runtime-import-tutorial) before exploring the
-PigletViewer code, as the tutorial provides a much more succinct
-introduction to the Piglet API.
+license. PigletViewer currently supports builds for Windows, Mac,
+Android, iOS, and WebGL, and thus it may be a useful reference for
+Piglet users developing for those platforms. In general, I recommend
+looking at the [Runtime Import Tutorial](#runtime-import-tutorial)
+before exploring the PigletViewer code, as the tutorial provides a
+much more succinct introduction to the Piglet API.
 
 # Changelog
 

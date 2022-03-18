@@ -6,4 +6,4 @@ pandoc -s -o index.html -c css/classless.css -c css/piglet.css \
        --lua-filter pandoc-filters/code-block-captions.lua \
        index.md
 
-patch -p1 < patches/highlight-code.patch
+patch --no-backup-if-mismatch -p1 < patches/highlight-code.patch

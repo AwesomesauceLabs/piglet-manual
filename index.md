@@ -7,9 +7,10 @@ figPrefix: Figure
 lstPrefix: Listing
 ---
 
--   Online documentation:
+-   Online Manual:
     <https://awesomesaucelabs.github.io/piglet-manual/>
--   Support e-mail: "awesomesaucelabs" (at gmail)
+-   Asset Store Page: <https://assetstore.unity.com/packages/slug/173425>
+-   Support Email: "awesomesaucelabs" (at gmail)
 
 ![](images/piglet-logo.png){width="40%"}
 

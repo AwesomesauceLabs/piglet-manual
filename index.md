@@ -18,6 +18,7 @@ lstPrefix: Listing
 
 * [Introduction](#introduction)
 * [Features](#features)
+    * [Supported glTF Extensions](#supported-gltf-extensions)
 * [Caveats](#caveats)
 * [Installation](#installation)
 * [Editor Imports](#editor-imports)
@@ -75,6 +76,43 @@ to try Piglet before you buy it.
 * supported render pipelines: built-in (Unity 2018.4+), URP (Unity 2019.3+)
 * supported platforms: Windows, Mac, Android, iOS, WebGL
 * full source code provided
+
+## Supported glTF Extensions
+
+The glTF format supports "extensions", in order to provide
+functionality that goes beyond the standard capabilities of glTF.  For
+sample models that test/demonstrate specific glTF features and
+extensions, see [glTF 2.0 Sample
+Models](https://github.com/KhronosGroup/glTF-Sample-Models/tree/master/2.0).
+
+The table below shows the most common glTF extensions, and indicates
+which ones are currently supported by Piglet.  For a more
+comprehensive list of glTF extensions, see the [glTF Extension
+Registry](https://github.com/KhronosGroup/glTF/tree/main/extensions).
+
+This table was last updated in June 2022, for Piglet version 1.3.7.
+
+Extension                                                                                                                                                      Supported?   Notes
+---------                                                                                                                                                      ----------   -----
+[KHR_draco_mesh_compression](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_draco_mesh_compression/README.md)                       YES          Requires [DracoUnity](https://github.com/atteneder/DracoUnity) (see [Installing DracoUnity](#installing-dracounity)).
+[KHR_lights_punctual](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_lights_punctual/README.md)                                     NO
+[KHR_materials_clearcoat](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_clearcoat/README.md)                             NO
+[KHR_materials_ior](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_ior/README.md)                                         NO
+[KHR_materials_sheen](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_sheen/README.md)                                     NO
+[KHR_materials_specular](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_specular/README.md)                               NO
+[KHR_materials_transmission](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_transmission/README.md)                       NO
+[KHR_materials_unlit](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_unlit/README.md)                                     YES
+[KHR_materials_variants](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_variants/README.md)                               NO
+[KHR_materials_volume](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_volume/README.md)                                   NO
+[KHR_mesh_quantization](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_mesh_quantization/README.md)                                 NO
+[KHR_texture_basisu](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_basisu/README.md)                                       YES          Requires [KtxUnity](https://github.com/atteneder/KtxUnity) (see [Installing KtxUnity](#installing-ktxunity)).
+[KHR_texture_transform](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_transform/README.md)                                 YES*         *Only scale and offset transformations are supported (no rotations).
+[KHR_xmp_json_ld](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_xmp_json_ld/README.md)                                             NO
+[EXT_lights_image_based](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Vendor/EXT_lights_image_based/README.md)                                NO
+[EXT_mesh_gpu_instancing](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Vendor/EXT_mesh_gpu_instancing/README.md)                              NO
+[EXT_meshopt_compression](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Vendor/EXT_meshopt_compression/README.md)                              NO
+[EXT_texture_webp](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Vendor/EXT_texture_webp/README.md)                                            NO
+[KHR_materials_pbrSpecularGlossiness](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Archived/KHR_materials_pbrSpecularGlossiness/README.md)    YES
 
 # Caveats
 

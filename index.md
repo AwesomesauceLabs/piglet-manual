@@ -19,7 +19,7 @@ lstPrefix: Listing
 * [Introduction](#introduction)
 * [Features](#features)
     * [Supported glTF Extensions](#supported-gltf-extensions)
-* [Caveats](#caveats)
+* [Known Issues](#known-issues)
 * [Installation](#installation)
 * [Editor Imports](#editor-imports)
     * [Importing glTF Models into your Unity Project](#importing-gltf-models-into-your-unity-project)
@@ -114,22 +114,33 @@ Extension                                                                       
 [EXT_texture_webp](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Vendor/EXT_texture_webp/README.md)                                            NO
 [KHR_materials_pbrSpecularGlossiness](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Archived/KHR_materials_pbrSpecularGlossiness/README.md)    YES
 
-# Caveats
+# Known Issues
 
--   **Runtime imports may stall the main Unity thread**. I have
-    done my best to minimize interruptions to the main Unity thread during
-    runtime imports, but I cannot provide any hard guarantees about this
-    yet. Unity requires certain operations (e.g. texture uploads to the GPU,
-    mesh creation) to be performed on the main Unity thread, so it is possible for
-    runtime imports to cause "hiccups" during game execution.
+-   **Runtime imports may stall the main Unity thread**. I have done
+    my best to minimize interruptions to the main Unity thread during
+    runtime glTF imports. However, one significant issue is that Unity
+    uploads textures to the GPU **synchronously**, and this can cause
+    FPS drops when importing high resolution textures at runtime. For
+    now, the best way to work around this issue is to either: (1)
+    convert your textures to KTX2/BasisU format (see [Supercompressed
+    Textures (Unity 2019.3+)](#supercompressed-textures)), or (2)
+    lower the resolution/quality of your textures.
 
--   **Animation imports in Unity 2021.x produce (harmless) warnings**.
-    Currently, Editor imports of animated glTF files in Unity 2021.x
-    produce the following warning: `warning: [Worker0] The Animator Controller (controller) you have used is not valid. Animations will not play`. This warning
-    is harmless and the imported animations will play 100% correctly,
-    in spite of what the message indicates. Nonetheless, these warnings
-    are very disconcerting and I will try to get rid of them in a future
-    release.
+-   **Many glTF extensions are not supported (yet!).** I am steadily
+    chipping away at this. See [Supported glTF
+    Extensions](#supported-gltf-extensions) for details about which
+    extensions are currently supported.
+
+-   **Piglet does not create humanoid avatar mappings (yet!)**.  For
+    the time being, there is no easy way to retarget humanoid
+    animations (e.g. [Mixamo](https://www.mixamo.com/)) onto glTF
+    models. This is a highly requested feature and I do plan to
+    implement it.
+    
+-   **Piglet cannot export glTF files (yet!)**. So far,
+    Piglet does not have any glTF export capabilities, neither in the
+    Editor nor at runtime. This is a highly requested feature and I do
+    plan to implement it.
 
 # Installation
 

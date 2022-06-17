@@ -354,6 +354,7 @@ menu.
   `Size`                                 Target size of model, along its longest dimension
   `Import animations`                    Enable/disable import of glTF animations as Unity `AnimationClip` assets
   `Animation clip type`                  "Mecanim" or "Legacy"
+  `Ensure quaternion continuity`         Enable/disable [AnimationClip.EnsureQuaternionContinuity()](https://docs.unity3d.com/ScriptReference/AnimationClip.EnsureQuaternionContinuity.html) after importing each animation clip
   
   : Import Options
 

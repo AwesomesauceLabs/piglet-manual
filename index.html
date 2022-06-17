@@ -95,7 +95,7 @@
 <ul>
 <li><a href="#supported-gltf-extensions">Supported glTF Extensions</a></li>
 </ul></li>
-<li><a href="#caveats">Caveats</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#editor-imports">Editor Imports</a>
 <ul>
@@ -265,10 +265,12 @@
 </tr>
 </tbody>
 </table>
-<h1 id="caveats">Caveats</h1>
+<h1 id="known-issues">Known Issues</h1>
 <ul>
-<li><p><strong>Runtime imports may stall the main Unity thread</strong>. I have done my best to minimize interruptions to the main Unity thread during runtime imports, but I cannot provide any hard guarantees about this yet. Unity requires certain operations (e.g. texture uploads to the GPU, mesh creation) to be performed on the main Unity thread, so it is possible for runtime imports to cause “hiccups” during game execution.</p></li>
-<li><p><strong>Animation imports in Unity 2021.x produce (harmless) warnings</strong>. Currently, Editor imports of animated glTF files in Unity 2021.x produce the following warning: <code>warning: [Worker0] The Animator Controller (controller) you have used is not valid. Animations will not play</code>. This warning is harmless and the imported animations will play 100% correctly, in spite of what the message indicates. Nonetheless, these warnings are very disconcerting and I will try to get rid of them in a future release.</p></li>
+<li><p><strong>Runtime imports may stall the main Unity thread</strong>. I have done my best to minimize interruptions to the main Unity thread during runtime glTF imports. However, one significant issue is that Unity uploads textures to the GPU <strong>synchronously</strong>, and this can cause FPS drops when importing high resolution textures at runtime. For now, the best way to work around this issue is to either: (1) convert your textures to KTX2/BasisU format (see <a href="#supercompressed-textures">Supercompressed Textures (Unity 2019.3+)</a>), or (2) lower the resolution/quality of your textures.</p></li>
+<li><p><strong>Many glTF extensions are not supported (yet!).</strong> I am steadily chipping away at this. See <a href="#supported-gltf-extensions">Supported glTF Extensions</a> for details about which extensions are currently supported.</p></li>
+<li><p><strong>Piglet does not create humanoid avatar mappings (yet!)</strong>. For the time being, there is no easy way to retarget humanoid animations (e.g. <a href="https://www.mixamo.com/">Mixamo</a>) onto glTF models. This is a highly requested feature and I do plan to implement it.</p></li>
+<li><p><strong>Piglet cannot export glTF files (yet!)</strong>. So far, Piglet does not have any glTF export capabilities, neither in the Editor nor at runtime. This is a highly requested feature and I do plan to implement it.</p></li>
 </ul>
 <h1 id="installation">Installation</h1>
 <p>To set up Piglet in your project, purchase and install Piglet from the <a href="https://assetstore.unity.com/packages/slug/173425">Asset Store page</a>. Piglet works with Unity 2018.4 or later, and does not require installation of any third-party assets/dependencies.</p>

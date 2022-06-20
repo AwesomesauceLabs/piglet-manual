@@ -75,7 +75,7 @@ to try Piglet before you buy it.
 * tested with glTF models from [Sketchfab](https://sketchfab.com/)
   and [Blender](https://www.blender.org/)
 * supported render pipelines: built-in (Unity 2018.4+), URP (Unity 2019.3+)
-* supported platforms: Windows, Mac, Android, iOS, WebGL
+* supported platforms: Windows, Mac, Android, iOS, WebGL, UWP
 * full source code provided
 
 ## Supported glTF Extensions

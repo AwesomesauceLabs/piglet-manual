@@ -1214,6 +1214,27 @@ much more succinct introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.3.7 (2022-06-21)
+
+Added:
+
+* UWP is now officially supported (e.g. HoloLens).
+* Added support for `KHR_texture_transform`.
+* Added support for `KHR_materials_unlit`.
+* Added `CreateMipmaps` option to create mipmaps for PNG/JPG textures during runtime glTF imports. This option is disabled by default because the wallclock time for importing textures is roughly doubled. The `CreateMipmaps` option has no effect  on Editor glTF imports because mipmaps are always created in that case.
+* Added `EnsureQuaternionContinuity` option for both Editor and runtime glTF imports. This option is enabled by default, but disabling it sometimes solves minor animation glitches.
+* Added `ZipPassword` for decrypting password-protected zip files (runtime glTF imports only).
+
+Fixed:
+
+* Fixed incorrect values for color factors (e.g. `baseColorFactor`, `emissiveFactor`). Unity expects `Color` shader properties to be provided in Gamma space, whereas I was directly passing through the linear color values from the glTF file. As a result, the colors for untextured glTF models were too dark/saturated. Most textured glTF models will be unaffected by this change, since they typically use the default white/black values for the color factors.
+* Fixed incorrect rendering of `VoxEdit`-generated glTF files as solid black. This problem was caused by my use of negative UV coords, in order to fix the orientation of upside-down PNG/JPG textures. (For some reason, Unity's texture loading APIs load PNG/JPG images into textures upside-down.) I have now updated the code to use equivalent UV coords in the [0,1] range, so that textures render correctly with both `Repeat` and `Clamp` modes.
+* Got rid of the annoying (but harmless) warning: `The Animator Controller (controller) you have used is not valid. Animations will not play`, when importing animations in the Editor.
+* Piglet imports now fail with an error message if the glTF file requires a glTF extension (e.g. `KHR_mesh_quantization`) that is not implemented by Piglet. Previously, Piglet would continue importing the file anyway, and then crash or produce incorrect results. Failing with an error message is better because it lets the user know the exact cause of the problem.
+* For projects that use the built-in render pipeline, materials will now render as single-sided or double-sided as per the `doubleSided` flag of the glTF material. Unfortunately, the URP shaders are still hardcoded to use double-sided rendering, since Unity's shader graphs do not provide any way to control single-sided/double-sided rendering via script.
+* Fixed rare animation import bug that would cause different channels within the same animation clip to become misaligned. This bug was caused by independently trimming "dead time" from the start of each animation channel. I now make sure to trim all channels in an animation clip by the same amount.
+* Fixed rare crash while loading morph targets, when `mesh.weights` is not explicitly set by the glTF file. According to the glTF spec, `mesh.weights` should be treated as an array of zeroes when not explicitly set, and I have changed the Piglet code to behave accordingly. 
+
 ## Release 1.3.6 (2022-02-16)
 
 Fixed:

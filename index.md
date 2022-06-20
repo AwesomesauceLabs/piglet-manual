@@ -902,7 +902,7 @@ Unity Version          Compatible KtxUnity Versions  Recommended KtxUnity Versio
 -------------          ----------------------------  ----------------------------
 2019.2 or older        *not supported*               *not supported*
 2019.3 through 2021.1  0.9.1 through 1.1.2           1.1.2
-2021.2 or newer        2.0.0 or newer                2.0.1 
+2021.2 or newer        2.0.0 or newer                2.1.2
 
 Since KtxUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where

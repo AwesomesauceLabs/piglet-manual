@@ -117,6 +117,7 @@
 <li><a href="#creating-a-gltfimporttask">Creating a GltfImportTask</a></li>
 <li><a href="#configuring-callbacks-on-a-gltfimporttask">Configuring Callbacks on a GltfImportTask</a></li>
 <li><a href="#executing-a-gltfimporttask">Executing a GltfImportTask</a></li>
+<li><a href="#runtime-import-options">Runtime Import Options</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#optimizing-gltf-files">Optimizing glTF Files</a>
@@ -769,39 +770,7 @@
 </tr>
 </tbody>
 </table>
-<p>All versions of <code>GetImportTask</code> accept an instance of <code>GltfImportOptions</code> as an optional second argument. <code>GltfImportOptions</code> currently provides the following options:</p>
-<table>
-<caption>GltfImportOptions Members</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Option</th>
-<th>Default</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><code>ShowModelAfterImport</code></td>
-<td><code>true</code></td>
-<td style="text-align: left;">Automatically unhide the model after a successful glTF import, by calling <code>SetActive(true)</code> on the root GameObject. Users might want to keep the model hidden until they have completed their own post-processing on the model (e.g. adding colliders).</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>AutoScale</code></td>
-<td><code>false</code></td>
-<td style="text-align: left;">Automatically resize the model after a successful glTF import</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>AutoScaleSize</code></td>
-<td><code>1.0</code></td>
-<td style="text-align: left;">Target size of model along its longest dimension</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>ImportAnimations</code></td>
-<td><code>true</code></td>
-<td style="text-align: left;">Import glTF animations as Legacy animation clips</td>
-</tr>
-</tbody>
-</table>
+<p>All versions of <code>GetImportTask</code> accept an instance of <code>GltfImportOptions</code> as an optional second argument. See <a href="#runtime-import-options">Runtime Import Options</a> for a description of the available options.</p>
 <h3 id="configuring-callbacks-on-a-gltfimporttask">Configuring Callbacks on a GltfImportTask</h3>
 <p>You can assign callback methods to delegate members of a <code>GltfImportTask</code>, in order to run custom code for success/failure/progress events. For example, callbacks can be used to position a successfully imported model within a scene or to attach a custom <code>MonoBehaviour</code>.</p>
 <table>
@@ -849,6 +818,56 @@
 <tr class="even">
 <td style="text-align: left;"><code>Abort()</code></td>
 <td style="text-align: left;">Abort the import task. This method should typically be called in response to a user action, such as pressing a “Cancel” button.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtime-import-options">Runtime Import Options</h3>
+<p>Piglet supports a number of options for controlling runtime glTF imports. To configure these options, users may pass a <code>GltfImportOptions</code> object as an optional second argument to <code>RuntimeGltfImporter.GetImportTask</code>. (See <a href="#creating-a-gltfimporttask">Creating a GltfImportTask</a>.)</p>
+<p>For a concrete example of <code>GltfImportOptions</code> usage, see Listing 5 from the <a href="#runtime-animation-tutorial">Runtime Animation Tutorial</a> section.</p>
+<p>Currently, <code>GltfImportOptions</code> provides the following options:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Option</th>
+<th>Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>ShowModelAfterImport</code></td>
+<td><code>true</code></td>
+<td style="text-align: left;">Automatically unhide the model after a successful glTF import, by calling <code>SetActive(true)</code> on the root GameObject. Users might want to keep the model hidden until they have completed their own post-processing on the model (e.g. adding colliders).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>AutoScale</code></td>
+<td><code>false</code></td>
+<td style="text-align: left;">Automatically resize the model after a successful glTF import</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>AutoScaleSize</code></td>
+<td><code>1.0</code></td>
+<td style="text-align: left;">Target size of model along its longest dimension</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>ImportAnimations</code></td>
+<td><code>true</code></td>
+<td style="text-align: left;">Import glTF animations as Legacy animation clips</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>EnsureQuaternionContinuity</code></td>
+<td><code>true</code></td>
+<td style="text-align: left;">Call <a href="https://docs.unity3d.com/ScriptReference/AnimationClip.EnsureQuaternionContinuity.html">AnimationClip.EnsureQuaternionContinuity()</a> after importing each animation clip.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>CreateMipmaps</code></td>
+<td><code>false</code></td>
+<td style="text-align: left;">Create mipmaps for PNG/JPG textures during runtime glTF imports. This option is false by default because it roughly doubles the texture import time and increases the probability of FPS drops. This option has no effect on the creation of mipmaps for KTX2/BasisU textures, since mipmaps are always created in that case without any additional overhead. Likewise, mipmaps are always created during Editor glTF imports for all texture formats (PNG, JPG, KTX2/BasisU).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>ZipPassword</code></td>
+<td><code>null</code></td>
+<td style="text-align: left;">The password used to unpack encrypted <code>.zip</code> files.</td>
 </tr>
 </tbody>
 </table>

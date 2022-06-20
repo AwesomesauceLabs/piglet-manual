@@ -35,6 +35,7 @@ lstPrefix: Listing
         * [Creating a GltfImportTask](#creating-a-gltfimporttask)
         * [Configuring Callbacks on a GltfImportTask](#configuring-callbacks-on-a-gltfimporttask)
         * [Executing a GltfImportTask](#executing-a-gltfimporttask)
+        * [Runtime Import Options](#runtime-import-options)
 * [Optimizing glTF Files](#optimizing-gltf-files)
     * [Supercompressed Textures (Unity 2019.3+)](#supercompressed-textures)
         * [Overview](#supercompressed-textures-overview)
@@ -810,17 +811,8 @@ For concrete code examples demonstrating the above steps, see the
   : RuntimeGltfImporter Methods
 
 All versions of `GetImportTask` accept an instance of `GltfImportOptions`
-as an optional second argument. `GltfImportOptions` currently
-provides the following options:
-
-  Option                  Default Description
-  ----------------------- ------- -------------------------------------------------------------------------
-  `ShowModelAfterImport`  `true`  Automatically unhide the model after a successful glTF import, by calling `SetActive(true)` on the root GameObject. Users might want to keep the model hidden until they have completed their own post-processing on the model (e.g. adding colliders).
-  `AutoScale`             `false` Automatically resize the model after a successful glTF import
-  `AutoScaleSize`         `1.0`   Target size of model along its longest dimension
-  `ImportAnimations`      `true`  Import glTF animations as Legacy animation clips
-  
-  : GltfImportOptions Members
+as an optional second argument. See [Runtime Import Options](#runtime-import-options)
+for a description of the available options.
 
 ### Configuring Callbacks on a GltfImportTask
 
@@ -850,6 +842,30 @@ execution:
   `Abort()`      Abort the import task. This method should typically be called in response to a user action, such as pressing a "Cancel" button.
 
   : GltfImportTask Methods
+
+### Runtime Import Options
+
+  Piglet supports a number of options for controlling runtime glTF
+  imports. To configure these options, users may pass a
+  `GltfImportOptions` object as an optional second argument to
+  `RuntimeGltfImporter.GetImportTask`. (See [Creating a
+  GltfImportTask](#creating-a-gltfimporttask).)
+
+  For a concrete example of `GltfImportOptions` usage, see
+  @lst:runtime-animation from the [Runtime Animation
+  Tutorial](#runtime-animation-tutorial) section.
+
+  Currently, `GltfImportOptions` provides the following options:
+
+  Option                       Default Description
+  -----------------------      ------- -------------------------------------------------------------------------
+  `ShowModelAfterImport`       `true`  Automatically unhide the model after a successful glTF import, by calling `SetActive(true)` on the root GameObject. Users might want to keep the model hidden until they have completed their own post-processing on the model (e.g. adding colliders).
+  `AutoScale`                  `false` Automatically resize the model after a successful glTF import
+  `AutoScaleSize`              `1.0`   Target size of model along its longest dimension
+  `ImportAnimations`           `true`  Import glTF animations as Legacy animation clips
+  `EnsureQuaternionContinuity` `true`  Call [AnimationClip.EnsureQuaternionContinuity()](https://docs.unity3d.com/ScriptReference/AnimationClip.EnsureQuaternionContinuity.html) after importing each animation clip.
+  `CreateMipmaps`              `false` Create mipmaps for PNG/JPG textures during runtime glTF imports. This option is false by default because it roughly doubles the texture import time and increases the probability of FPS drops. This option has no effect on the creation of mipmaps for KTX2/BasisU textures, since mipmaps are always created in that case without any additional overhead. Likewise, mipmaps are always created during Editor glTF imports for all texture formats (PNG, JPG, KTX2/BasisU).
+  `ZipPassword`                `null`  The password used to unpack encrypted `.zip` files.
 
 # Optimizing glTF Files
 

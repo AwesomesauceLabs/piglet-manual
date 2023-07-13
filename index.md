@@ -23,12 +23,14 @@ lstPrefix: Listing
 * [Installation](#installation)
 * [Editor Imports](#editor-imports)
     * [Importing glTF Models into your Unity Project](#importing-gltf-models-into-your-unity-project)
+    * [Selecting Materials Variants (KHR_materials_variants)](#selecting-materials-variants)
     * [Editor Animation Tutorial](#editor-animation-tutorial)
         * [Previewing Animations in the Editor](#previewing-animations-in-the-editor)
         * [Playing (Mecanim) Animations at Runtime](#playing-mecanim-animations-at-runtime)
     * [Editor Import Options (Piglet Options Window)](#editor-import-options-piglet-options-window)
 * [Runtime Imports](#runtime-imports)
     * [Runtime Import Tutorial](#runtime-import-tutorial)
+    * [Runtime Materials Variants Tutorial (KHR_materials_variants)](#runtime-materials-variants-tutorial)
     * [Runtime Animation Tutorial](#runtime-animation-tutorial)
     * [Runtime Import API](#runtime-import-api)
         * [Overview](#runtime-import-api-overview)
@@ -103,7 +105,7 @@ Extension                                                                       
 [KHR_materials_specular](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_specular/README.md)                               NO
 [KHR_materials_transmission](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_transmission/README.md)                       NO
 [KHR_materials_unlit](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_unlit/README.md)                                     YES
-[KHR_materials_variants](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_variants/README.md)                               NO
+[KHR_materials_variants](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_variants/README.md)                               YES          See [Selecting Materials Variants](#selecting-materials-variants) and [Runtime Materials Variants Tutorial](#runtime-materials-variants-tutorial)
 [KHR_materials_volume](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_volume/README.md)                                   NO
 [KHR_mesh_quantization](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_mesh_quantization/README.md)                                 NO
 [KHR_texture_basisu](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_basisu/README.md)                                       YES          Requires [KtxUnity](https://github.com/atteneder/KtxUnity) (see [Installing KtxUnity](#installing-ktxunity)).
@@ -204,6 +206,37 @@ by either:
     the `.gltf`/`.glb`/`.zip` into the Unity Project Browser, **OR**
 -   Unchecking `Enable glTF imports in Editor` in the Piglet Options
     window, located under `Window => Piglet Options` in the Unity menu.
+
+## Selecting Materials Variants (KHR_materials_variants) {#selecting-materials-variants}
+
+Piglet supports the
+[KHR_materials_variants](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_variants/README.md)
+extension, which allows a glTF file to provide multiple visual styles
+("variants") for the same model. The mesh data is shared among all
+variants, but each variant applies a different set of materials
+(textures) to the mesh.
+
+Whenever a glTF model uses the
+[KHR_materials_variants](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_variants/README.md)
+extension, the user can switch between the available variants using
+the drop-down menu on the `MaterialsVariantsSelector` component,
+attached to the root GameObject of the model
+(@fig:materials-variants-editor).  The last item of the drop-down menu
+is always the special "default" element, which resets all materials to
+their initial state when the model was first loaded. (The default
+materials used by a model does not necessarily correspond to any
+particular variant.)
+
+It is also possible to switch materials variants at runtime. For
+instructions, please see the [Runtime Materials Variants
+Tutorial](#runtime-materials-variants-tutorial).
+
+![Users can select different materials variants for a model using the
+drop-down menu on the `MaterialsVariantsSelector` component, on the
+root GameObject of the model. This component/menu will only be
+present if the glTF model uses the `KHR_materials_variants`
+extension.](images/editor-materials-variants.jpg){#fig:materials-variants-editor
+width="100%"}
 
 ## Editor Animation Tutorial
 
@@ -626,6 +659,178 @@ spins the imported model about the y-axis. In comparison to @lst:runtime-import,
 the new parts of the code are the `OnComplete` method, the
 assignment of `OnComplete` to `_task.OnCompleted` in `Start`,
 and the call to `_model.transform.Rotate` in `Update`.
+
+### Runtime Materials Variants Tutorial (KHR_materials_variants) {#runtime-materials-variants-tutorial}
+
+Piglet supports the
+[KHR_materials_variants](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_variants/README.md)
+extension, which allows a glTF file to provide multiple visual styles
+("variants") for the same model. The mesh data is shared among all
+variants, but each variant applies a different set of materials
+(textures) to the mesh.
+
+Piglet provides an example scene under
+`Assets/Piglet/Examples/RuntimeMaterialsVariants`, which demonstrates
+how to query and select materials variants at runtime. The example
+allows the user switch between variants of the
+[MaterialsVariantsShoe](https://github.com/KhronosGroup/glTF-Sample-Models/tree/master/2.0/MaterialsVariantsShoe)
+model, by clicking the buttons along the top of the window
+(@fig:runtime-materials-variants).
+
+![The `RuntimeMaterialsVariants` example scene, which demonstrates how
+to query and select materials variants at runtime. The example allows
+the user to select variants of the `MaterialsVariantsShoe` model by
+clicking the buttons along the top of the
+window.](images/runtime-materials-variants.png){#fig:runtime-materials-variants
+width="100%"}
+
+The code for the example scene is reproduced in
+@lst:runtime-materials-variants. (This code is highly similar to the
+examples from the [Runtime Import Tutorial](#runtime-import-tutorial)
+section, so the explanations provided in that section may also be
+helpful.)  After importing the model, we get a reference to the
+`MaterialsVariantsSelector` component on the root GameObject, from
+inside the `OnCompleted` callback. The `MaterialsVariantsSelector`
+component is automatically attached to any glTF model that uses the
+`KHR_materials_variants` extension, and will be absent otherwise.
+
+The `MaterialsVariantsSelector` component has two public fields,
+`VariantNames` and `VariantIndex`, which can be used for querying and
+setting the materials variants, respectively. `VariantNames` is an
+ordered list of human-readable names for each variant, where the
+position of each variant in the list corresponds to its index in the
+glTF file. To select a particular variant, we simply assign its index
+to the `VariantIndex` field.  The call to `GUI.Toolbar` in `OnGUI`
+handles drawing a button for each element of the `VariantNames` array,
+and updating value of `VariantIndex` whenever one of the buttons gets
+clicked.
+
+The reader may wonder which materials variant is selected by default,
+when the model is first loaded. The answer is "none"! Every model has
+a default set of materials before any variant is selected, and this
+default set of materials does not necessarily correspond to any
+particular variant. (In the case of the example shoe model, the
+default materials exactly match the "midnight" variant.) In order to
+reset the model to its default state, the user can call the
+`ResetMaterials` method of the `MaterialsVariantsSelector` component,
+or equivalently, they may assign a value of `VariantNames.Length - 1`
+to `VariantIndex`. The last element of the `VariantNames` array is
+always the special "default" element, that resets the model to its
+default materials. In @lst:runtime-materials-variants, there is no
+need to explicitly call `ResetMaterials` because `GUI.Toolbar` creates
+a button for the "default" element.
+
+```{#lst:runtime-materials-variants .cs}
+using Piglet;
+using UnityEngine;
+
+/// <summary>
+/// This MonoBehaviour provides a minimal example of switching
+/// materials variants at runtime, for glTF models that use the
+/// `KHR_materials_variants` extension.
+/// </summary>
+public class RuntimeMaterialsVariantsBehaviour : MonoBehaviour
+{
+    /// <summary>
+    /// The currently running glTF import task.
+    /// </summary>
+    private GltfImportTask _task;
+
+    /// <summary>
+    /// Root GameObject of the imported glTF model.
+    /// </summary>
+    private GameObject _model;
+
+    /// <summary>
+    /// MonoBehaviour on the root GameObject of the imported
+    /// model, which allows the user to select the active materials
+    /// variant.
+    /// </summary>
+    private MaterialsVariantsSelector _variantsSelector;
+
+    /// <summary>
+    /// Unity callback that is invoked before the first frame.
+    /// Create the glTF import task and register a callback
+    /// method to be invoked when the glTF import completes.
+    /// </summary>
+    void Start()
+    {
+        // The default size of the shoe model is too small.
+        //
+        // Uniformly scale the model such that the longest
+        // dimension of its world-space axis-aligned bounding
+        // box becomes 4.0 units.
+
+        var importOptions = new GltfImportOptions();
+        importOptions.AutoScale = true;
+        importOptions.AutoScaleSize = 4.0f;
+
+        // Note: To import a local .gltf/.glb/.zip file, you may
+        // instead pass an absolute file path to GetImportTask
+        // (e.g. "C:/Users/Joe/Desktop/piggleston.glb"), or a byte[]
+        // array containing the raw byte content of the file.
+
+        _task = RuntimeGltfImporter.GetImportTask(
+            "https://awesomesaucelabs.github.io/piglet-webgl-demo/StreamingAssets/shoe.glb",
+            importOptions);
+
+        // Method to be invoked when the glTF import successfully
+        // completes.
+
+        _task.OnCompleted = OnComplete;
+    }
+
+    /// <summary>
+    /// Callback that is invoked by the glTF import task
+    /// after it has successfully completed.
+    /// </summary>
+    /// <param name="importedModel">
+    /// the root GameObject of the imported glTF model
+    /// </param>
+    private void OnComplete(GameObject importedModel)
+    {
+        _model = importedModel;
+        _variantsSelector = _model.GetComponent<MaterialsVariantsSelector>();
+   }
+
+    /// <summary>
+    /// Unity callback that is invoked after every frame.
+    /// Here we call MoveNext() to advance execution
+    /// of the glTF import task. Once the model has been successfully
+    /// imported, we auto-spin the model about the y-axis.
+    /// </summary>
+    void Update()
+    {
+        // advance execution of glTF import task
+        _task.MoveNext();
+
+        // spin model about y-axis
+        if (_model != null)
+            _model.transform.Rotate(0.0f, 0.25f, 0.0f);
+    }
+
+    void OnGUI()
+    {
+        // Add some buttons along the top of the screen, which allow
+        // the user to select the active materials variant.
+        //
+        // Note: `_variantsSelector` will be null until the model has
+        // been successfully imported.
+
+        if (_variantsSelector != null)
+        {
+            _variantsSelector.VariantIndex = GUI.Toolbar(
+                new Rect(25, 25, 500, 30),
+                _variantsSelector.VariantIndex,
+                _variantsSelector.VariantNames);
+        }
+    }
+}
+```
+: Example code for importing a glTF model at runtime and selecting
+materials variants. This code is included with Piglet under
+`Assets/Piglet/Examples/RuntimeMaterialsVariants`.
+
 
 ### Runtime Animation Tutorial
 

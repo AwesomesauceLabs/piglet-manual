@@ -1419,6 +1419,18 @@ much more succinct introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.3.8 (2023-07-17)
+
+Added:
+
+* Added support for `KHR_materials_variants`. See the "Selecting Materials Variants" and "Runtime Materials Variants Tutorial" in the manual for usage details.
+* Improved naming of texture assets. For any unnamed textures in the glTF file, fall back to using the associated glTF image name (if any). If the associated image is also unnamed, fall back to using the generic texture name ("texture_0", "texture_1", etc.). Giving the textures meaningful/recognizable names can be very helpful in debugging scenarios.
+
+Fixed:
+
+* Fixed Editor import failures, when glTF file contains POINTS meshes or LINES meshes. (Piglet does not currently support any mesh types except TRIANGLES, and simply skips over other types of meshes.)
+* Fixed import failure and misleading error message when glTF file requires `KHR_texture_basisu`: "This model requires support for the `KHR_texture_basisu` glTF extension, but Piglet does not yet support that extension." Piglet *does* support `KHR_texture_basisu`, if the user installs the `KtxUnity` package! (See "Supercompressed Textures" in the Piglet manual for instructions.)
+
 ## Release 1.3.7 (2022-06-21)
 
 Added:

@@ -139,7 +139,7 @@ Extension                                                                       
     animations (e.g. [Mixamo](https://www.mixamo.com/)) onto glTF
     models. This is a highly requested feature and I do plan to
     implement it.
-    
+
 -   **Piglet cannot export glTF files (yet!)**. So far,
     Piglet does not have any glTF export capabilities, neither in the
     Editor nor at runtime. This is a highly requested feature and I do
@@ -165,7 +165,7 @@ Piglet bundles the following libraries:
 
 ## Importing glTF Models into your Unity Project
 
-Once you have installed Piglet from the Unity Asset Store, you 
+Once you have installed Piglet from the Unity Asset Store, you
 can import glTF models into your Unity project by either:
 
 1. Dragging-and-dropping a `.gltf`/`.glb`/`.zip` file from
@@ -390,7 +390,7 @@ menu.
   -------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   `Enable glTF imports in Editor`  Enable/disable automatic glTF imports when adding new .gltf/.glb/.zip files to the project
   `Log import progress in Console` Log progress messages to Unity Console window during glTF imports (useful for debugging)
-  
+
   : Global Options
 
   Option                                 Description
@@ -400,14 +400,14 @@ menu.
   `Import animations`                    Enable/disable import of glTF animations as Unity `AnimationClip` assets
   `Animation clip type`                  "Mecanim" or "Legacy"
   `Ensure quaternion continuity`         Enable/disable [AnimationClip.EnsureQuaternionContinuity()](https://docs.unity3d.com/ScriptReference/AnimationClip.EnsureQuaternionContinuity.html) after importing each animation clip
-  
+
   : Import Options
 
   Option                                 Description
   -------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   `Prompt before overwriting files`      Show confirmation prompt if glTF import directory already exists
   `Copy source glTF files into project`  Copy dragged-and-dropped glTF file/folder into project before performing glTF import. By default, only the Piglet-generated import directory is added to the project.
-  
+
   : Drag-and-Drop Options
 
   Option                                 Description
@@ -1222,7 +1222,7 @@ Most glTF files store their textures in PNG or JPEG format. To convert the textu
 In order to supercompress your textures with `gltf-transform`, you will first need to install:
 
 * [NodeJS and NPM](https://www.npmjs.com/get-npm)
-* [KTX-Software](https://github.com/KhronosGroup/KTX-Software). This project provides the `toktx` program that is invoked by `gltf-transform`. To install the software, go to the [GitHub releases page](https://github.com/KhronosGroup/KTX-Software/releases), click/expand "Assets" at the bottom of the release notes, and choose the appropriate package/installer for your O/S. Note that if you are using Windows, you will also need to add `C:\Program Files\KTX-Software\bin` to your `Path`, so that `gltf-transform` can find the `toktx` binary. 
+* [KTX-Software](https://github.com/KhronosGroup/KTX-Software). This project provides the `toktx` program that is invoked by `gltf-transform`. To install the software, go to the [GitHub releases page](https://github.com/KhronosGroup/KTX-Software/releases), click/expand "Assets" at the bottom of the release notes, and choose the appropriate package/installer for your O/S. Note that if you are using Windows, you will also need to add `C:\Program Files\KTX-Software\bin` to your `Path`, so that `gltf-transform` can find the `toktx` binary.
 
 Once you have installed the above prerequisites, you will be able to install `gltf-transform` by running:
 
@@ -1481,7 +1481,7 @@ Fixed:
 * Piglet imports now fail with an error message if the glTF file requires a glTF extension (e.g. `KHR_mesh_quantization`) that is not implemented by Piglet. Previously, Piglet would continue importing the file anyway, and then crash or produce incorrect results. Failing with an error message is better because it lets the user know the exact cause of the problem.
 * For projects that use the built-in render pipeline, materials will now render as single-sided or double-sided as per the `doubleSided` flag of the glTF material. Unfortunately, the URP shaders are still hardcoded to use double-sided rendering, since Unity's shader graphs do not provide any way to control single-sided/double-sided rendering via script.
 * Fixed rare animation import bug that would cause different channels within the same animation clip to become misaligned. This bug was caused by independently trimming "dead time" from the start of each animation channel. I now make sure to trim all channels in an animation clip by the same amount.
-* Fixed rare crash while loading morph targets, when `mesh.weights` is not explicitly set by the glTF file. According to the glTF spec, `mesh.weights` should be treated as an array of zeroes when not explicitly set, and I have changed the Piglet code to behave accordingly. 
+* Fixed rare crash while loading morph targets, when `mesh.weights` is not explicitly set by the glTF file. According to the glTF spec, `mesh.weights` should be treated as an array of zeroes when not explicitly set, and I have changed the Piglet code to behave accordingly.
 
 ## Release 1.3.6 (2022-02-16)
 
@@ -1524,7 +1524,7 @@ Changed:
   * Editor imports now do batch creation of Unity assets using `AssetDatabase.StartAssetEditing` / `AssetDatabase.StopAssetEditing`. For glTF files with a large number textures/materials/meshes/animations, the speedup is dramatic (e.g. 10X).
 * Rearranged options in Piglet Options window (located under Window => Piglet Options in Unity menu). With the new ability to save glTF files directly under `Assets`, some of the old options no longer made sense.
 * Moved code under `Assets/Piglet/Dependencies/UnityGLTF` from `UnityGLTF` namespace -> `Piglet.UnityGLTF` namespace, so that Piglet and Khronos UnityGLTF importers can be used in the same project.
-* Refactored texture loading code, towards the goal of properly supporting linear color mode during runtime glTF imports (work in progress). 
+* Refactored texture loading code, towards the goal of properly supporting linear color mode during runtime glTF imports (work in progress).
 
 Fixed:
 
@@ -1582,7 +1582,7 @@ Compatibility fix for Unity 2021.1.1f1:
 This release adds support for "supercompressed" textures in KTX2/ETC1S and KTX2/UASTC formats:
 
 * Speeds up texture loading and reduces glTF file sizes
-* Requires Unity 2019.3+ and installation of [KtxUnity](https://github.com/atteneder/KtxUnity) package 
+* Requires Unity 2019.3+ and installation of [KtxUnity](https://github.com/atteneder/KtxUnity) package
 * Requires preprocessing your glTF files
 * See [Using Supercompressed Textures](#using-supercompressed-textures) in manual for details
 
@@ -1779,7 +1779,7 @@ First release!
       the transforms (translation/rotation/scale) of the game objects
       in the model. Users can play the "Static Pose" clip to return
       the transforms to their original state.
-      
+
 [^mecanim-limitation]: The main limitation is that
       [AnimationClip.SetCurve](https://docs.unity3d.com/ScriptReference/AnimationClip.SetCurve.html)
       only works at runtime for Legacy animation clips.

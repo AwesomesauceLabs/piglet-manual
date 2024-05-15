@@ -124,16 +124,16 @@
 </ul></li>
 <li><a href="#optimizing-gltf-files">Optimizing glTF Files</a>
 <ul>
-<li><a href="#supercompressed-textures">Supercompressed Textures (Unity 2019.3+)</a>
+<li><a href="#supercompressed-textures">Supercompressed Textures (Unity 2020.3+)</a>
 <ul>
 <li><a href="#supercompressed-textures-overview">Overview</a></li>
-<li><a href="#installing-ktxunity">Installing KtxUnity</a></li>
+<li><a href="#installing-ktx-for-unity">Installing Ktx for Unity</a></li>
 <li><a href="#supercompressing-your-gltf-textures">Supercompressing Your glTF Textures</a></li>
 </ul></li>
-<li><a href="#draco-mesh-compression">Draco Mesh Compression (Unity 2019.3+)</a>
+<li><a href="#draco-mesh-compression">Draco Mesh Compression (Unity 2020.3+)</a>
 <ul>
 <li><a href="#draco-overview">Overview</a></li>
-<li><a href="#installing-dracounity">Installing DracoUnity</a></li>
+<li><a href="#installing-draco-for-unity">Installing Draco for Unity</a></li>
 <li><a href="#draco-compressing-your-gltf-meshes">Draco-compressing Your glTF Meshes</a></li>
 </ul></li>
 </ul></li>
@@ -151,8 +151,8 @@
 <li>import glTF models from <code>.gltf</code>, <code>.glb</code>, or <code>.zip</code> files, using file paths or HTTP URLs</li>
 <li>import and play glTF animations (including skins and blendshapes)</li>
 <li>import glTF textures and materials, for use with your own models</li>
-<li>supports supercompressed textures via <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> (Unity 2019.3+)</li>
-<li>supports Draco mesh compression via <a href="https://github.com/atteneder/DracoUnity">DracoUnity</a> (Unity 2019.3+)</li>
+<li>supports supercompressed textures via <a href="https://docs.unity3d.com/Packages/com.unity.cloud.ktx@3.2/manual/index.html">Ktx for Unity</a> (Unity 2020.3+)</li>
+<li>supports Draco mesh compression via <a href="https://docs.unity3d.com/Packages/com.unity.cloud.draco@5.1/manual/index.html">Draco for Unity</a> (Unity 2020.3+)</li>
 <li>tested with glTF models from <a href="https://sketchfab.com/">Sketchfab</a> and <a href="https://www.blender.org/">Blender</a></li>
 <li>supported render pipelines: built-in (Unity 2018.4+), URP (Unity 2019.3+)</li>
 <li>supported platforms: Windows, Mac, Android, iOS, WebGL, UWP</li>
@@ -174,7 +174,7 @@
 <tr class="odd">
 <td><a href="https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_draco_mesh_compression/README.md">KHR_draco_mesh_compression</a></td>
 <td>YES</td>
-<td>Requires <a href="https://github.com/atteneder/DracoUnity">DracoUnity</a> (see <a href="#installing-dracounity">Installing DracoUnity</a>).</td>
+<td>Requires <a href="https://docs.unity3d.com/Packages/com.unity.cloud.draco@5.1/manual/index.html">Draco for Unity</a> (see <a href="#installing-draco-for-unity">Installing Draco for Unity</a>).</td>
 </tr>
 <tr class="even">
 <td><a href="https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_lights_punctual/README.md">KHR_lights_punctual</a></td>
@@ -229,7 +229,7 @@
 <tr class="even">
 <td><a href="https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_basisu/README.md">KHR_texture_basisu</a></td>
 <td>YES</td>
-<td>Requires <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> (see <a href="#installing-ktxunity">Installing KtxUnity</a>).</td>
+<td>Requires <a href="https://docs.unity3d.com/Packages/com.unity.cloud.ktx@3.2/manual/index.html">Ktx for Unity</a> (see <a href="#installing-ktx-for-unity">Installing Ktx for Unity</a>).</td>
 </tr>
 <tr class="odd">
 <td><a href="https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_transform/README.md">KHR_texture_transform</a></td>
@@ -270,7 +270,7 @@
 </table>
 <h1 id="known-issues">Known Issues</h1>
 <ul>
-<li><p><strong>Runtime imports may stall the main Unity thread</strong>. I have done my best to minimize interruptions to the main Unity thread during runtime glTF imports. However, one significant issue is that Unity uploads textures to the GPU <strong>synchronously</strong>, and this can cause FPS drops when importing high resolution textures at runtime. For now, the best way to work around this issue is to either: (1) convert your textures to KTX2/BasisU format (see <a href="#supercompressed-textures">Supercompressed Textures (Unity 2019.3+)</a>), or (2) lower the resolution/quality of your textures.</p></li>
+<li><p><strong>Runtime imports may stall the main Unity thread</strong>. I have done my best to minimize interruptions to the main Unity thread during runtime glTF imports. However, one significant issue is that Unity uploads textures to the GPU <strong>synchronously</strong>, and this can cause FPS drops when importing high resolution textures at runtime. For now, the best way to work around this issue is to either: (1) convert your textures to KTX2/BasisU format (see <a href="#supercompressed-textures">Supercompressed Textures (Unity 2020.3+)</a>), or (2) lower the resolution/quality of your textures.</p></li>
 <li><p><strong>Many glTF extensions are not supported (yet!).</strong> I am steadily chipping away at this. See <a href="#supported-gltf-extensions">Supported glTF Extensions</a> for details about which extensions are currently supported.</p></li>
 <li><p><strong>Piglet does not create humanoid avatar mappings (yet!)</strong>. For the time being, there is no easy way to retarget humanoid animations (e.g. <a href="https://www.mixamo.com/">Mixamo</a>) onto glTF models. This is a highly requested feature and I do plan to implement it.</p></li>
 <li><p><strong>Piglet cannot export glTF files (yet!)</strong>. So far, Piglet does not have any glTF export capabilities, neither in the Editor nor at runtime. This is a highly requested feature and I do plan to implement it.</p></li>
@@ -998,14 +998,16 @@
 </tbody>
 </table>
 <h1 id="optimizing-gltf-files">Optimizing glTF Files</h1>
-<h2 id="supercompressed-textures">Supercompressed Textures (Unity 2019.3+)</h2>
+<h2 id="supercompressed-textures">Supercompressed Textures (Unity 2020.3+)</h2>
 <h3 id="supercompressed-textures-overview">Overview</h3>
 <p>Piglet can load glTF files that contain <em>supercompressed textures</em><a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> in KTX2/ETC1S or KTX2/UASTC format<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> (i.e. <a href="https://github.com/BinomialLLC/basis_universal">Basis Universal texture formats</a> in a <a href="http://github.khronos.org/KTX-Specification/">KTX 2.0 container</a>). The main advantages of supercompressed textures are that: (1) textures load faster, and (2) glTF files are smaller. The main disadvantage is loss of image quality, which can give textures a “blocky” appearance. Depending on your application, the loss of image quality may not be noticeable, whereas the performance benefits are usually significant.</p>
 <p>For a practical demonstration of the trade-offs, compare the ordinary and KTX2/ETC1S versions of the sample models at the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet Web Demo</a>. Note the differences in appearance, loading times, and file sizes.</p>
-<p>Before Piglet can load glTF files with supercompressed textures, you will need to install a third-party package called <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> into your Unity project (see <a href="#installing-ktxunity">Installing KtxUnity</a>). If you attempt to load a glTF file that contains supercompressed textures without installing KtxUnity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.</p>
+<p>Before Piglet can load glTF files with supercompressed textures, you will need to install the <a href="https://docs.unity3d.com/Packages/com.unity.cloud.ktx@3.2/manual/index.html">Ktx for Unity</a> package into your Unity project (see <a href="#installing-ktx-for-unity">Installing Ktx for Unity</a>). If you attempt to load a glTF file that contains supercompressed textures without installing Ktx for Unity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.</p>
 <p>Finally, if you plan to use supercompressed textures with your models, you will probably need to preprocess the glTF files yourself. At the time of writing (Feb 2021), most glTF files on the web use PNG or JPEG textures, including the glTF files downloaded from <a href="https://sketchfab.com">Sketchfab</a>. I recommend using the <a href="https://gltf-transform.donmccurdy.com/cli.html">gltf-transform</a> command line tool to compress the textures in your glTF files, as described in <a href="#supercompressing-your-gltf-textures">Supercompressing Your glTF Textures</a>.</p>
-<h3 id="installing-ktxunity">Installing KtxUnity</h3>
-<p>To load glTF files with supercompressed textures, you will need to install <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a> via the Unity Package Manager. Please use the following table to determine the KtxUnity versions that are compatible/recommended for your version of Unity, before proceeding with the installation instructions below. (Note: This table was last updated in July 2023.)</p>
+<h3 id="installing-ktx-for-unity">Installing KTX for Unity</h3>
+<p>To load glTF files with supercompressed textures, you will need to install the <a href="https://docs.unity3d.com/Packages/com.unity.cloud.ktx@3.2/manual/index.html">KTX for Unity</a> package, by following the installation instructions <a href="https://docs.unity3d.com/Packages/com.unity.cloud.ktx@3.2/manual/installation.html">here</a>. And that’s it! After installing the package, you should be able to successfully load glTF files containing supercompressed textures (i.e. textures in KTX/BasisU format).</p>
+<p>The remainder of this section provides the legacy installation instructions for <a href="https://github.com/atteneder/KtxUnity">KtxUnity</a>, which is an older version of the KTX for Unity package. You can safely ignore these instructions if you are using the KTX for Unity package instead.</p>
+<p>To install KtxUnity, first determine the correct version of KtxUnity for your current version of Unity, using the table below. (Note: This table was last updated in May 2024.)</p>
 <table>
 <thead>
 <tr class="header">
@@ -1026,9 +1028,14 @@
 <td>1.1.2</td>
 </tr>
 <tr class="odd">
-<td>2021.2 or newer</td>
+<td>2021.2 through 2022.1</td>
 <td>2.0.0 or newer</td>
 <td>2.2.3</td>
+</tr>
+<tr class="even">
+<td>2022.2 or newer</td>
+<td><em>not supported</em></td>
+<td><em>not supported</em></td>
 </tr>
 </tbody>
 </table>
@@ -1107,14 +1114,16 @@
 <p>or to KTX2/UASTC by running:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gltf-transform</span> uastc input.glb output.glb</span></code></pre></div>
 <p>The <code>gltf-transform</code> program provides options for restricting the conversion to specific textures (“slots”), adjusting quality settings, and more. See <code>gltf-transform etc1s --help</code> or <code>gltf-transform uastc --help</code> for further details.</p>
-<h2 id="draco-mesh-compression">Draco Mesh Compression (Unity 2019.3+)</h2>
+<h2 id="draco-mesh-compression">Draco Mesh Compression (Unity 2020.3+)</h2>
 <h3 id="draco-overview">Overview</h3>
 <p>Piglet can load glTF files that use <em>Draco mesh compression</em><a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>. The main benefit of using Draco compression is that it can substantially reduce the size of your glTF files (e.g. 20% of original size), especially if your model contains large/complex meshes. While using Draco compression does introduce some computational overhead, the impact on model loading times is usually neglible.</p>
 <p>For a practical demonstration of the benefits, compare the ordinary and Draco-compressed versions of the models at the <a href="https://awesomesaucelabs.github.io/piglet-webgl-demo/">Piglet Web Demo</a>. Note the large differences in file sizes and the small differences in loading times. For further examples of real-world Draco compression results, see <a href="https://cesium.com/blog/2018/04/09/draco-compression/">Draco Compressed Meshes with glTF and 3D Tiles</a>.</p>
-<p>Before Piglet can load Draco-compressed glTF files, you will need to install a third-party package called <a href="https://github.com/atteneder/DracoUnity">DracoUnity</a> into your Unity project (see <a href="#installing-dracounity">Installing DracoUnity</a>). If you attempt to load a Draco-compressed glTF file without installing DracoUnity, the glTF import will fail with an error in the Unity console.</p>
+<p>Before Piglet can load Draco-compressed glTF files, you will need to install the <a href="https://docs.unity3d.com/Packages/com.unity.cloud.draco@5.1/manual/index.html">Draco for Unity</a> package into your Unity project (see <a href="#installing-draco-for-unity">Installing Draco for Unity</a>). If you attempt to load a Draco-compressed glTF file without installing Draco for Unity, the glTF import will fail with an error in the Unity console.</p>
 <p>Finally, if you plan to use Draco-compressed meshes for your models, you will probably need to preprocess the glTF files yourself. At the time of writing (May 2021), most glTF files available on the web use uncompressed meshes, including the glTF files downloaded from <a href="https://sketchfab.com">Sketchfab</a>. I recommend using the <a href="https://gltf-transform.donmccurdy.com/cli.html">gltf-transform</a> command line tool to compress the meshes in your glTF files, as detailed in <a href="#draco-compressing-your-gltf-meshes">Draco-compressing Your glTF Meshes</a>.</p>
-<h3 id="installing-dracounity">Installing DracoUnity</h3>
-<p>To load glTF files that use Draco mesh compression, you will need to install <a href="https://github.com/atteneder/DracoUnity">DracoUnity</a> via the Unity Package Manager. Please use the following table to determine the DracoUnity versions that are compatible/recommended for your version of Unity, before proceeding with the installation instructions below. (Note: This table was last updated in July 2023.)</p>
+<h3 id="installing-draco-for-unity">Installing Draco for Unity</h3>
+<p>To load glTF files that use Draco mesh compression, you will need to install the <a href="https://docs.unity3d.com/Packages/com.unity.cloud.draco@5.1/manual/index.html">Draco for Unity</a> package, by following the instructions <a href="https://docs.unity3d.com/Packages/com.unity.cloud.draco@5.1/manual/installation.html">here</a>. And that’s it! After installing the package, you should be able to successfully load glTF files containing Draco-compressed meshes.</p>
+<p>The remainder of this section provides the legacy installation instructions for <a href="https://github.com/atteneder/DracoUnity">DracoUnity</a>, which is an older version of the Draco for Unity package. You can safely ignore these instructions if you are using the Draco for Unity package instead.</p>
+<p>To install DracoUnity, first determine the correct DracoUnity version for your current version of Unity, using the table below. (Note: This table was last updated in May 2024.)</p>
 <table>
 <thead>
 <tr class="header">
@@ -1135,9 +1144,14 @@
 <td>3.3.2</td>
 </tr>
 <tr class="odd">
-<td>2021.2 or newer</td>
+<td>2021.2 through 2022.1</td>
 <td>4.0.0 or newer</td>
 <td>4.1.0</td>
+</tr>
+<tr class="even">
+<td>2022.2 or newer</td>
+<td><em>not supported</em></td>
+<td><em>not supported</em></td>
 </tr>
 </tbody>
 </table>

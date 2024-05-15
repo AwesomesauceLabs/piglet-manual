@@ -39,13 +39,13 @@ lstPrefix: Listing
         * [Executing a GltfImportTask](#executing-a-gltfimporttask)
         * [Runtime Import Options](#runtime-import-options)
 * [Optimizing glTF Files](#optimizing-gltf-files)
-    * [Supercompressed Textures (Unity 2019.3+)](#supercompressed-textures)
+    * [Supercompressed Textures (Unity 2020.3+)](#supercompressed-textures)
         * [Overview](#supercompressed-textures-overview)
-        * [Installing KtxUnity](#installing-ktxunity)
+        * [Installing Ktx for Unity](#installing-ktx-for-unity)
         * [Supercompressing Your glTF Textures](#supercompressing-your-gltf-textures)
-    * [Draco Mesh Compression (Unity 2019.3+)](#draco-mesh-compression)
+    * [Draco Mesh Compression (Unity 2020.3+)](#draco-mesh-compression)
         * [Overview](#draco-overview)
-        * [Installing DracoUnity](#installing-dracounity)
+        * [Installing Draco for Unity](#installing-draco-for-unity)
         * [Draco-compressing Your glTF Meshes](#draco-compressing-your-gltf-meshes)
 * [URP Support (Unity 2019.3+)](#urp-support)
 * [Sample Application: PigletViewer](#piglet-viewer)
@@ -72,8 +72,8 @@ to try Piglet before you buy it.
   paths or HTTP URLs
 * import and play glTF animations (including skins and blendshapes)
 * import glTF textures and materials, for use with your own models
-* supports supercompressed textures via [KtxUnity](https://github.com/atteneder/KtxUnity) (Unity 2019.3+)
-* supports Draco mesh compression via [DracoUnity](https://github.com/atteneder/DracoUnity) (Unity 2019.3+)
+* supports supercompressed textures via [Ktx for Unity](https://docs.unity3d.com/Packages/com.unity.cloud.ktx@3.2/manual/index.html) (Unity 2020.3+)
+* supports Draco mesh compression via [Draco for Unity](https://docs.unity3d.com/Packages/com.unity.cloud.draco@5.1/manual/index.html) (Unity 2020.3+)
 * tested with glTF models from [Sketchfab](https://sketchfab.com/)
   and [Blender](https://www.blender.org/)
 * supported render pipelines: built-in (Unity 2018.4+), URP (Unity 2019.3+)
@@ -97,7 +97,7 @@ This table was last updated in June 2022, for Piglet version 1.3.7.
 
 Extension                                                                                                                                                      Supported?   Notes
 ---------                                                                                                                                                      ----------   -----
-[KHR_draco_mesh_compression](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_draco_mesh_compression/README.md)                       YES          Requires [DracoUnity](https://github.com/atteneder/DracoUnity) (see [Installing DracoUnity](#installing-dracounity)).
+[KHR_draco_mesh_compression](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_draco_mesh_compression/README.md)                       YES          Requires [Draco for Unity](https://docs.unity3d.com/Packages/com.unity.cloud.draco@5.1/manual/index.html) (see [Installing Draco for Unity](#installing-draco-for-unity)).
 [KHR_lights_punctual](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_lights_punctual/README.md)                                     NO
 [KHR_materials_clearcoat](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_clearcoat/README.md)                             NO
 [KHR_materials_ior](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_ior/README.md)                                         NO
@@ -108,7 +108,7 @@ Extension                                                                       
 [KHR_materials_variants](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_variants/README.md)                               YES          See [Selecting Materials Variants](#selecting-materials-variants) and [Runtime Materials Variants Tutorial](#runtime-materials-variants-tutorial)
 [KHR_materials_volume](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_volume/README.md)                                   NO
 [KHR_mesh_quantization](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_mesh_quantization/README.md)                                 NO
-[KHR_texture_basisu](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_basisu/README.md)                                       YES          Requires [KtxUnity](https://github.com/atteneder/KtxUnity) (see [Installing KtxUnity](#installing-ktxunity)).
+[KHR_texture_basisu](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_basisu/README.md)                                       YES          Requires [Ktx for Unity](https://docs.unity3d.com/Packages/com.unity.cloud.ktx@3.2/manual/index.html) (see [Installing Ktx for Unity](#installing-ktx-for-unity)).
 [KHR_texture_transform](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_transform/README.md)                                 YES*         *Only scale and offset transformations are supported (no rotations).
 [KHR_xmp_json_ld](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_xmp_json_ld/README.md)                                             NO
 [EXT_lights_image_based](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Vendor/EXT_lights_image_based/README.md)                                NO
@@ -126,7 +126,7 @@ Extension                                                                       
     FPS drops when importing high resolution textures at runtime. For
     now, the best way to work around this issue is to either: (1)
     convert your textures to KTX2/BasisU format (see [Supercompressed
-    Textures (Unity 2019.3+)](#supercompressed-textures)), or (2)
+    Textures (Unity 2020.3+)](#supercompressed-textures)), or (2)
     lower the resolution/quality of your textures.
 
 -   **Many glTF extensions are not supported (yet!).** I am steadily
@@ -1074,15 +1074,23 @@ execution:
 
 # Optimizing glTF Files
 
-## Supercompressed Textures (Unity 2019.3+) {#supercompressed-textures}
+## Supercompressed Textures (Unity 2020.3+) {#supercompressed-textures}
 
 ### Overview {#supercompressed-textures-overview}
 
 Piglet can load glTF files that contain *supercompressed textures*[^supercompressed-textures] in KTX2/ETC1S or KTX2/UASTC format[^etc1s-vs-uastc] (i.e. [Basis Universal texture formats](https://github.com/BinomialLLC/basis_universal) in a [KTX 2.0 container](http://github.khronos.org/KTX-Specification/)). The main advantages of supercompressed textures are that: (1) textures load faster, and (2) glTF files are smaller. The main disadvantage is loss of image quality, which can give textures a "blocky" appearance. Depending on your application, the loss of image quality may not be noticeable, whereas the performance benefits are usually significant.
 
-For a practical demonstration of the trade-offs, compare the ordinary and KTX2/ETC1S versions of the sample models at the [Piglet Web Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/). Note the differences in appearance, loading times, and file sizes. 
+For a practical demonstration of the trade-offs, compare the ordinary and KTX2/ETC1S versions of the sample models at the [Piglet Web Demo](https://awesomesaucelabs.github.io/piglet-webgl-demo/). Note the differences in appearance, loading times, and file sizes.
 
-Before Piglet can load glTF files with supercompressed textures, you will need to install a third-party package called [KtxUnity](https://github.com/atteneder/KtxUnity) into your Unity project (see [Installing KtxUnity](#installing-ktxunity)). If you attempt to load a glTF file that contains supercompressed textures without installing KtxUnity, the textures will simply load as solid white, and Piglet will issue warnings on the Unity Console about failing to load the textures.
+Before Piglet can load glTF files with supercompressed textures, you
+will need to install the [Ktx for
+Unity](https://docs.unity3d.com/Packages/com.unity.cloud.ktx@3.2/manual/index.html)
+package into your Unity project (see [Installing Ktx for
+Unity](#installing-ktx-for-unity)). If you attempt to load a glTF file
+that contains supercompressed textures without installing Ktx for
+Unity, the textures will simply load as solid white, and Piglet will
+issue warnings on the Unity Console about failing to load the
+textures.
 
 Finally, if you plan to use supercompressed textures with your models,
 you will probably need to preprocess the glTF files yourself. At the
@@ -1094,20 +1102,33 @@ command line tool to compress the textures in your glTF files, as
 described in [Supercompressing Your glTF
 Textures](#supercompressing-your-gltf-textures).
 
-### Installing KtxUnity
+### Installing KTX for Unity
 
 To load glTF files with supercompressed textures, you will need to
-install [KtxUnity](https://github.com/atteneder/KtxUnity) via the
-Unity Package Manager. Please use the following table to determine the
-KtxUnity versions that are compatible/recommended for your version of
-Unity, before proceeding with the installation instructions
-below. (Note: This table was last updated in July 2023.)
+install the [KTX for
+Unity](https://docs.unity3d.com/Packages/com.unity.cloud.ktx@3.2/manual/index.html)
+package, by following the installation instructions
+[here](https://docs.unity3d.com/Packages/com.unity.cloud.ktx@3.2/manual/installation.html).
+And that's it! After installing the package, you should be able to
+successfully load glTF files containing supercompressed textures
+(i.e. textures in KTX/BasisU format).
+
+The remainder of this section provides the legacy installation
+instructions for [KtxUnity](https://github.com/atteneder/KtxUnity),
+which is an older version of the KTX for Unity package. You can safely
+ignore these instructions if you are using the KTX for Unity package
+instead.
+
+To install KtxUnity, first determine the correct version of KtxUnity
+for your current version of Unity, using the table below. (Note: This table
+was last updated in May 2024.)
 
 Unity Version          Compatible KtxUnity Versions  Recommended KtxUnity Version
 -------------          ----------------------------  ----------------------------
 2019.2 or older        *not supported*               *not supported*
 2019.3 through 2021.1  0.9.1 through 1.1.2           1.1.2
-2021.2 or newer        2.0.0 or newer                2.2.3
+2021.2 through 2022.1  2.0.0 or newer                2.2.3
+2022.2 or newer        *not supported*               *not supported*
 
 Since KtxUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where
@@ -1223,7 +1244,7 @@ gltf-transform uastc input.glb output.glb
 
 The `gltf-transform` program provides options for restricting the conversion to specific textures ("slots"), adjusting quality settings, and more. See `gltf-transform etc1s --help` or `gltf-transform uastc --help` for further details.
 
-## Draco Mesh Compression (Unity 2019.3+) {#draco-mesh-compression}
+## Draco Mesh Compression (Unity 2020.3+) {#draco-mesh-compression}
 
 ### Overview {#draco-overview}
 
@@ -1244,11 +1265,11 @@ see [Draco Compressed Meshes with glTF and 3D
 Tiles](https://cesium.com/blog/2018/04/09/draco-compression/).
 
 Before Piglet can load Draco-compressed glTF files, you will need to
-install a third-party package called
-[DracoUnity](https://github.com/atteneder/DracoUnity) into your Unity
-project (see [Installing DracoUnity](#installing-dracounity)). If
-you attempt to load a Draco-compressed glTF file without installing
-DracoUnity, the glTF import will fail with an error in the Unity console.
+install the [Draco for Unity](https://docs.unity3d.com/Packages/com.unity.cloud.draco@5.1/manual/index.html)
+package into your Unity project (see [Installing
+Draco for Unity](#installing-draco-for-unity)). If you attempt to load a
+Draco-compressed glTF file without installing Draco for Unity, the
+glTF import will fail with an error in the Unity console.
 
 Finally, if you plan to use Draco-compressed meshes for your models,
 you will probably need to preprocess the glTF files yourself.  At the
@@ -1260,22 +1281,32 @@ command line tool to compress the meshes in your glTF files, as
 detailed in [Draco-compressing Your glTF
 Meshes](#draco-compressing-your-gltf-meshes).
 
-### Installing DracoUnity
+### Installing Draco for Unity
 
 To load glTF files that use Draco mesh compression, you will need to
-install
-[DracoUnity](https://github.com/atteneder/DracoUnity)
-via the Unity Package Manager. Please use the following table to
-determine the DracoUnity versions that are compatible/recommended for
-your version of Unity, before proceeding with the installation
-instructions below. (Note: This table was last updated in July
-2023.)
+install the [Draco for
+Unity](https://docs.unity3d.com/Packages/com.unity.cloud.draco@5.1/manual/index.html)
+package, by following the instructions
+[here](https://docs.unity3d.com/Packages/com.unity.cloud.draco@5.1/manual/installation.html).
+And that's it! After installing the package, you should be able to
+successfully load glTF files containing Draco-compressed meshes.
+
+The remainder of this section provides the legacy installation
+instructions for
+[DracoUnity](https://github.com/atteneder/DracoUnity), which is an
+older version of the Draco for Unity package. You can safely ignore
+these instructions if you are using the Draco for Unity package instead.
+
+To install DracoUnity, first determine the correct DracoUnity version
+for your current version of Unity, using the table below.  (Note: This
+table was last updated in May 2024.)
 
 Unity Version          Compatible DracoUnity Versions  Recommended DracoUnity Version
 -------------          ------------------------------  ------------------------------
 2019.2 or older        *not supported*                 *not supported*
 2019.3 through 2021.1  1.1.0 through 3.3.2             3.3.2
-2021.2 or newer        4.0.0 or newer                  4.1.0
+2021.2 through 2022.1  4.0.0 or newer                  4.1.0
+2022.2 or newer        *not supported*                 *not supported*
 
 Since DracoUnity is hosted by a third-party package registry
 ([OpenUPM](https://openupm.com/)), you will need to tell Unity where

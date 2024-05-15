@@ -1450,6 +1450,17 @@ much more succinct introduction to the Piglet API.
 
 # Changelog
 
+## Release 1.3.9 (2024-05-15)
+
+Added:
+
+* Added support for new "Draco for Unity" and "KTX for Unity" packages, which are Unity-maintained forks of the original DracoUnity/KtxUnity packages by \@atteneder. In particular, "Draco for Unity" fixes a problem with compile errors during WebGL builds, which occurs when using DracoUnity in Unity 2022.3+. "Draco for Unity" / "KTX for Unity" will be the recommended packages going forward, because they are officially supported by the Unity team.
+
+Fixed:
+
+* Fixed an URL-decoding bug, where URLs referenced by glTF files (e.g. HTTP URLs for PNG files) would fail to download, if the URLs contained percent-encoded characters (e.g. "%20" for the Space character).
+* Fixed a bug where the "Static Pose" animation clip would stop working, if the imported model was reparented to a different node in the scene. The bug was caused because I was using absolute GameObject paths to generate the "Static Pose" animation clip, rather than relative GameObject paths.
+
 ## Release 1.3.8 (2023-07-17)
 
 Added:
